@@ -1,0 +1,95 @@
+<div id='DivExp' class="container" style="margin-top: -4%;">
+    <center>
+        <h3>Meios de Propagação de Calor</h3>
+
+        <div class="row">
+            <div class="col-lg-6 col-sm-12 col-md-6 col-xs-12">
+                <img class="cam" src='http://relle.ufsc.br:8065' width="100%"/> <!-- esta na rede interna 10.10.10.162:8081 --><br><br>
+                <div class='row'>  
+                    <div class="col-lg-6" style="margin: 10px 0 0 0;">
+                        <form class="time">
+                            <div class="form-group">
+                                <label for="step">Intervalo:</label>
+                                <select id="step" >
+                                    <option value="2">2</option>
+                                    <option value="5">5</option>
+                                    <option value="10">10</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="sourceduration">Duração:</label>
+                                <input type="number" id="sourceduration" name="duration" value="30"  min="1" max="120"  > 
+                            </div>
+                        </form>
+                    </div>
+                    <div class="col-lg-6">
+                        <p>Potência</p>
+                        <form class="power">
+                            <input type="radio" name="power" value="normal" > 32W
+                            <br>
+                            <input type="radio" name="power"  value="double" checked > 64W
+                        </form>
+
+                        <input type='button' class="btn btn-fresh"  name='start' id='start' value='Iniciar'/><br>
+                    </div>
+
+
+
+                </div>
+            </div>
+
+            <div class="col-lg-6 col-sm-12 col-md-6 col-xs-12" style="padding-top: 20px; position: relative">
+                    <div class="labely">Temperatura [&#8451;]</div>
+                    <canvas id="canvas" height="400" width="500"></canvas>
+                    <div class="labelx">Tempo [s]</div>
+                  
+
+                <div class="row" style="margin: 10px 0 10px 0;">
+                    <div class="col-lg-6 col-sm-6 col-xs-6" id="m1"><canvas class="legend" style="font-size: 10pt; width:15px; height:15px; background:rgba(151,187,205,1);"></canvas> Acima da fonte (hélice)</div>
+                    <div  class="col-lg-6 col-sm-6 col-xs-6" id="m2"><canvas class="legend" style="font-size: 10pt; width:15px; height:15px; background:#FDA98F;"/></canvas> Na fonte </div>
+                </div>
+
+                <div class="row alerts">
+                    <div class="col-lg-12 col-xs-12 alert alert-warning alert-dismissible" id="show-error" style="display: none" role="alert" >
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <span> <p> Error </p> </span>
+                    </div>
+                    <div class="col-lg-12 col-xs-12 alert alert-info alert-dismissible" id="show-info" style="display: none" role="alert" >
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <span> <p> Error </p> </span>
+                    </div>
+
+                </div>
+                <input type="hidden" name="imagem" id="imagem">
+                <div id="report"></div>
+                <div id="csv"></div> 
+            </div>
+        </div>     
+    </center>
+</div>
+<script>
+    message = ["Informações: Os parâmetros 'intervalo' e 'duração' definem, respectivamente, o intervalo de tempo entre leituras dos termômetros e o intervalo que a fonte de calor permanecerá ligada. A entrada 'Potência' determinará a intensidade da fonte de calor.",
+        "No momento o experimento está sendo resfriado. Você pode coletar dados do resfriamento ou, então, sair e tentar novamente dentro de alguns minutos."];
+    var lang =
+            {
+                showme: 'Mostre-me como funciona',
+                showmeshort: 'Como funciona',
+                next: "Próximo",
+                previous: "Anterior",
+                done: "Pronto",
+                leave: "Sair",
+                intro1: "Neste laboratório você irá analisar diferentes mecanismos de transferência de calor agindo sobre um aparato experimental.",
+                introcamera: "Esta transmissão de vídeo mostrará o que está acontecendo no momento com o experimento.",
+                intro2 : "O aparato consiste em uma caixa acrílico com abertura na parte superior onde esta uma hélice e uma lâmpada como fonte de calor na parte inferior.",
+                chart: "As medidas de temperatura de dois locais do aparato (indicado abaixo) serão plotados aqui.",
+                time: "Ajuste o intervalo de tempo entre leituras (eixo horizontal) no gŕafico e também o tempo em que a fonte de calor ficará ligada.",
+                power: "É possível escolher entre dois valores para a potência da fonte de calor.",
+                start: "Inicie o experimento e observe o comportamento das curvas no gráfico e da hélice na porção superior do aparato.",
+                alerts: "Fique atento a notificações que podem aparecer aqui.",
+                report: "Ao sair é possível gerar um relatório com o gráfico e também baixar os dados para uma análise mais profunda em outro software."
+                
+            };
+
+
+</script>

@@ -1,0 +1,67 @@
+h1{
+    text-align: center;
+}
+#quadro{
+    padding-left: 0px;
+}
+#panel{
+    background: url(img/panel.png) repeat-x;
+    width: 550px;
+    height: 385px;
+    position:relative;
+}
+.chave, .fonte{
+    width: 36px;
+    height: 23px;
+    position:absolute;  
+}
+
+.on{
+    background: url(img/on.png) repeat-x;
+}
+.off{
+    background: url(img/off.png) repeat-x;
+
+}
+
+/*
+*id das chaves = numero da chave - 1 
+*/
+#sw0{
+    margin-left: 142px;
+    margin-top: 96px;  
+}
+
+#sw1{
+    margin-left: 142px;
+    margin-top: 182px;  
+}
+
+#sw2{
+    margin-left: 142px;
+    margin-top: 224px;  
+}
+#sw3{
+    margin-left: 355px;
+    margin-top: 13px;  
+}
+#sw4{
+    margin-left: 355px;
+    margin-top: 53px;  
+}
+
+#sw5{
+    margin-left: 355px;
+    margin-top: 97px;  
+}
+
+#sw6{
+    margin-left: 355px;
+    margin-top: 140px;  
+}
+
+.introjs-helperNumberLayer{
+    width:25px !important;
+    height:25px !important;
+}
+

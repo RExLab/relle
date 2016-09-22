@@ -1,0 +1,14 @@
+h1{
+    text-align: center;
+    padding-bottom: 20px;
+}
+
+#cam{
+    margin-top:7%;
+}
+
+.introjs-helperNumberLayer{
+    width:25px !important;
+    height:25px !important;
+}
+

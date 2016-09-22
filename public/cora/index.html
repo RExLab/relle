@@ -1,0 +1,612 @@
+﻿<!DOCTYPE html>
+<html>
+    <head>
+        <title>Cobra Cora</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"/>
+        <link href="styles/app.min.css" rel="stylesheet" type="text/css"/>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+        <link href='https://fonts.googleapis.com/css?family=Indie+Flower' rel='stylesheet' type='text/css'>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+        <link href="styles/avatar.css" rel="stylesheet" type="text/css"/>
+        <link href="styles/style_1.css" rel="stylesheet" type="text/css"/>
+    </head>
+
+    <body>
+        <!--
+            HOME
+        -->
+        <div class="app-page sky" data-page="loading">
+            <div class="spinner">
+                <div class="bounce1"></div>
+                <div class="bounce2"></div>
+                <div class="bounce3"></div>
+            </div>
+        </div>
+
+        <!--
+            HOME
+        -->
+        <div class="app-page sky" data-page="home">
+            <div class="grass">
+                <center> 
+                    <button class="btn btn-md botao" id="start_home">
+                        Começar
+                        <span class="glyphicon glyphicon-play" aria-hidden="true" style="font-size:10pt"></span>
+                    </button>
+                </center>
+            </div>
+            <center>
+                <img src="images/home/logo.png" class='logo'/>
+            </center>
+
+        </div>
+        <!--
+            HISTÓRIA
+        -->
+        <div class="app-page" data-page="story">
+            <h1>[história aqui]</h1>
+            <div id='pular'> 
+                <button class="btn btn-lg botao" >
+                    Pular
+                    <span class="glyphicon glyphicon-forward" aria-hidden="true" style="font-size:15pt"></span>
+                </button>
+            </div>
+        </div>
+
+        <!--
+            AVATAR
+        -->
+        <div class="app-page" data-page="avatar">
+            <div class="app-topbar">
+                <div class="app-button left" data-back></div>
+                <div class="app-title">Cobra Cora</div>
+            </div>
+            <h3>Escolha um avatar e escreva o seu nome:</h3>
+
+            <center>
+                <div class="row">
+                    <div class="col-lg-2 col-lg-offset-2 col-xs-2 col-xs-offset-2">
+                        <a id="seta_esq" href="#"><img class="seta" src="images/botoes/seta_dir.png"/></a>
+                    </div>
+                    <div class="col-lg-4 col-xs-4">
+                        <img id='avatar' name='bella' src='images/avatar/bella_busto.png'>
+
+                    </div>
+                    <div class="col-lg-2 col-xs-2">
+                        <a id="seta_dir" href="#"><img class="seta" src="images/botoes/seta_esq.png"/></a>
+                    </div>
+                </div>
+                <div class='row'>
+                    <input class="app-input col-xs-5 col-xs-offset-3" id='username' placeholder="Insira seu nome">
+                    <button class="btn btn-lg col-xs-1" id='ok_name' style='background: rgb(92, 176, 44);' >
+                        <span class="glyphicon glyphicon-ok" aria-hidden="true" style="font-size:15pt; color: white; "></span>
+                    </button>
+                </div>
+            </center>
+        </div>
+
+        <!--
+            SINGLE/MULTIPLAYER
+        -->
+        <div class="app-page" data-page="multi_single">
+            <div class="app-topbar">
+                <div class="app-button left" data-back></div>
+                <div class="app-title">Cobra Cora</div>
+            </div>
+            <h3>Modo de Jogo</h3>
+            <center>
+                <div class='row' style="margin-top:-10px">
+                    <div class='col-lg-4 col-md-4 col-lg-offset-2 col-sm-6 col-xs-6 col-xs-offset-0'>
+                        <img src='images/avatar/grupo.png' class="multi_single">
+                        <button class="btn btn-lg botao" id='grupo'>Grupo</button>
+                    </div>
+                    <div class='col-lg-4 col-md-4 col-sm-6 col-xs-6'>
+                        <img src='images/avatar/indiv.png' class="multi_single">
+                        <button class="btn btn-lg botao" id='individual'>Individual</button>
+                    </div>
+                </div>
+            </center>
+        </div>
+
+        <!--
+            GROUPS
+        -->
+        <div class="app-page" data-page="groups" style="min-height:100%; overflow-y: visible">
+            <div class="app-topbar">
+                <div class="app-button left" data-back></div>
+                <div class="app-title">Cobra Cora</div>
+            </div>
+            <h3>Escolha um grupo:</h3>
+            <ul id='room' class='list-unstyled list-group row' style="margin-left:1%; margin-right:1%;">
+
+
+            </ul>
+
+
+        </div>  
+
+        <!--
+           ONE GROUP
+        -->
+        <div class="app-page" data-page="group_page">
+            <div class="app-topbar">
+                <div class="app-button left" data-back></div>
+                <div class="app-title">Cobra Cora</div>
+            </div>
+            <center><h2 id='grupo_nome'>Grupo </h2></center>
+
+            <div class='row' style="margin-left:2%;margin-right:2%;">
+                <div class='row'>
+                    <div class='col-xs-6 col-xs-offset-0 col-lg-3 col-lg-offset-2'>
+                        <div class='' id='grupo_img' style="margin:0;"></div>
+                    </div>
+                    <div class='col-lg-7 col-xs-6' >
+                        <div class="row" id='membros'>
+                        </div>    
+                        <div class="col-lg-12">
+                            <center> 
+                                <button class="btn btn-lg botao">
+                                    Jogar
+                                    <span class="glyphicon glyphicon-play" aria-hidden="true" style="font-size:15pt"></span>
+                                </button>
+                            </center>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <!--
+               CONTROL
+            -->
+            <div class="app-page" data-page="control">
+                <div class="app-topbar">
+                    <div class="app-button left" data-back></div>
+                    <div class="app-title">Cobra Cora</div>
+                </div>
+                <div class="row" id="lista">
+                    <div class="col-lg-9 col-md-9 col-sm-8 col-xs-8 ">
+                        <div class='folha'>
+                            <div class="row">
+                                <div class="col-lg-2 col-md-2 col-xs-2 col-sm-2" style="height: 100%"></div>
+                                <ul class="order">
+                                    <li class='col-md-3 col-sm-3 col-xs-3 start'></li>
+                                    <li class='col-md-3 col-sm-3 col-xs-3 espera'><i class="fa fa-plus"></i></li>
+                                    <li class='col-md-3 col-sm-3 col-xs-3 stop'></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class='col-lg-3 col-md-3 col-sm-4 col-xs-4 user_box' >
+                        <span class="col-lg-12 col-sm-12 col-xs-12 "><p>Arara Azul</p></span>
+
+                    </div>
+
+                    <div class='col-lg-3 col-md-3  col-sm-4 col-xs-4 cmd_box' style='margin-top: 10px'>
+                        <div class="row">
+
+                        </div>
+                        <div id="puff"></div>
+                        <center>
+                            <div id='trash'>
+                                <center><i class="fa fa-trash-o" style="color:red;"></i></center>
+                            </div>
+                        </center>
+                    </div>
+                </div>
+
+            </div>
+
+
+            <script src="http://code.jquery.com/jquery-1.10.2.js"></script>
+            <script src="http://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+            <script src="scripts/zepto.js" type="text/javascript"></script>
+            <script src="scripts/app.min.js" type="text/javascript"></script>
+            <script src="scripts/jquery.ui.touch-punch.min.js" type="text/javascript"></script> 
+            <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+            <script>
+                var server = "http://relle.ufsc.br:3000"
+                var grupo;
+                var grupo_img;
+                var avatar;
+                var nome;
+                var dir = 0;
+                var esq = 0;
+                var array_avatar = [
+                    'images/avatar/bella_busto.png',
+                    'images/avatar/max_busto.png',
+                    'images/avatar/alex_busto.png',
+                    'images/avatar/lea_busto.png',
+                    'images/avatar/lara_busto.png'];
+
+                var avatar_names = [
+                    'bella',
+                    'max',
+                    'alex',
+                    'lea',
+                    'lara'];
+
+                var roomname = {arara_azul: "Arara-azul",
+                    baleia_franca_do_sul: "Baleia-franca",
+                    borboleta_da_praia: "Borboleta-da-praia",
+                    cervo_do_pantanal: "Cervo-do-pantanal",
+                    gato_maracaja: "Gato-maracajá",
+                    lobo_guara: "Lobo-guará",
+                    macaco_aranha: "Macaco-aranha",
+                    mico_leao_dourado: "Mico-leão-dourado",
+                    onca_pintada: "Onça-pintada",
+                    sapo_folha: "Sapo-folha"
+                };
+
+                var users = [];
+                var socket = null;
+                var commands = ["cima", "baixo", "direita", "esquerda", "agarra", "solta"];
+                var myUser = {username: '',
+                    avatar: '',
+                    id: Math.floor((Math.random() * 1000) + 1),
+                    commands: [],
+                    group: ''
+                };
+
+                var availablerooms = {name: [], nUsers: []};
+
+                $.getScript(server + '/socket.io/socket.io.js', function () {
+
+                    socket = io.connect(server);
+                    var myTurn = false;
+                    var hasStarted = false;
+
+                    socket.on('available rooms', function (data) {
+                        console.log(data);
+                        availablerooms = data;
+                        add_rooms(data);
+
+                    });
+
+                    socket.on('move', function (data) {
+                        console.log(data);
+                        receive_move(data.direction);
+                    });
+
+                    socket.on('user disconnected', function (data) {
+                        console.log('disconnected');
+                        console.log(data);
+                        if ($.isArray(data)) {
+                            myUser.commands = data.filter(function (obj) {
+                                return obj.username === myUser.username;
+                            })[0].commands;
+                            add_commands(myUser.commands);
+                            add_avatars_controlpage(data);
+                        } else {
+                            if (data[i].username === myUser.username) {
+                                myUser.commands = data[i].commands;
+                                add_commands(myUser.commands);
+                            }
+                        }
+
+                    });
+                    socket.on('changeround', function (data) {
+                        if (!hasStarted) {
+                            App.load('control');
+                            hasStarted = true;
+                        }
+                        console.log(" vez de " + data.username + " jogar");
+                        myTurn = (data.username === myUser.username);
+                        $('div.user_box div.user').removeClass('ativo');
+                        $('div.user_box div.user img[name="' + data.username + '"]').parent('div.user').addClass('ativo');
+                        if (myTurn) {
+
+                        }
+                    });
+
+                    socket.on('preemption', function (data) {
+                        console.log("preemption");
+                        if (myTurn) {
+                            data = {direction: collect_list()};
+                            socket.emit('move', data);
+                        }
+                    });
+
+                    socket.on('user joined', function (data) {
+                        console.log(data);
+                        if ($.isArray(data)) {
+                            //apaga todos membros
+                            for (var i = 0; i < data.length; i++) {
+                                if (data[i].username === myUser.username)
+                                    myUser = data[i];
+                                users.push(data[i]);
+                                add_avatars(data[i]);
+                            }
+                        } else {
+                            if (data.username === myUser.username)
+                                myUser = data;
+
+                            add_avatars(data);
+
+                            users.push(data);
+                        }
+                    });
+                });
+                App.controller('loading', function (page) {
+                    $(function () {
+                        setTimeout(function () {
+                            App.load('home');
+                        }, 2500);
+                    });
+                });
+                App.controller('home', function (page) {
+                    $(function () {
+                        $(page).find('#start_home')
+                                .on('click', function () {
+                                    console.log('load story');
+                                    App.load('story');
+                                });
+                    });
+                });
+                App.controller('story', function (page) {
+
+                    $(page).find('.btn')
+                            .on('click', function () {
+                                console.log('load avatar');
+                                App.load('avatar');
+                            });
+                });
+
+                App.controller('avatar', function (page) {
+                    $(function () {
+                        console.log('in avatar');
+                        $(page).find('#seta_dir')
+                                .on('click', function () {
+                                    console.log('dir');
+                                    dir++;
+                                    if (dir > 4)
+                                        dir = 0;
+                                    $("#avatar").attr('src', array_avatar[dir]);
+                                    $("#avatar").attr('name', avatar_names[dir]);
+                                });
+                        $(page).find('#seta_esq')
+                                .on('click', function () {
+                                    console.log('esq');
+                                    esq--;
+                                    if (esq < 0)
+                                        esq = 4;
+                                    $("#avatar").attr('src', array_avatar[esq]);
+                                    $("#avatar").attr('name', avatar_names[esq]);
+                                });
+                        $(page).find('#ok_name')
+                                .on('click', function () {
+                                    myUser.avatar = avatar = $("#avatar").attr('name');
+                                    myUser.username = nome = $("#username").val();
+                                    console.log('load multi');
+                                    App.load('multi_single');
+                                });
+                    });
+                });
+                App.controller('multi_single', function (page) {
+                    $(page).find('#grupo')
+                            .on('click', function () {
+                                console.log('load groups');
+                                App.load('groups');
+                            });
+                });
+
+                App.controller('groups', function (page) {
+
+                    $(page).on('appShow', function () {
+
+                        add_rooms(availablerooms);
+
+                    });
+
+                });
+
+
+                App.controller('group_page', function (page) {
+                    $(page).on('appShow', function () {
+                        socket.emit('users joined', []);
+                        $(page).find('#grupo_nome').html("Grupo " + grupo);
+                        $(page).find('#grupo_img').attr('class', myUser.group + ' animal');
+                    });
+
+
+                    $(page).on('appBack', function () {
+                        console.log('leaving room !');
+                        socket.emit('leaving room', null);
+                    });
+
+                    $(page).find('.botao').click(function () {
+                        App.load('control');
+                    });
+                });
+
+                App.controller('control', function (page) {
+
+                    $(function () {
+                        $(page).on('appShow', function () {
+                            add_commands(myUser.commands);
+                            add_avatars_controlpage(users);
+                            var red = '';
+                            $(page).find('.order').disableSelection();
+                            $(page).find(".order").sortable({
+                                revert: true,
+                                cancel: ".stop, .start, .espera",
+                                items: '.final',
+                                start: function (event, ui) {
+                                    //alert($(this).attr('class'));
+
+                                }
+                            });
+                            $(page).find(".cmd").draggable({
+                                helper: "clone",
+                                snap: '.espera',
+                                revert: "invalid"
+                            });
+                            $(page).find(".espera").droppable({
+                                accept: function (one) {
+                                    return !one.hasClass('final');
+                                },
+                                drop: function (event, ui) {
+                                    console.log(ui.draggable.hasClass("cima"));
+                                    /*add_move*/
+                                    if ($(page).find(".final").last().hasClass('cima') && ui.draggable.hasClass("cima") ||
+                                            $(page).find(".final").last().hasClass('baixo') && ui.draggable.hasClass("baixo") ||
+                                            $(page).find(".final").last().hasClass('agarra') && ui.draggable.hasClass("agarra") ||
+                                            $(page).find(".final").last().hasClass('solta') && ui.draggable.hasClass("solta")
+                                            ) {
+
+                                        red = ' red';
+                                        $(page).find(".order").sortable('refresh');
+                                    }
+                                    var obj = '<li class="final ' + ui.draggable.attr("class") + red + '"></li>';
+                                    $(page).find('.espera').before(obj);
+                                    $(page).find(".order").sortable('refresh');
+                                }
+                            });
+
+                            $(page).find("#trash").droppable({
+                                accept: function (one) {
+                                    return one.hasClass('final');
+                                },
+                                drop: function (event, ui) {
+                                    //ui.draggable.remove();
+                                    var xOffset = 24;
+                                    var yOffset = 24;
+                                    ui.draggable.fadeOut('fast');
+                                    $(page).find('#puff').css({
+                                        left: '200px',
+                                        top: '0 px'
+                                    }).show();
+                                    animatePoof();
+                                }
+                            });
+                        });
+
+
+                    });
+                });
+
+                try {
+                    App.load('loading');
+                    //App.restore();
+                } catch (err) {
+                    App.load('home');
+                }
+
+
+                function animatePoof() {
+                    var bgTop = 0;
+                    var frames = 5;
+                    var frameSize = 32;
+                    var frameRate = 80;
+                    for (i = 1; i <= frames; i++) {
+                        $('#puff').animate({
+                            backgroundPosition: '0 ' + (bgTop + frameSize) + 'px'
+                        }, frameRate);
+                        bgTop += frameSize;
+                        console.log($('#puff').css('backgroundPosition'));
+                    }
+                    setTimeout($('#puff').hide(), frames * frameRate);
+                }
+
+                function collect_list() {
+                    var list = [];
+                    for (var i = 0; i < $('.final').length; i++) {
+                        var className = $('.final')[i].className.split(' ')[5];
+                        list.push(className);
+                    }
+                    console.log(list);
+                    return list;
+                }
+
+                function add_avatars(user) {
+                    user.avatar = (user.avatar === 'undefined') ? 'max' : user.avatar;
+                    var index = avatar_names.indexOf(user.avatar);
+                    index = (index < 0) ? 0 : index;
+                    console.log("url: " + array_avatar[index]);
+                    $('#membros').prepend('<div class="col-xs-6 col-lg-4"><center><img class="team_member" src="' + array_avatar[index] +
+                            '"><br><h3>' + user.username + '</h3></center></div>');
+
+                    console.log(user.avatar);
+                }
+
+                function add_avatars_controlpage(users) {
+                    console.log(users);
+                    $('.user_box div').remove();
+                    $('.user_box span').html('<p>' + roomname[myUser.group] + '</p>');
+                    for (var i = 0; i < users.length; i++) {
+                        var index = avatar_names.indexOf(users[i].avatar);
+                        index = (index < 0) ? 0 : index;
+                        $('.user_box').append("<div class='col-sm-4 col-xs-4 col-xs-md col-xs-lg user'>\n\
+                                                <img src='" + array_avatar[index] + "' name='" + users[i].username + "' class='user_img'/>\n\
+                                                </div>");
+                    }
+                    for (var i = 0; i < users.length; i++) {
+
+                        $('.user_box').append("<div class='col-sm-4 col-xs-4 col-xs-md col-xs-lg'><span class='user_name'>" + users[i].username + "</span> </div>");
+                    }
+
+                }
+
+                function add_rooms(data) {
+                    $('#room li').remove();
+
+                    for (var i = 0; i < data.name.length; i++) {
+                        $('#room').append("<li class='col-xs-3 col-sm-3 col-md-2 col-lg-2'> <div class='grupo "
+                                + data.name[i] + "' title='" + roomname[data.name[i]] + "'><i class='fa fa-user info_groups'>"
+                                + data.nUsers[i] + "</i> </div> </li>");
+
+                    }
+                    $('.grupo').on('click', function () {
+                        grupo = $(this).attr('title');
+                        myUser.group = $(this).attr('class').split(' ')[1];
+                        var res = {selectedRoom: myUser.group};
+                        $(".user_box span").html(grupo);
+                        res.user = myUser;
+                        socket.emit('new connection', res);
+                        App.load('group_page');
+                    });
+
+
+                }
+
+                function add_commands(list) {
+                    $('.cmd_box .row div').remove();
+                    console.log(list);
+                    for (var i = 0; i < list.length; i++) {
+                        $(".cmd_box .row").append("<div class='col-lg-6 col-sm-6 col-xs-6 cmd " + commands[parseInt(list[i])] + " ui-draggable ui-draggable-handle' id='btn_" + commands[parseInt(list[i])] + "'></div>");
+                    }
+                    $(".cmd").draggable({
+                        helper: "clone",
+                        snap: '.espera',
+                        revert: "invalid"
+                    });
+                }
+
+                function receive_move(direction) {
+                    $('.final').remove();
+                    console.log(direction);
+                    for (var i = 0; i < direction.length; i++) {
+                        $('.espera').before('<li class="final col-lg-6 col-sm-6 col-xs-6 cmd ' + direction[i] + ' ui-draggable ui-draggable-handle"></li>');
+                    }
+                    $(".order").sortable('refresh');
+                    $(".cmd").draggable({
+                        helper: "clone",
+                        snap: '.espera',
+                        revert: "invalid"
+                    });
+                }
+
+                function receive_rooms(direction) {
+                    $('.final').remove();
+                    console.log(direction);
+                    for (var i = 0; i < direction.length; i++) {
+
+                        $('.espera').before('<li class="final col-lg-6 col-sm-6 col-xs-6 cmd ' + direction[i] + ' ui-draggable ui-draggable-handle"></li>');
+                    }
+                }
+
+
+
+            </script>
+    </body>
+</html>

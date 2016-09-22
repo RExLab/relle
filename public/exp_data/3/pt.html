@@ -1,0 +1,87 @@
+<div id='DivExp' class="container">
+    <center>
+        <h1>Painel Elétrico CC</h1>
+
+        <div class="row">
+            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12" >
+
+                <img class="cam" src='http://relle.ufsc.br:8117' width="100%"/> <!-- esta na rede interna 10.10.10.178:8081 --><br><br>
+                <div class='row switches'>
+                    <div class='col-lg-2 col-lg-offset-2 col-md-3 col-sm-3 col-xs-3'>
+                        <input class='switch' id='sw0' type="checkbox" data-toggle="toggle" data-on="S1" data-off="S1"/><br>
+                        <input class='switch' id='sw1' type="checkbox" data-toggle="toggle" data-on="S2" data-off="S2"/><br>
+                    </div>
+                    <div class='col-lg-2 col-md-3 col-sm-3 col-xs-3'>
+                        <input class='switch' id='sw2' type="checkbox" data-toggle="toggle" data-on="S3" data-off="S3"/><br>
+                        <input class='switch' id='sw3' type="checkbox" data-toggle="toggle" data-on="S4" data-off="S4"/><br>
+                    </div>
+                    <div class='col-lg-2 col-md-3 col-sm-3 col-xs-3'>
+                        <input class='switch' id='sw4' type="checkbox" data-toggle="toggle" data-on="S5" data-off="S5"/><br>
+                        <input class='switch' id='sw5' type="checkbox" data-toggle="toggle" data-on="S6" data-off="S6"/><br>
+                    </div>
+                    <div class='col-lg-2 col-md-3 col-sm-3 col-xs-3'>
+                        <input class='switch' id='sw6' type="checkbox" data-toggle="toggle" data-on="S7" data-off="S7"/><br>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                <p style="display: none;" class="default_circuit">Este circuito equivalente não foi definido ainda.</p>
+                <img class="img-responsive default_circuit" src="http://relle.ufsc.br/exp_data/3/img/diagram.png" width="100%"/>
+                <img style="display: none;" class="equivalent hiddencircuit" src="" width="80%"/>
+                <div id="sensors">
+                    <table class="table table-condensed" style='font-size:11px'>
+                        <thead>
+                            <tr>
+                                <th>A1</th>
+                                <th>A2</th>
+                                <th>A3</th>
+                                <th>A4</th>
+                                <th>A5</th>
+                                <th>A6</th>
+                                <th>A7</th>
+                                <th>V1</th>
+                                <th>V2</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td style='font-size:9pt' id="a0">0</td>
+                                <td style='font-size:9pt' id="a1">0</td>
+                                <td style='font-size:9pt' id="a2">0</td>
+                                <td style='font-size:9pt' id="a3">0</td>
+                                <td style='font-size:9pt' id="a4">0</td>
+                                <td style='font-size:9pt' id="a5">0</td>
+                                <td style='font-size:9pt' id="a6">0</td>
+                                <td style='font-size:9pt' id="v0">0</td>
+                                <td style='font-size:9pt' id="v1">0</td>
+
+                            </tr>
+
+                        </tbody>
+                    </table>
+                </div>
+                <div id="report"></div>         
+            </div>
+        </div>
+    </center>
+</div>
+
+<script>
+var lang =
+            {
+                showme: 'Mostre-me como funciona',
+                showmeshort: 'Como funciona',
+                next: "Próximo",
+                previous: "Anterior",
+                done: "Pronto",
+                leave: "Sair",
+                intro1: "Neste laboratório você irá analisar circuitos resistivos em configurações paralelas, em série e mistas.",
+                introcamera: "Ao longo do seu trabalho esta transmissão de vídeo mostrará o que está acontecendo no momento.",
+                diagram: "Este diagrama representa o mesmo circuito disponível remotamente. Note que ele indica a localização das chaves, amperímetros e voltímetros.",
+                switches: "Use as chaves para abrir ou fechar um caminho para a corrente.",
+                sensors: "Ao alterar o estado das chaves, o circuito remoto também mudará de configuração e novas leituras de tensão e corrente serão mostradas aqui.",
+                report: "Ao sair é possível gerar um relatório com o último circuito configurado."
+                
+            };
+
+</script>

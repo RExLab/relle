@@ -1,0 +1,23 @@
+/*
+    CSS ARCHIVE FOR THE LABS
+    Include rules for your lab.
+*/
+
+h1{
+    text-align: center;
+    padding-bottom: 20px;
+}
+#frame{
+    position: absolute;
+    left:0;
+    right: 0;
+    width: 100%;
+    height: 100%;
+    margin-bottom: 100px;
+    padding-top: -100px;
+    background: white;
+}
+footer{
+    position:relative;
+    margin-top: 100%;
+}

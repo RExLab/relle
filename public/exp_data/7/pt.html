@@ -1,0 +1,114 @@
+
+<div id='DivExp' class="container">
+    <div class="col-lg-1"></div>
+    <div class="col-lg-12">
+        <center><h3>Plano Inclinado</h3></center>
+
+        <div class="col-lg-6"  style="margin:0px 0 15px 0;" > 
+            <img class="cam" src='http://150.162.232.4:8031' width="100%"/>
+        </div>
+
+        <div class="col-lg-6 angll">
+            <div id="slider" class="rslider"></div>
+            <br>
+            <center><p>Ângulo</p></center>
+
+            <div class='row'>
+                <div class='col-lg-12 col-xs-12' style="margin:0px 0 5px 0;">
+                    <div class="row">
+                        <div class="col-lg-6  col-xs-6">
+                            <button class='btn btn-fresh' id='drop' style="display:none;">Soltar</button>
+                        </div>
+                        <div class="col-lg-6  col-xs-6">
+                            <button class='btn btn-fresh' id='send' style="display:none;">Enviar</button>
+                        </div>
+                    </div> 
+                </div>
+
+                <div class='col-lg-12  col-xs-12' style="margin:5px 0 5px 0;">
+                    <div class="row">
+
+                        <div class="col-lg-6  col-sm-6 col-xs-12 forcay">
+                            <label for="forcay"><b><i>mg </i>sin(<span class="angle">x</span>) [N] :</b></label>
+                            <input class="input-sm" style="max-width: 70px;border:1px solid #cccccc; box-shadow:0 1px 1px rgba(0, 0, 0, 0.075) inset;margin:5px;"  id="forcay" disabled> 
+                        </div>
+                        <div class="col-lg-6 col-sm-6 col-xs-12 forcax">
+                            <label for="forcax"><b><i>mg </i>cos(<span class="angle">x</span>) [N] :</b></label>
+                            <input class="input-sm" style="max-width: 70px;border:1px solid #cccccc; box-shadow:0 1px 1px rgba(0, 0, 0, 0.075) inset;margin:5px;"  id="forcax" disabled>
+                        </div>
+
+                    </div>      
+                </div>
+
+
+                <div class='col-lg-12 col-xs-12 tabela' style="margin:5px 0 5px 0;">
+                    <table class="table table-condensed">
+                        <thead>
+                            <tr>
+                                <td>d(cm)</td>
+                                <td>10</td>
+                                <td>20</td>
+                                <td>30</td>
+                                <td>40</td>
+                                <td>50</td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>t(ms)</td>
+                                <td id="d1"></td>
+                                <td id="d2"></td>
+                                <td id="d3"></td>
+                                <td id="d4"></td>
+                                <td id="d5"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class='col-lg-12 col-xs-12' id="alerts">
+                    <div class="col-lg-12 col-xs-12 alert alert-success alert-dismissible" id="show-success" style="display: none" role="alert" >
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <span> <p> Success </p> </span>
+                    </div>
+                    <div class="col-lg-12 col-xs-12 alert alert-info alert-dismissible" id="show-error" style="display: none" role="alert" >
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <span> <p> Error </p> </span>
+                    </div>
+                </div>
+                <div id="csv"></div> 
+
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+
+    message = ["Você deveria prender a esfera antes de inclinar o plano. Ajuste o ângulo para -20° e a esfera será presa automaticamente",
+        "Ops, parece que a esfera não desceu. Tente um ângulo maior.",
+        "Ótimo! Você pode repetir este procedimento quantas vezes desejar. Experimente com outros ângulos, seus resultados estão sendo salvos para você baixá-los quando sair",
+        "Se você inclinar o plano em 90°, o sensor de força indicará a força peso.",
+        "Se você estiver usando um smartphone ou tablet, poderá usar o acelerômetro do seu dispositivo para ajustar o ângulo."];
+    var lang =
+            {
+                showme: 'Mostre-me como funciona',
+                showmeshort: 'Como funciona',
+                next: "Próximo",
+                previous: "Anterior",
+                done: "Pronto",
+                leave: "Sair",
+                intro1: "Neste laboratório você irá experimentar e analisar as forças agindo em um corpo no plano inclinado.",
+                introcamera: "Ao longo do seu trabalho esta transmissão de vídeo mostrará o que está acontecendo no momento.",
+                introslider: "Ajuste o ângulo do plano aqui. Lembre-se que a faixa permitida é de -15° a 90°.",
+                intro2: "Para iniciar a experiência, a esfera deve ser presa. Basta ajustar o ângulo para -15° e uma garra prenderá a esfera automaticamente.",
+                introsend: "Após indicar o ângulo, é necessário enviá-lo. Este botão ficará desativado até que o plano esteja na posição configurada.",
+                introdrop: "Se a esfera já se encontra presa e o ângulo desejado foi configurado, agora a esfera deverá ser solta.",
+                introtabela: "As leituras de tempo e distâncias serão mostradas nesta tabela após a esfera atingir o fim do plano.",
+                intro3: "Outra experiência possível é com as componentes da força gravitacional. Confira este <a href='http://gt-mre.ufsc.br/course/view.php?id=16' target='_blank'>material</a> para saber mais.",
+                introforcay: "O sensor de força indica somente a componente paralela à força gravitacional.",
+                introforcax: "Já a componente perpendicular deve ser calculada. Se o plano for ajustado em 90°, esta componente será calculada nas próximas leituras.",
+                introalerts: "Algumas dicas e alertas serão mostradas aqui enquanto você estiver expermimentando."
+            };
+
+</script>

@@ -1,0 +1,44 @@
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>Cobra Cora</title>
+        <link rel="stylesheet" href="http://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+        <link href="styles/style.css" rel="stylesheet" type="text/css"/>
+    </head>
+    <body>
+        <div class='container'>
+            <div class="row">
+                <div class="col-lg-9 folha">
+                    <ul class="cmd_sheet connected">
+                        <li class="espera"></li>
+                    </ul>
+                </div>
+
+
+                <div class='col-lg-3 '>
+                    <ul class="cmd_block connected">
+                        <li class="cmd cima"></li>
+                        <li class="cmd baixo"></li>
+                        <li class="cmd direita"></li>
+                        <li class="cmd esquerda"></li>
+                        <li class="cmd agarra"></li>
+                        <li class="cmd solta"></li>
+                    </ul>               
+                </div>
+            </div>
+        </div>
+        <script src="http://code.jquery.com/jquery-1.10.2.js"></script>
+        <script src="http://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+        <script src="scripts/jquery.ui.touch-punch.min.js" type="text/javascript"></script> 
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+        <script>
+            $(function () {
+                $(".cmd_block, .cmd_sheet").sortable({
+                    connectWith: ".connected"
+                });
+                $(".sortable").disableSelection();
+            });
+        </script>    
+    </body>
+</html>

@@ -1,0 +1,96 @@
+<div id='DivExp' class="container">
+    <div class="row">
+        <h3>Microscópio Remoto</h3>
+        <div class="col-lg-4  col-xs-12">
+            <span class='zoom' id='img-zoomed'>
+                <img src='http://relle.ufsc.br:8092'/>
+            </span>
+            <p><i>*Passe o mouse para ampliar</i></p>
+        </div>
+        <div class="col-lg-4   col-xs-12" style="margin: 10px 0 10px 0;">
+            <div class="row">
+                <div class="col-lg-12 col-xs-12"> 
+                    <button id="loading-button" class="btn btn-small btn-warning"><span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span> Carregando...</button>
+                </div>
+
+                <div class="col-lg-12 col-xs-12 content-micro samples" style="display: none">
+                    <p><span id="sample"> </span></p>
+                    <p> Descrição:  <span id="sampledescription"> </span></p>
+                    <img id="plant"  height="200px"/>
+                </div>
+
+                <div class="col-lg-12 col-xs-12 content-micro buttons" style="display: none">
+                    <button name='left' class='btn btn-success chave' style="margin: 10px 0 10px 0;"><i class="fa fa-arrow-left"></i></button> 
+                    <button name="right" class='btn btn-success chave' style="margin: 10px 0 10px 0;"><i class="fa fa-arrow-right"></i></button> 
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-4  col-xs-12">
+            <img class="cam" src='http://relle.ufsc.br:8094' width="100%"/>
+        </div>
+         
+    </div>
+        
+    <div class="row sampledata">
+        <center><b>Dados fundamentais sobre a amostra:</b></center>
+        <div class="col-lg-6 col-xs-12">
+            <p>1. Nome Científico: <i>Eugenia pyriformis</i>
+            <p>2. Nomes Populares: Uvaia, Uvalha, Uvalha-do-campo, Uvaia-muchana, Cambuí-da-índia, Ubapeba, Pêssego-do-campo, Uvaia-azeda-do-campo, outros.
+            <p>3. Família: Myrtaceae
+            <p>4. Categoria: Arbustos, Arbustos Tropicais, Árvores, Árvores Frutíferas, Árvores Ornamentais, Medicinal   
+        </div>
+         <div class="col-lg-6 col-xs-12">
+            <p>5. Clima: Mediterrâneo, Subtropical, Temperado, Tropical
+            <p>6. Origem: América do Sul, Brasil
+            <p>7. Altura: 3.6 a 4.7 metros, 4.7 a 6.0 metros, 6.0 a 9.0 metros, 9.0 a 12 metros
+            <p>8. Ciclo de Vida: Perene, apesar da mudança na coloração de suas folhas quando há ocorrência de longos períodos de frio, suas folhas não caem.
+         </div>
+        
+    </div>
+
+</div>  
+<script> 
+    /* var image = ["raiz.png", "caule.png", "folhas.png", "flor.png", "fruto.png", "semente.png"];
+
+    var sample = ["Raiz", "Caule", "Folhas", "Flor", "Fruto", "Semente" ];
+
+    var description = ["As raízes possuem duas principais funções: fixação da planta no solo e absorção da água e sais minerais do solo ou da própria água.",
+        "O caule é a parte da planta que faz sua sustentação e que realizada a comunicação entre as raízes e as folhas. ",
+        "A folha é a principal parte das plantas, pois nela é onde ocorre a maior parte da fotossíntese. ",
+        "A flor é o órgão de reprodução das plantas angiospermas, plantas cuja semente é protegida por uma estrutura que chamamos de fruto.",        
+        "Os frutos são originados a partir do desenvolvimento do ovário após a fecundação. O fruto possui duas funções principais: proteger a semente e propiciar a dispersão das sementes.",
+        "As sementes possuem um embrião que em condições apropriadas dá origem a uma nova planta resultante da combinação de material genético produzidos pelo mesmo organismo ou indivíduos diferentes."
+        
+    ];*/
+
+     
+    var image = ["amostra1.png", "amostra2.png", "amostra3.png", "amostra4.png", "amostra5.png", "amostra6.png"];
+
+    var sample = ["Amostra 1", "Amostra 2", "Amostra 3", "Amostra 4", "Amostra 5", "Amostra 6"];
+
+    var description = ["Folha com coloração esverdeada, apresentando clorofila como pigmento predominante. ",
+        "Folha com coloração esverdeada, apresentando alguns pontos avermelhados, ou seja, apresentando o carotenoide do tipo caroteno.",
+        "Caroteno ainda mais aparente do que na Amostra 2. ",
+        "Folha com coloração avermelhada, evidenciando a manifestação do caroteno.",
+        "Folha avermelhada com algumas partes pigmentadas em amarelo, apresentando o carotenoide do tipo xantofila. ",
+        "Folha completamente amarelada, com predominância de xantofila. "
+    ];      
+
+    var path = "http://relle.ufsc.br/exp_data/6/img/";
+    var lang =
+            {
+                showme: 'Mostre-me como funciona',
+                showmeshort: 'Como funciona',
+                next: "Próximo",
+                previous: "Anterior",
+                done: "Pronto",
+                leave: "Sair",
+                intro1: "Neste laboratório você irá analisar pigmentos presentes em folhas da espécie <i>Eugenia pyriforms</i> retiradas no Parque Ecológico de Maracajá/SC, Brasil.",
+                camera1: "Esta câmera mostra uma visão geral do microscópio e algumas amostras.",
+                camera2 : "Esta é a transmissão de vídeo do microscópio focando na amostra.",
+                samples: "O nome da amostra e sua descrição são mostrados aqui.",
+                buttons: "Avance ou volte para mudar o prato em que o microscópio está focando."    
+            };
+
+
+</script>
