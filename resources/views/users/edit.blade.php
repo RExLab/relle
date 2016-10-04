@@ -54,6 +54,7 @@ Form::open([
         </div>
         <div class='form-group'>
             {!! Form::label('type', trans('users.type')) !!}
+            @if($users->type == 'admin')
             {!! Form::select('type', 
                 [null=> trans('interface.select')] +
             [
@@ -62,6 +63,15 @@ Form::open([
                 ], 
                 $users->type, ['class' => 'form-control']) 
             !!}
+            @else
+            {!! Form::select('type', 
+                [null=> trans('interface.select')] +
+            [
+                    "user"=> trans('users.user') 
+                ], 
+                $users->type, ['class' => 'form-control']) 
+            !!}
+            @endif
         </div>
         <div class='form-group'>
             {!! Form::label(trans('users.avatar')) !!} 
