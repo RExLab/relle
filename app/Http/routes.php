@@ -14,18 +14,6 @@ Route::group(array('prefix' => 'docs'), function() {
 //Search Bar
 Route::post('/search', 'HomeController@search');
 
-Route::get('/erro', function() {
-    return redirect()->away('https://docs.google.com/spreadsheets/d/1Pg0V33Vba4RQI8CyrSjBs5wO3ttNnAaIPuksUly8RwY/edit?usp=sharing'); 
-});
-
-Route::get('/tarefas', function(){
-     return redirect()->away('https://docs.google.com/spreadsheets/d/1P73juPe-EUeQcJ096vhsv9RCZKUjm8rPp05rzdIx-RI/edit?usp=sharing');
-});
-
-Route::get('/teste', function(){
-     return redirect()->away('https://docs.google.com/spreadsheets/d/10YYNhgRsQkhx5eiAJmuAC7GEAHl5J1lligxd_n56uRA/edit?usp=sharing');
-});
-
 Route::get('/new', 'HomeController@index');
 
 Route::get('/en', function() {
