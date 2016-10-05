@@ -86,7 +86,7 @@ $myToken = $client->getAccessToken();
                 'ids': 'ga:107648503', // THIS NEEDS TO BE A VIEW
                 'metrics': 'ga:users,ga:totalEvents',
                 'dimensions': 'ga:date,ga:country,ga:city',
-                'start-date': '2015-08-01',
+                'start-date': '30daysAgo',
                 'end-date': 'today',
                 'sort': '-ga:date'
             },
