@@ -1,82 +1,66 @@
 $('head').append('<link rel="stylesheet" href="http://relle.ufsc.br/css/shepherd-theme-arrows.css" type="text/css"/>');
+$.getScript('http://relle.ufsc.br/exp_data/4/welcome.js', function () {
+    var shepherd = setupShepherd();
+    $('#return').prepend('<button id="btnIntro" class="btn btn-sm btn-default"> <span class="long">' + lang.showme + '</span><span class="short">' + lang.showmeshort + '</span> <span class="how-icon fui-question-circle"></span> </button>');
+    $('#btnIntro').on('click', function (event) {
+        event.preventDefault();
+        shepherd.start();
+    });
+});
 
 $(function () {
-$('.dropdown-toggle').dropdown();
-    $.getScript('http://cdn.jsdelivr.net/ace/1.2.0/min/ace.js', function () {
+    $('.dropdown-toggle').dropdown();
+    var interval, verifytimeout, uploadtimeout;
+    var addr = 'http://arduino1.relle.ufsc.br';
+    var socket = null;
+    
+    function isConnected(socket){
+        if (socket == null) {
+                $('.message').html(lang.error_connection);
+                $('.progress').hide();
+                $('#verify_bar').css('background-color', '#E65100');
+                $('#verify_bar').css('color', 'white');
+        } 
+        return (socket != null)
+    }
+    function verifyBarError(error, msg) {
+        $('.progress').hide();
+        $('#verify_bar').css('background-color', '#E65100');
+        $('#verify_bar').css('color', 'white');
+        $('.message').html(error);
+        output(msg);
+    }
 
-        var addr = 'http://150.162.232.4:8024'
-        var socket = null;
+    function verifyBarSuccess(success, msg) {
+        if ($('.progress').css('display') === 'none') {
+            $('.progress').show();
+        }
+        $('#verify_bar').css('background-color', '#00979C');
+        $('#verify_bar').css('color', 'black');
+
+        $('.message').html(success);
+        output(msg);
+    }
+
+    function output(msg) {
+        if (typeof (msg) == "string") {
+            msg = msg.replace(/\n/g, '<br>');
+        }
+        $('#output').append(msg);
+    }
+
+    $.getScript('http://cdn.jsdelivr.net/ace/1.2.0/min/ace.js', function () {
 
         var code_temp;
         var code_name;
-        var interval, verifytimeout, uploadtimeout;
+
         var start = '/*\n* Pino LDR: A0\n* Pino LM35: A1\n* Pino LED: 2\n* Pino Servo: 5 \n*\n*/\nvoid setup() {\n\n' + lang.setup + '\n\n}\n\nvoid loop(){\n\n' + lang.loop + '\n\n}';
         var editor = ace.edit("editor");
-        var results;
 
         $('.selectpicker').selectpicker();
 
-        $.getScript(addr + '/socket.io/socket.io.js', function () {
-            console.log("Connected to the lab server");
-            // Initialize varibles
-            // Prompt for setting a username
-            socket = io.connect(addr);
-            socket.emit('new connection', {pass: $('meta[name=csrf-token]').attr('content')});
-
-
-            socket.on('done compiling', function (data) {
-                clearTimeout(verifytimeout);
-                console.log('done compiling');
-                clearInterval(interval);
-                $('#prog').css('width', '100%');
-                $('#prog').attr('aria-valuenow', '100');
-                $('#output').html('');
-                if (typeof data.stderr === 'undefined') {
-                    verifyBarSuccess(lang.done_compiling, data.stdout);
-                } else {
-                    verifyBarError(lang.error_compiling, data.stderr);
-                    console.log(data.stderr);
-                }
-            });
-
-
-            socket.on('done upload', function (data) {
-                console.log('done upload');
-                clearTimeout(uploadtimeout);
-                $('#prog').css('width', '100%');
-                $('#prog').attr('aria-valuenow', '100');
-                $('#output').html('');
-                $('#verify_bar p.message').html('');
-                if (typeof data.stderr === 'undefined') {
-                    verifyBarSuccess(lang.done_upload, data.stdout);
-                    $('#port').html(data.port);
-                    $('#serial').removeAttr("disabled");
-                } else {
-                    verifyBarError(lang.error_uploading, data.stderr);
-                    console.log(data.stderr);
-                }
-                $("#labcam").attr("src", "http://150.162.232.4:8025/");
-
-            });
-
-            socket.on('serial monitor', function (data) {
-                if (typeof data.stderr === 'undefined') {
-                    var parsed = String.fromCharCode.apply(null, new Uint8Array(data.stream))
-                    parsed = parsed.replace(/\n/g, '<br>');
-                    $('textarea').append(parsed);
-
-                } else {
-                    verifyBarError(lang.error_serial, data.stderr);
-                    console.log(data.stderr);
-                }
-
-                $("#labcam").attr("src", "http://150.162.232.4:8025/");
-
-            });
-
-
-
-        });
+        $("#ide .controllers").show();
+        $(".loading_ide").hide();
 
         editor.setTheme("ace/theme/chrome");
         editor.getSession().setMode("ace/mode/c_cpp");
@@ -89,6 +73,7 @@ $('.dropdown-toggle').dropdown();
             },
             readOnly: true // false if this command should not apply in readOnly mode
         });
+
         editor.commands.addCommand({
             name: 'Open',
             bindKey: {win: 'Ctrl-O', mac: 'Command-O'},
@@ -98,11 +83,8 @@ $('.dropdown-toggle').dropdown();
             readOnly: true // false if this command should not apply in readOnly mode
         });
 
-        /*
-         * Enabled editing after some change on the code
-         */
+
         editor.getSession().on('change', function (e) {
-            //alert('teste');
             if ($('#verify').attr('disabled') === 'disabled') {
                 $('#verify').css('opacity', '0.65');
                 $('#verify').removeAttr("disabled");
@@ -117,24 +99,28 @@ $('.dropdown-toggle').dropdown();
                 $('#acting').html('');
             });
         });
+
         $('#open').hover(function () {
             $('#acting').html(lang.open);
             $('#open').on('mouseleave', function () {
                 $('#acting').html('');
             });
         });
+
         $('#upload').hover(function () {
             $('#acting').html(lang.upload);
             $('#upload').on('mouseleave', function () {
                 $('#acting').html('');
             });
         });
+
         $('#verify').hover(function () {
             $('#acting').html(lang.verify);
             $('#verify').on('mouseleave', function () {
                 $('#acting').html('');
             });
         });
+
         $('#serial').hover(function () {
             $('#acting').html(lang.serial);
             $('#serial').on('mouseleave', function () {
@@ -149,14 +135,18 @@ $('.dropdown-toggle').dropdown();
             $.redirect('http://relle.ufsc.br/arduino/download', data);
             event.preventDefault();
         });
+
         $('#open').click(function (event) {
             event.preventDefault();
             $('#file').click();
         });
+
         $('#reset').click(function (event) {
             event.preventDefault();
-            socket.emit('reset');
-            $("#labcam").attr("src", "http://150.162.232.4:8025/");
+            if (isConnected(socket)){
+                socket.emit('reset');
+                $("#labcam").attr("src", $("#labcam").attr('src'));
+            }
         });
 
         // Variable to store your files
@@ -235,12 +225,7 @@ $('.dropdown-toggle').dropdown();
                 $('#after').show();
             }
 
-            if (socket == null) {
-                $('.message').html(lang.error_connection);
-                $('.progress').hide();
-                $('#verify_bar').css('background-color', '#E65100');
-                $('#verify_bar').css('color', 'white');
-            } else {
+            if (isConnected(socket)){
                 $('#output').html('');
                 $('.message').html(lang.compiling);
                 verifyCode();
@@ -265,15 +250,13 @@ $('.dropdown-toggle').dropdown();
                 pass: $('meta[name=csrf-token]').attr('content'),
                 filename: $('#tab').html()
             };
-            socket.emit('compile', data);
+            
+            if (isConnected(socket)){
+                socket.emit('compile', data);
+            }
         }
 
-        function output(msg) {
-            if (typeof (msg) == "string") {
-                msg = msg.replace(/\n/g, '<br>');
-            }
-            $('#output').append(msg);
-        }
+
 
         function progress() {
             //$('.message').html('');
@@ -304,20 +287,9 @@ $('.dropdown-toggle').dropdown();
             }
 
             progress();
-
-            socket.emit('upload', null);
-
-            /*
-             * ER INTERFACE
-             */
-
-            //$('#ide').removeClass('col-lg-10 col-lg-offset-1');
-            //$('#ide').addClass('col-lg-6');
-            //var edit = ace.edit("editor");
-            //edit.resize();
-            //$('#lab').show();
-            //$('#mlens_target_0').css('margin-top', $('#lab').css('height'));
-
+            if (isConnected(socket)){
+                socket.emit('upload', null);
+            }
             uploadtimeout = setTimeout(function () {
                 $('#modal').click();
             }, 20000);
@@ -328,13 +300,7 @@ $('.dropdown-toggle').dropdown();
             event.preventDefault();
 
             if ($('#serial_monitor').is(':hidden')) {
-                /*$('#ide').removeClass('col-lg-6');
-                 $('#ide').addClass('col-lg-5');
-                 var edit = ace.edit("editor");
-                 edit.resize();
-                 $('#right').removeClass('col-lg-5');
-                 $('#right').addClass('col-lg-3');
-                 $('#diagram').addClass('col-lg-6');*/
+
                 $('#right').removeClass('col-lg-4 col-lg-offset-0')
                         .addClass('col-lg-offset-1 col-lg-10');
                 $('#right div.col-xs-12').removeClass("col-lg-12").addClass("col-lg-5");
@@ -343,22 +309,6 @@ $('.dropdown-toggle').dropdown();
 
 
             } else {
-                /*$('#ide').removeClass('col-lg-5');
-                 if ($('#right').is(':hidden')) {
-                 $('#ide').addClass('col-lg-10 col-lg-offset-1');
-                 var edit = ace.edit("editor");
-                 edit.resize();
-                 } else {
-                 $('#ide').addClass('col-lg-6');
-                 var edit = ace.edit("editor");
-                 edit.resize();
-                 }
-                 if ($("#right").hasClass('col-lg-3')) {
-                 $("#right").removeClass('col-lg-3');
-                 $('#diagram').removeClass('col-lg-6');
-                 $("#right").addClass('col-lg-6');
-                 }*/
-
                 $('#right').addClass('col-lg-4 col-lg-offset-0')
                         .removeClass('col-lg-offset-1 col-lg-10');
                 $('#right div').removeClass("col-lg-5");
@@ -369,22 +319,7 @@ $('.dropdown-toggle').dropdown();
 
         $('#close').click(function (event) {
             event.preventDefault();
-            /* $('#ide').removeClass('col-lg-5');
-             if ($('#right').is(':hidden')) {
-             $('#ide').addClass('col-lg-10 col-lg-offset-1');
-             var edit = ace.edit("editor");
-             edit.resize();
-             } else {
-             $('#ide').addClass('col-lg-6');
-             var edit = ace.edit("editor");
-             edit.resize();
-             }
-             if ($("#right").hasClass('col-lg-3')) {
-             $("#right").removeClass('col-lg-3');
-             $("#right").addClass('col-lg-6');
-             $('#diagram').removeClass('col-lg-6');
-             }
-             */
+
             $('#right').addClass('col-lg-4 col-lg-offset-0')
                     .removeClass('col-lg-offset-1 col-lg-10');
             $('#right div').removeClass("col-lg-5");
@@ -413,7 +348,7 @@ $('.dropdown-toggle').dropdown();
                         edit.setValue(allText);
                     }
                 }
-            }
+            };
             txtFile.send(null);
         });
         $('#ldr').click(function (event) {
@@ -437,7 +372,7 @@ $('.dropdown-toggle').dropdown();
                         edit.setValue(allText);
                     }
                 }
-            }
+            };
             txtFile.send(null);
         });
         $('#servo').click(function (event) {
@@ -461,7 +396,7 @@ $('.dropdown-toggle').dropdown();
                         edit.setValue(allText);
                     }
                 }
-            }
+            };
             txtFile.send(null);
         });
         $('#lm35').click(function (event) {
@@ -485,7 +420,7 @@ $('.dropdown-toggle').dropdown();
                         edit.setValue(allText);
                     }
                 }
-            }
+            };
             txtFile.send(null);
         });
 
@@ -502,7 +437,7 @@ $('.dropdown-toggle').dropdown();
             edit.gotoLine(1);
             edit.insert("#include <Servo.h>\n");
         });
-        
+
         $('#wire_h').click(function (event) {
             event.preventDefault();
             var edit = ace.edit("editor");
@@ -510,25 +445,6 @@ $('.dropdown-toggle').dropdown();
             edit.insert("#include <Wire.h>\n");
         });
 
-
-        function verifyBarError(error, msg) {
-            $('.progress').hide();
-            $('#verify_bar').css('background-color', '#E65100');
-            $('#verify_bar').css('color', 'white');
-            $('.message').html(error);
-            output(msg);
-        }
-
-        function verifyBarSuccess(success, msg) {
-            if ($('.progress').css('display') === 'none') {
-                $('.progress').show();
-            }
-            $('#verify_bar').css('background-color', '#00979C');
-            $('#verify_bar').css('color', 'black');
-
-            $('.message').html(success);
-            output(msg);
-        }
 
         $('#baudrate').on('change', function () {
             var value = $('#baudrate').val();
@@ -567,72 +483,76 @@ $('.dropdown-toggle').dropdown();
                 }
 
             });
-            firsttoggle = false; // selo jão de gambiarra
+            firsttoggle = false;
 
         });
 
+    });
+
+    $.getScript(addr + '/socket.io/socket.io.js', function () {
+        console.log("Connected to the lab server");
+
+        socket = io.connect(addr);
+        socket.emit('new connection', {pass: $('meta[name=csrf-token]').attr('content')});
+
+        $("#right .controllers").show();
+        $("#right .loading").hide();
+
+        socket.on('done compiling', function (data) {
+            clearTimeout(verifytimeout);
+            console.log('done compiling');
+            clearInterval(interval);
+            $('#prog').css('width', '100%');
+            $('#prog').attr('aria-valuenow', '100');
+            $('#output').html('');
+            if (typeof data.stderr === 'undefined') {
+                verifyBarSuccess(lang.done_compiling, data.stdout);
+            } else {
+                verifyBarError(lang.error_compiling, data.stderr);
+                console.log(data.stderr);
+            }
+        });
 
 
+        socket.on('done upload', function (data) {
+            console.log('done upload');
+            clearTimeout(uploadtimeout);
+            $('#prog').css('width', '100%');
+            $('#prog').attr('aria-valuenow', '100');
+            $('#output').html('');
+            $('#verify_bar p.message').html('');
+            if (typeof data.stderr === 'undefined') {
+                verifyBarSuccess(lang.done_upload, data.stdout);
+                $('#port').html(data.port);
+                $('#serial').removeAttr("disabled");
+            } else {
+                verifyBarError(lang.error_uploading, data.stderr);
+                console.log(data.stderr);
+            }
+            $("#labcam").attr("src", $("#labcam").attr('src'));
+
+        });
+
+        socket.on('serial monitor', function (data) {
+            if (typeof data.stderr === 'undefined') {
+                var parsed = String.fromCharCode.apply(null, new Uint8Array(data.stream))
+                parsed = parsed.replace(/\n/g, '<br>');
+                $('textarea').append(parsed);
+
+            } else {
+                verifyBarError(lang.error_serial, data.stderr);
+                console.log(data.stderr);
+            }
+
+            $("#labcam").attr("src", $("#labcam").attr('src'));
+
+        });
 
     });
 
     $.getScript('http://relle.ufsc.br/exp_data/4/zoom.js', function () {
         $('#img-zoomed').zoom({on: 'grab'});
     });
-
-    $.getScript('http://relle.ufsc.br/exp_data/4/welcome.js', function () {
-            var shepherd = setupShepherd();
-             $('#return').prepend('<button id="btnIntro" class="btn btn-sm btn-default"> <span class="long">' + lang.showme + '</span><span class="short">' + lang.showmeshort + '</span> <span class="how-icon fui-question-circle"></span> </button>');
-             $('#btnIntro').on('click', function (event) {
-                 event.preventDefault();
-                 shepherd.start();
-             });
-        });
-
-    function startTour() {
-        var tour = introJs();
-        $('#serial').click();
-        $('.dropdown [data-toggle=dropdown]').dropdown('toggle');
-        $('#after').show();
-        tour.oncomplete(function () {
-            $('#serial').click();
-            $('[data-toggle=dropdown]').dropdown('toggle');
-            $('#after').hide();
-        });
-        tour.onexit(function () {
-            $('#serial').click();
-            $('[data-toggle=dropdown]').dropdown('toggle');
-            $('#after').hide();
-        });
-        tour.setOption('tooltipPosition', 'auto');
-        tour.setOption('positionPrecedence', ['left', 'right', 'bottom', 'top']);
-        tour.setOption("skipLabel", lang.leave);
-        tour.setOption("prevLabel", lang.previous);
-        tour.setOption("nextLabel", lang.next);
-        tour.setOption("doneLabel", lang.done);
-        tour.start();
-
-
-    }
-
-    /*
-     * Lens
-     */
-    /*$.getScript('http://relle.ufsc.br/js/lens.js', function () {
-     $("#diagram").mlens({
-     imgSrc: $("#diagram").attr("data-big"), // path of the hi-res version of the image
-     //imgSrc2x: $("#green_monster").attr("data-big2x"),  // path of the hi-res @2x version of the image
-     //for retina displays (optional)
-     lensShape: "circle", // shape of the lens (circle/square)
-     lensSize: 180, // size of the lens (in px)
-     borderSize: 4, // size of the lens border (in px)
-     borderColor: "#fff", // color of the lens border (#hex)
-     borderRadius: 0, // border radius (optional, only if the shape is square)
-     //imgOverlay: $("#green_monster").attr("data-overlay"), // path of the overlay image (optional)
-     //overlayAdapt: true, // true if the overlay image has to adapt to the lens size (true/false)
-     zoomLevel: 1.5                                   // zoom level multiplicator (number)
-     });
-     });*/
 
 
 });

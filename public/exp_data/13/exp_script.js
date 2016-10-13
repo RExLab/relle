@@ -1,6 +1,6 @@
 $('head').append('<link rel="stylesheet" href="http://relle.ufsc.br/css/shepherd-theme-arrows.css" type="text/css"/>');
 
-var rpi_server = "http://relle.ufsc.br:8059";
+var rpi_server = "http://conducaocalor1.relle.ufsc.br";
 var t = new Date();
 var start = 0;
 var step = 2;
@@ -11,6 +11,16 @@ var readings = [];
 var url;
 var $window = $(window);
 window.charts = [];
+
+
+$.getScript('http://relle.ufsc.br/exp_data/13/welcome.js', function () {
+    var shepherd = setupShepherd();
+    $('#return').prepend('<button id="btnIntro" class="btn btn-sm btn-default"> <span class="long">' + lang.showme + '</span><span class="short">' + lang.showmeshort + '</span> <span class="how-icon fui-question-circle"></span> </button>');
+    $('#btnIntro').on('click', function (event) {
+        event.preventDefault();
+        shepherd.start();
+    });
+});
 
 function done() {
     console.log('<img> carregada com sucesso');
@@ -25,8 +35,7 @@ var randomScalingFactor = function () {
 
 var lineChartData = {
     labels: [],
-    datasets: [
-        {
+    datasets: [{
             label: "Barra 1",
             fillColor: "rgba(255, 211, 198, 0.1)",
             strokeColor: "#FDA98F",
@@ -35,8 +44,7 @@ var lineChartData = {
             pointHighlightFill: "#fff",
             pointHighlightStroke: "rgba(220,220,220,1)",
             data: []
-        },
-        {
+        }, {
             label: "Barra 2",
             fillColor: "rgba(151,187,205,0.1)",
             strokeColor: "rgba(151,187,205,1)",
@@ -45,8 +53,7 @@ var lineChartData = {
             pointHighlightFill: "#fff",
             pointHighlightStroke: "rgba(151,187,205,1)",
             data: []
-        },
-        {
+        }, {
             label: "Barra 3",
             fillColor: "rgba(130, 125, 143, 0.1)",
             strokeColor: "rgba(130, 125, 143, 0.9)",
@@ -58,8 +65,7 @@ var lineChartData = {
 
 
 
-        }
-    ]
+        }]
 
 };
 
@@ -120,6 +126,8 @@ function ResizeSamples(stepold) {
 $(function () {
     $.getScript('http://relle.ufsc.br/js/Chart.js', function () {
         init_chart();
+        $(".grafico").show();
+        $(".grafico.loading").hide();
     });
 
 
@@ -127,7 +135,11 @@ $(function () {
         var mult = 0;
         var socket = io.connect(rpi_server);
         //Conecta-se enviando chave de acesso ao lab
-        socket.emit('new connection', {pass: $('meta[name=csrf-token]').attr('content')});
+        socket.emit('new connection', {
+            pass: $('meta[name=csrf-token]').attr('content')
+        });
+        $(".controllers").show();
+        $(".controllers.loading").hide();
 
         // Send a message
         function sendMessage(status) {
@@ -163,11 +175,11 @@ $(function () {
                 step = step * 2;
                 ResizeSamples(step / 2); //somente primeiros termometros
                 /*for (var cIndex = 0; cIndex < window.charts.length; cIndex++) {
-                    var data = [];
-                    for (var i = 0; i < window.charts[cIndex].index.length; i++) {
-                        
-                    }
-                }*/
+                 var data = [];
+                 for (var i = 0; i < window.charts[cIndex].index.length; i++) {
+                 
+                 }
+                 }*/
                 window.myLine.destroy();
                 var ctx = document.getElementById("canvas").getContext("2d");
                 window.myLine = new Chart(ctx).Line(lineChartData, {
@@ -221,18 +233,8 @@ $(function () {
                 removeChart($(this));
             });
         });
-        
+
         $('.settings').show();
-    });
-
-
-    $.getScript('http://relle.ufsc.br/exp_data/13/welcome.js', function () {
-        var shepherd = setupShepherd();
-         $('#return').prepend('<button id="btnIntro" class="btn btn-sm btn-default"> <span class="long">' + lang.showme + '</span><span class="short">' + lang.showmeshort + '</span> <span class="how-icon fui-question-circle"></span> </button>');
-         $('#btnIntro').on('click', function (event) {
-             event.preventDefault();
-             shepherd.start();
-         });
     });
 
 });
@@ -251,23 +253,9 @@ function removeChart(elEvent) {
     el.remove();
 
 }
+
 function addNewVariable() {
-    $('#matches div.row').append(
-            "<div class='versus col-lg-1 col-md-1 col-sm-1 col-xs-12'>x</div>" +
-            "<div class='select-group col-lg-3 col-md-5 col-sm-5 col-xs-12'> " +
-                "<select class='form-control'>" +
-                    "<option></option>" +
-                    "<option>M1-T1</option>" +
-                    "<option>M1-T2</option>" +
-                    "<option>M1-T3</option>" +
-                    "<option>M2-T1</option>" +
-                    "<option>M2-T2</option>" +
-                    "<option>M2-T3</option>" +
-                    "<option>M3-T1</option>" +
-                    "<option>M3-T2</option>" +
-                    "<option>M3-T3</option>" +
-                "</select>" +
-            "</div>");
+    $('#matches div.row').append("<div class='versus col-lg-1 col-md-1 col-sm-1 col-xs-12'>x</div>" + "<div class='select-group col-lg-3 col-md-5 col-sm-5 col-xs-12'> " + "<select class='form-control'>" + "<option></option>" + "<option>M1-T1</option>" + "<option>M1-T2</option>" + "<option>M1-T3</option>" + "<option>M2-T1</option>" + "<option>M2-T2</option>" + "<option>M2-T3</option>" + "<option>M3-T1</option>" + "<option>M3-T2</option>" + "<option>M3-T3</option>" + "</select>" + "</div>");
 }
 
 function removeLastVariable() {
@@ -286,12 +274,7 @@ function removeAllVariables() {
 function addNewChart() {
     var chart = {};
 
-    $("#custom-group").append('<div class="col-lg-6 col-sm-12 col-md-6 col-xs-12 customchart" >' +
-            '<a href="#" class="removechart"><span class="glyphicon glyphicon-trash"></span></a>' +
-            '<div class="labely">' + lang.temperature + ' [&#8451;]</div>' +
-            '<canvas class="col-lg-12 chart" height="320" width="480">Aguarde, o gráfico está sendo configurado...</canvas>' +
-            '<div class="labelx">' + lang.time + ' [s]</div>' +
-            '</div>');
+    $("#custom-group").append('<div class="col-lg-6 col-sm-12 col-md-6 col-xs-12 customchart" >' + '<a href="#" class="removechart"><span class="glyphicon glyphicon-trash"></span></a>' + '<div class="labely">' + lang.temperature + ' [&#8451;]</div>' + '<canvas class="col-lg-12 chart" height="320" width="480">Aguarde, o gráfico está sendo configurado...</canvas>' + '<div class="labelx">' + lang.time + ' [s]</div>' + '</div>');
 
     var thisDiv = $("#custom-group div.customchart").last();
     thisDiv.append('<div class="row"></div>');
@@ -339,7 +322,9 @@ function report(id) {
     $.ajax({
         type: "POST",
         url: location.pathname + "/report/",
-        data: {dados: url},
+        data: {
+            dados: url
+        },
         success: function (pdf) {
             var win = window.open(location.pathname + "/report", '_blank');
             console.log("Report created.");

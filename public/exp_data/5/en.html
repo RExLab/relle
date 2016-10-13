@@ -4,8 +4,8 @@
 
         <div class="row">
             <div class="col-lg-6  col-sm-12 col-md-6 col-xs-12">
-                <img class="cam" src='http://relle.ufsc.br:8065' width="100%"/> <!-- esta na rede interna 10.10.10.162:8081 --><br><br>
-                <div class='row'>  
+                <img class="cam" src='http://propagacaocalor1.relle.ufsc.br:8080' width="100%"/> <!-- esta na rede interna 10.10.10.162:8081 --><br><br>
+                <div class='row controllers' style="display: none">  
                     <div class="col-lg-6 col-sm-6 col-md-6 col-xs-6" style="margin: 10px 0 0 0;">
                         <form class="time">
                             <div class="form-group"> 
@@ -36,15 +36,18 @@
                 </div>
             </div>
 
-            <div class="col-lg-6 col-sm-12 col-md-6 col-xs-12 chart" style="padding-top: 20px; position: relative">
-                <div class="labely">Temperature [&#8451;]</div>
-                <canvas id="canvas" height="400" width="500"></canvas>
-                <div class="labelx">Time [s]</div>
-
-                <div class="row" style="margin:10px 0 10px 0;">
-                    <div class="col-lg-6  col-sm-6 col-xs-6" id="m1"><canvas class="legend" style="font-size: 10pt; width:15px; height:15px; background:rgba(151,187,205,1);"></canvas> Above heat source (propeller)</div>
-                    <div  class="col-lg-6  col-sm-6 col-xs-6" id="m2"><canvas class="legend" style="font-size: 10pt; width:15px; height:15px; background:#FDA98F;"/></canvas> At heat source </div>
+            <div class="col-lg-6 col-sm-12 col-md-6 col-xs-12 chart" style="position: relative">
+                <div class="base loading">
+                    <ul>
+                        <li class=""><div class="loader-1"></div></li>
+                    </ul>
                 </div>
+                <div class='controllers' style="display: none">  
+                    <div class="labely">Temperature [&#8451;]</div>
+                    <canvas id="canvas" height="400" width="500"></canvas>
+                    <div class="labelx">Time [s]</div>
+                </div>
+                
                 <div class="row alerts">
 
                     <div class="col-lg-12 col-xs-12 alert alert-info alert-dismissible" id="show-error" style="display: none" role="alert" >
@@ -76,15 +79,17 @@
                 done: "Done",
                 showmeshort: 'How it works',
                 leave: "Leave",
+                label1: "Above heat source (propeller)",
+                label2: "At heat source",
                 intro1: "In this lab you will analyze different mechanisms of heat transfer acting on an experimental setup.",
                 introcamera: "This video streaming will show you what is happening now in the lab.",
-                intro2 : "The device consists of acrylic box with a top opening and a lamp as heat source placed on the bottom part.",
+                intro2: "The device consists of acrylic box with a top opening and a lamp as heat source placed on the bottom part.",
                 chart: "Temperature measuments of two spots of the apparatus (as indicated below) will be plotted here.",
                 time: "Set the time interval for measurements (horizontal axis of the chart) and also indicate how long the heat source will be turned on.",
                 power: "It is possible to choose between two values for the heat source power.",
                 start: "After you start it, you will be able to watch the behavior of temperature curves and the propeller on the top part of the acrylic box.",
                 alerts: "Pay attention to any notification that may appear here.",
                 report: "When leaving it is possible to generate a report with the chart and also download the data for deeper analysis in another software."
-                
+
             };
 </script>

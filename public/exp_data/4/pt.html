@@ -11,9 +11,16 @@
     <center>
         <h3>Ambiente de Desenvolvimento para Arduino</h3>
     </center>
+   
     <div class="row">
-        <div class='col-lg-8 col-md-8' id='ide' data-step="1" data-intro="O editor possui funcionalidades semelhantes às da IDE original do Arduino." >
-            <div class="panel-title">
+        
+        <div class='col-lg-8 col-md-8' id='ide'>
+            <div class="base loading_ide">
+                <ul>
+                    <li><div class="loader-1"></div></li>
+                </ul>
+            </div>
+            <div class="panel-title controllers" style="display: none" >
                 <ul class="nav nav-tabs" style='padding: 10px 0 0 10px !important;'>
                     <li class="dropdown aqui" data-step="3" data-intro="Aqui encontram-se alguns exemplos e algumas bibliotecas presentes no ambiente remoto. Basta adicionar a biblioteca e chamar as funções no seu código.">
                         <button class="btn btn-default btn-sm-custom dropdown-toggle square" id="drop_menu" type="button" data-toggle="dropdown" style="margin-right:8px;"><i class="fa fa-bars" style="margin-left: -6px; margin-top:-5px;"></i></button>
@@ -110,7 +117,13 @@
         </div>
         
         <div class="col-lg-4 col-lg-offset-0 col-md-offset-2 col-md-8 col-sm-12 col-xs-12  content-box-large" id='right'>
-            <div class="row">
+             <div class="base loading">
+                <ul>
+                    <li class=""><div class="loader-1"></div></li>
+                </ul>
+            </div>
+ 
+            <div class='row controllers' style="display: none">
                 <div class="col-lg-12 col-md-6 col-sm-6 col-xs-12" id="lab">          
                     <button class="btn btn-normal pull-left" style="position:absolute" id='reset'>Reset<i class="fa fa-refresh" style="margin-left:5px;"></i> </button>
                     <div class="pushbutton" style="display: none"></div>
@@ -119,7 +132,7 @@
                         <button class="btn btn-sm" id='pushbutton8'>8</button>
                     </div>
 
-                    <img id="labcam" src='http://150.162.232.4:8025/' width="100%" data-step="7" data-intro="E, finalmente, é possível ver o que está acontecendo no momento através dessa transmissão de vídeo."/>
+                    <img id="labcam" src='http://arduino1.relle.ufsc.br:8080' width="100%" data-step="7" data-intro="E, finalmente, é possível ver o que está acontecendo no momento através dessa transmissão de vídeo."/>
                 </div>
                 <div class="col-lg-12 col-md-6 col-sm-6 col-xs-12" id="diagram">
                     <span class='zoom' id='img-zoomed'> 

@@ -1,8 +1,15 @@
 $('head').append('<link rel="stylesheet" href="http://relle.ufsc.br/css/shepherd-theme-arrows.css" type="text/css"/>');
 
-var rpi_server = "http://relle.ufsc.br:8090";
+var rpi_server = "http://microscopio1.relle.ufsc.br";
 
-
+$.getScript('http://relle.ufsc.br/exp_data/6/welcome.js', function () {
+    var shepherd = setupShepherd();
+    $('#return').prepend('<button id="btnIntro" class="btn btn-sm btn-default"> <span class="long">' + lang.showme + '</span><span class="short">' + lang.showmeshort + '</span> <span class="how-icon fui-question-circle"></span> </button>');
+    $('#btnIntro').on('click', function (event) {
+        event.preventDefault();
+        shepherd.start();
+    });
+});
 
 function setupUI(id) {
     $("#plant").attr('src', path + image[id]);
@@ -10,6 +17,10 @@ function setupUI(id) {
     $("#sampledescription").text(description[id]);
 
 }
+
+$.getScript('http://relle.ufsc.br/exp_data/6/zoom.js', function () {
+    $('#img-zoomed').zoom({on: 'mouseover'});
+});
 
 $(function () {
 
@@ -41,26 +52,10 @@ $(function () {
 
         });
 
-        $("#loading-button").hide();
-        $(".content-micro").show();
-        
-           
-        $.getScript('http://relle.ufsc.br/exp_data/6/welcome.js', function () {
-            var shepherd = setupShepherd();
-             $('#return').prepend('<button id="btnIntro" class="btn btn-sm btn-default"> <span class="long">' + lang.showme + '</span><span class="short">' + lang.showmeshort + '</span> <span class="how-icon fui-question-circle"></span> </button>');
-             $('#btnIntro').on('click', function (event) {
-                 event.preventDefault();
-                 shepherd.start();
-             });
-        });
-
+        $(".controllers").show();
+        $(".loading").hide();
 
     });
-    
-    $.getScript('http://relle.ufsc.br/exp_data/6/zoom.js', function () {
-        $('#img-zoomed').zoom({on: 'mouseover'});
-    });
-
 
 });
 
@@ -81,42 +76,4 @@ function report(id) {
             console.log("Report created.");
         }
     });
-}
-
-function startTour() {
-    console.log('ready');
-    var tour = introJs();
-    tour.setOption('tooltipPosition', 'auto');
-    tour.setOption('positionPrecedence', ['left', 'right', 'bottom', 'top']);
-    tour.setOption("skipLabel", lang.leave);
-    tour.setOption("prevLabel", lang.previous);
-    tour.setOption("nextLabel", lang.next);
-    tour.setOption("doneLabel", lang.done);
-    tour.setOption('showProgress', true);
-
-    tour.setOptions({
-        steps: [
-            {
-                intro: lang.intro1
-            },
-            {
-                element: 'img.cam',
-                intro: lang.camera1
-            },
-            {
-                element: 'span.zoom',
-                intro: lang.camera2
-            },
-            {
-                element: 'div.content-micro.samples',
-                intro: lang.samples
-            },
-            {
-                element: 'div.content-micro.buttons',
-                intro: lang.buttons
-            }        
-        ]
-    });
-    
-    tour.start();
 }

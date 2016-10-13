@@ -1,19 +1,24 @@
 
 <div id='DivExp' class="container">
-    <div class="col-lg-1"></div>
     <div class="col-lg-12">
         <center><h1>Plano Inclinado</h1></center>
 
         <div class="col-lg-6"  style="margin:0px 0 15px 0;" > 
-            <img class="cam" src='http://relle.ufsc.br:8120/' width="100%"/>
+            <img class="cam" src='http://planoinclinado2.relle.ufsc.br:8080' width="100%"/>
         </div>
 
         <div class="col-lg-6">
-            <div id="slider" class="rslider"></div>
+            <div class="base loading">
+                <ul>
+                    <li class=""><div class="loader-1"></div></li>
+                </ul>
+            </div>
 
-            <center><p>Ângulo</p></center>
 
-            <div class='row'>
+            <div class='row controllers' style="display: none">
+                <div id="slider" class="rslider"></div>
+
+                <center><p>Ângulo</p></center>
                 <div class='col-lg-12 col-xs-12' style="margin:0px 0 5px 0;">
                     <div class="row">
                         <div class="col-lg-4  col-xs-4">
@@ -25,7 +30,7 @@
                         <div class="col-lg-4  col-xs-4">
                             <button class='btn btn-fresh' id='send' style="display:none;">Enviar</button>
                         </div>
-                        
+
                     </div> 
                 </div>
 
@@ -43,7 +48,7 @@
 
                     </div>      
                 </div>
-                
+
                 <div class='col-lg-12 col-xs-12 tabela'  style="margin:5px 0 5px 0;">
                     <table class="table table-condensed">
                         <thead>

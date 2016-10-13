@@ -33,23 +33,22 @@ h1{
     transform: rotate(-90deg);
     top: 250px;
     text-align: left;
-    width: 120px;
+    width: 140px;
     float: left;
-}  
-
+}     
 canvas{
-        margin: 0 10px 0 30px;
-       
-    }
-    
-
+    padding-left: 15px;
+}
 .labelx{
     position: relative;
 }
 
+.alerts {
+    margin-top: 15px;
+}
 .introjs-helperNumberLayer{
     width:25px !important;
     height:25px !important;
 }
-  
+
 

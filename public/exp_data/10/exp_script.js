@@ -1,6 +1,6 @@
 $('head').append('<link rel="stylesheet" href="http://relle.ufsc.br/css/shepherd-theme-arrows.css" type="text/css"/>');
 
-var rpi_server = "http://relle.ufsc.br:8010";
+var rpi_server = "http://fotovoltaico1.relle.ufsc.br";
 var results;
 var $window = $(window);
 window.charts = [];
@@ -22,7 +22,16 @@ var lineChartData = {
 
 };
 
+$.getScript('http://relle.ufsc.br/exp_data/10/welcome.js', function () {
+    var shepherd = setupShepherd();
+    $('#return').prepend('<button id="btnIntro" class="btn btn-sm btn-default"> <span class="long">' + lang.showme + '</span><span class="short">' + lang.showmeshort + '</span> <span class="how-icon fui-question-circle"></span> </button>');
+    $('#btnIntro').on('click', function (event) {
+        event.preventDefault();
+        shepherd.start();
+    });
+});
 
+$.getScript('https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.2.2/Chart.min.js');
 
 $(function () {
     $('head').append('<link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css" type="text/css" />');
@@ -53,25 +62,28 @@ $(function () {
         console.log('loading');
         socket = io.connect(rpi_server);
 
+        $(".controllers").show();
+        $(".loading").hide();
+
         socket.emit('new connection', {pass: $('meta[name=csrf-token]').attr('content')});
 
         socket.on('sampling done', function (data) {
             $(".sampling").removeAttr("disabled");
             $(".hiddenchart").show();
-            
-            if(data.action == "charging")
+
+            if (data.action == "charging")
                 $("#sw0").bootstrapToggle('on');
 
-            if(data.action == "discharging")
+            if (data.action == "discharging")
                 $("#sw0").bootstrapToggle('off');
-                
+
 
             var ctx = document.getElementById("canvas").getContext("2d");
             var chart = {
                 type: 'line',
                 data: {
                     datasets: [{
-                            label: lang.voltage+' [V] x ' +lang.time+' [s]',
+                            label: lang.voltage + ' [V] x ' + lang.time + ' [s]',
                             data: []
                         }]
                 },
@@ -84,8 +96,8 @@ $(function () {
                     }
                 }
             };
-            
-            for (var i = 0; i < data.voltmeter.length; i ++) {
+
+            for (var i = 0; i < data.voltmeter.length; i++) {
                 chart.data.datasets[0].data.push({
                     x: (data.period * i).toFixed(3),
                     y: data.voltmeter[i]
@@ -93,9 +105,9 @@ $(function () {
             }
             console.log(chart.data.datasets[0].data);
 
-            if(typeof(window.myLine) != 'undefined')
+            if (typeof (window.myLine) != 'undefined')
                 window.myLine.destroy();
-            
+
             window.myLine = new Chart(ctx, chart);
 
         });
@@ -132,16 +144,6 @@ $(function () {
         // $("#show-error span p").html(message[0]);
         // $("#show-error").show();
 
-        $.getScript('http://relle.ufsc.br/exp_data/10/welcome.js', function () {
-            var shepherd = setupShepherd();
-            $('#return').prepend('<button id="btnIntro" class="btn btn-sm btn-default"> <span class="long">' + lang.showme + '</span><span class="short">' + lang.showmeshort + '</span> <span class="how-icon fui-question-circle"></span> </button>');
-            $('#btnIntro').on('click', function (event) {
-                event.preventDefault();
-                shepherd.start();
-            });
-        });
-
-        $.getScript('https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.2.2/Chart.min.js');
 
     });
 

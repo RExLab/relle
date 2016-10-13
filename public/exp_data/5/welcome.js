@@ -74,7 +74,7 @@ var setupShepherd = function () {
     });
     
     shepherd.addStep('shep_time', { 
-        text: [lang.time],
+        text: [lang.introtime],
         attachTo: 'switches',
         classes: 'shepherd shepherd-open shepherd-theme-arrows shepherd-transparent-text',
         buttons: [

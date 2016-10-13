@@ -5,10 +5,17 @@
     <h3>Conversão de energia luminosa em energia elétrica</h3>
     <div class="row">
         <div class="col-lg-6  col-sm-12 col-md-6 col-xs-12">
-            <img class ='cam' src='http://relle.ufsc.br:8012' width="100%"/>
+            <img class ='cam' src='http://fotovoltaico1.relle.ufsc.br:8080' width="100%"/>
 
         </div>
-        <div  class="col-lg-6  col-sm-12 col-md-6 col-xs-12 cada">
+        <div class='col-lg-6  col-sm-12 col-md-6 col-xs-12'>
+            <div class="base loading">
+                <ul>
+                    <li class=""><div class="loader-1"></div></li>
+                </ul>
+            </div>
+        </div>
+        <div  class="col-lg-6  col-sm-12 col-md-6 col-xs-12 cada controllers" style="display: none">
             <h5>Chaves</h5>
             <div class="row">
                 <div class="col-lg-3 col-md-3 col-sm-3 col-xs-6 casa">
@@ -21,7 +28,7 @@
                         </li>
                     </ul> 
                 </div>
-                
+
                 <div  class="col-lg-3 col-md-3 col-sm-3 col-xs-6 lamp">
                     <ul> 
                         <li>
@@ -32,7 +39,7 @@
                         </li>
                     </ul> 
                 </div>
-               
+
 
                 <div class="col-lg-3 col-md-3 col-sm-3 col-xs-6 citor">
                     <ul> 
@@ -59,7 +66,7 @@
             </div>
         </div>
 
-        <div class="col-lg-6 col-sm-12 col-md-6 col-xs-12">
+        <div class="col-lg-6 col-sm-12 col-md-6 col-xs-12 controllers" style="display: none">
             <div class="row">
                 <h5>Células fotovoltaica</h5>
                 <div class="col-lg-12 col-xs-12 tensao">
@@ -84,20 +91,20 @@
             </div>
 
         </div> 
-        
-        <div class="col-lg-6 col-sm-12 col-md-6 col-xs-12 capac">
+
+        <div class="col-lg-6 col-sm-12 col-md-6 col-xs-12 capac controllers" style="display: none">
             <div class="row">
                 <h5>Carga e descarga de capacitor</h5>
                 <div class="col-lg-4 tempo">
-                     <ul> 
-                         <li>
-                             <input class="input-sm" type="number" style="max-width: 80px;border:1px solid #cccccc; box-shadow:0 1px 1px rgba(0, 0, 0, 0.075) inset;margin:5px;" max="60" min ="1" value="5" id="sampletime">                    
-                         </li>
-                         <li>
+                    <ul> 
+                        <li>
+                            <input class="input-sm" type="number" style="max-width: 80px;border:1px solid #cccccc; box-shadow:0 1px 1px rgba(0, 0, 0, 0.075) inset;margin:5px;" max="60" min ="1" value="5" id="sampletime">                    
+                        </li>
+                        <li>
                             <label for="samplepersec">Tempo de amostra (s)</label>
 
-                         </li>
-                     </ul> 
+                        </li>
+                    </ul> 
                 </div>
                 <div class="col-lg-4 charge">
                     <button class='btn btn-fresh sampling' id='charging' >Carga</button>
@@ -113,9 +120,9 @@
                     <span> <p> Error </p> </span>
                 </div>
             </div>
-  
+
         </div>
-        <div class="col-lg-6 col-sm-12 col-md-6 col-xs-12 hiddenchart">
+        <div class="col-lg-6 col-sm-12 col-md-6 col-xs-12 hiddenchart controllers" style="display: none">
             <canvas id="canvas" height="400" width="500"></canvas>
         </div>
     </div>
@@ -125,7 +132,7 @@
 <script>
     message = ["O circuito contém um capacitor e uma matriz de LEDs e é alimentado pela célula fotovoltaica. \n\
 A tensão entre os terminais da célula é medida pelo voltímetro ."];
-    
+
     var lang =
             {
                 showme: 'Mostre-me como funciona',
@@ -147,9 +154,9 @@ A tensão entre os terminais da célula é medida pelo voltímetro ."];
                 intro7: "Escolha o tempo de duração da amostra.",
                 intro8: "Para carregar o capacitor é necessário que as chaves (Chave S3, Capacitor) estejam ativadas, já a lâmpada precisa estar desligada.",
                 intro9: "Para descarregar o capacitor é necessario que as chaves Chave S3, Capacitor e Lâmpada) estejam ativadas.",
-                capacit: "O capacitor tem como função armazenar energia e posteriormente liberá-la de uma só vez." 
-                
-            
-                
+                capacit: "O capacitor tem como função armazenar energia e posteriormente liberá-la de uma só vez."
+
+
+
             };
 </script>

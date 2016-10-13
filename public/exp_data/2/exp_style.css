@@ -12,3 +12,7 @@ h1{
     height:25px !important;
 }
 
+.img-responsive{
+    max-height: 500px;
+    width: auto;
+}

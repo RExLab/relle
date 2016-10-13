@@ -1,11 +1,21 @@
 $('head').append('<link rel="stylesheet" href="http://relle.ufsc.br/css/shepherd-theme-arrows.css" type="text/css"/>');
 
-var rpi_server = "http://relle.ufsc.br:8119";
+$.getScript('http://relle.ufsc.br/exp_data/15/welcome.js', function () {
+    var shepherd = setupShepherd();
+    $('#return').prepend('<button id="btnIntro" class="btn btn-sm btn-default"> <span class="long">' + lang.showme + '</span><span class="short">' + lang.showmeshort + '</span> <span class="how-icon fui-question-circle"></span></button>');
+    $('#btnIntro').on('click', function (event) {
+        event.preventDefault();
+        shepherd.start();
+    });
+});
+
+var rpi_server = "http://planoinclinado2.relle.ufsc.br";
 var rotation = 0;
 var readings = [];
 var readingsfd = [];
 var socket = null;
 var force = null;
+
 $(function () {
 
     $("#slider").roundSlider({
@@ -26,6 +36,8 @@ $(function () {
         }
     });
 
+
+
     $.getScript(rpi_server + '/socket.io/socket.io.js', function () {
 
         socket = io.connect(rpi_server);
@@ -34,9 +46,12 @@ $(function () {
         socket.on('message', function (data) {
             console.log(data);
         });
+
         $("#show-success span p").html(message[4]);
         $("#show-success").show();
-
+        $(".controllers").show();
+        $(".loading").hide();
+        
         socket.on('setup', function (data) {
             console.log(data);
 
@@ -110,14 +125,7 @@ $(function () {
 
         });
 
-        $.getScript('http://relle.ufsc.br/exp_data/15/welcome.js', function () {
-            var shepherd = setupShepherd();
-            $('#return').prepend('<button id="btnIntro" class="btn btn-sm btn-default"> <span class="long">' + lang.showme + '</span><span class="short">' + lang.showmeshort + '</span> <span class="how-icon fui-question-circle"></span></button>');
-            $('#btnIntro').on('click', function (event) {
-                event.preventDefault();
-                shepherd.start();
-            });
-        });
+
 
 
     });
@@ -176,71 +184,4 @@ function exportcsv() {
 
     $.redirect('http://relle.ufsc.br/labs/export/', data);
 
-}
-
-function startTour() {
-    console.log('ready');
-    var tour = introJs();
-    tour.setOption('tooltipPosition', 'auto');
-    tour.setOption('positionPrecedence', ['left', 'right', 'bottom', 'top']);
-    tour.setOption("skipLabel", lang.leave);
-    tour.setOption("prevLabel", lang.previous);
-    tour.setOption("nextLabel", lang.next);
-    tour.setOption("doneLabel", lang.done);
-    tour.setOption('showProgress', true);
-
-    tour.setOptions({
-        steps: [
-            {
-                intro: lang.intro1
-            },
-            {
-                element: 'img.cam',
-                intro: lang.introcamera
-            },
-            {
-                element: '#slider',
-                intro: lang.introslider,
-                position: 'bottom'
-            },
-            {
-                intro: lang.intro2
-            },
-            {
-                element: '#send',
-                intro: lang.introsend,
-                position: 'top'
-            },
-            {
-                element: '#drop',
-                intro: lang.introdrop,
-                position: 'top'
-            },
-            {
-                element: 'div.tabela',
-                intro: lang.introtabela,
-                position: 'bottom'
-            },
-            {
-                intro: lang.intro3
-            },
-            {
-                element: 'div.forcay',
-                intro: lang.introforcay,
-                position: 'right'
-            },
-            {
-                element: 'div.forcax',
-                intro: lang.introforcax,
-                position: 'left'
-            },
-            {
-                element: '#alerts',
-                intro: lang.introalerts,
-                position: 'top'
-            }
-
-        ]
-    });
-    tour.start();
 }

@@ -1,8 +1,18 @@
 $('head').append('<link rel="stylesheet" href="http://relle.ufsc.br/css/shepherd-theme-arrows.css" type="text/css"/>');
 
-var rpi_server = "http://150.162.232.4:8053";
-var results = '{ "amperemeter": [123456789,1222,444,5678]}';
+var rpi_server = "http://painelac1.relle.ufsc.br";
 var socket = '';
+var circuit_images = [0, 7, 11, 15];
+var UIimg_interval = null;
+
+$.getScript('http://relle.ufsc.br/exp_data/2/welcome.js', function () {
+    var shepherd = setupShepherd();
+    $('#return').prepend('<button id="btnIntro" class="btn btn-sm btn-default"> <span class="long">' + lang.showme + '</span><span class="short">' + lang.showmeshort + '</span> <span class="how-icon fui-question-circle"></span> </button>');
+    $('#btnIntro').on('click', function (event) {
+        event.preventDefault();
+        shepherd.start();
+    });
+});
 
 $(function () {
     $('.switch').bootstrapToggle({
@@ -10,26 +20,40 @@ $(function () {
         offstyle: "danger",
         size: "small"
     });
-    
+
     function sendMessage() {
+        clearTimeout(UIimg_interval);
+        switches = 0;
         var message = {};
         message.sw = {};
-        //collect data from inputs
+        message.pass = $('meta[name=csrf-token]').attr('content');
         for (var i = 0; i < 7; i++) {
             if ($("input[id='sw" + i + "']:checked").length) {
-                console.log('sw' + i + ': 1');
                 message.sw[i] = 1;
+                switches = switches | 1 << i;
+                console.log('switches: ' + switches);
             } else {
-                console.log('sw' + i + ': 0');
                 message.sw[i] = 0;
             }
         }
-        console.log(message);
         if (message && socket) {
             message.pass = $('meta[name=csrf-token]').attr('content');
             socket.emit('new message', message);
         }
+        UIimg_interval = setTimeout(function () {
+            if (circuit_images.indexOf(switches) >= 0) {
+                console.log('loading /exp_data/2/equivalent/' + switches + '.png');
+                $('.equivalent').attr('src', '/exp_data/2/equivalent/' + switches + '.png');
+                $('.default_circuit').hide().addClass('hiddencircuit');
+                $('.equivalent').show().removeClass('hiddencircuit');
+            } else {
+                $('.equivalent').hide().addClass('hiddencircuit');
+                $('.default_circuit').show().removeClass('hiddencircuit');
+                console.log('resultante ' + switches + ' nao criada ainda');
+            }
+        }, 3000);
     }
+
     $('.switch').change(function () {
         sendMessage();
     });
@@ -44,6 +68,9 @@ $(function () {
         socket.on('new message', function (data) {
             console.log(data);
         });
+
+        $(".controllers").show();
+        $(".loading").hide();
 
         // Whenever the server emits 'user joined', log it in the chat body
         socket.on('data received', function (data) {
@@ -63,22 +90,13 @@ $(function () {
         });
         // Limpar
         $('#btnLeave').on('click', function () {
-            if(socket){
+            if (socket) {
                 socket.disconnect();
                 socket = null;
             }
         });
-        
-        $.getScript('http://relle.ufsc.br/exp_data/2/welcome.js', function () {
-            var shepherd = setupShepherd();
-             $('#return').prepend('<button id="btnIntro" class="btn btn-sm btn-default"> <span class="long">' + lang.showme + '</span><span class="short">' + lang.showmeshort + '</span> <span class="how-icon fui-question-circle"></span> </button>');
-             $('#btnIntro').on('click', function (event) {
-                 event.preventDefault();
-                 shepherd.start();
-             });
 
 
-         });
     });
 
 });

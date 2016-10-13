@@ -1,16 +1,30 @@
 
-var rpi_server = "http://rexlab.ufsc.br:8097";
+var rpi_server = "http://disconewton1.relle.ufsc.br";
 var results;
-var socket = ''; 
+var socket = '';
 
 $('head').append('<link rel="stylesheet" href="http://relle.ufsc.br/css/shepherd-theme-arrows.css" type="text/css"/>');
 
+$.getScript('http://relle.ufsc.br/exp_data/9/welcome.js', function () {
+    var shepherd = setupShepherd();
+    $('#return').append('<button id="btnIntro" class="btn btn-sm btn-default"> <span class="long">' + lang.showme + '</span><span class="short">' + lang.showmeshort + '</span></button>');
+    $('#btnIntro').on('click', function (event) {
+        event.preventDefault();
+        shepherd.start();
+    });
+
+
+});
 $(function () {
 
     $.getScript("http://lab.subinsb.com/projects/jquery/colorDisc/raphael.js", function () {
         $.getScript('http://relle.ufsc.br/js/newtonDisk.js', function () {
+            $(".quart .controllers").show();
+            $(".quart .loading").hide();
+            
             var speed = 0.01;
             var cd = $("#holder").colorDisc();
+
             $(".controls a").on("click", function () {
                 s = speed;
 
@@ -74,7 +88,8 @@ $(function () {
         // Prompt for setting a username
         socket = io.connect(rpi_server);
         socket.emit('new connection', {pass: $("#pass").html()});
-
+        $(".switch.controllers").show();
+        $(".terc .loading").hide();
         socket.on('new message', function (data) {
             console.log(data);
         });
@@ -98,28 +113,19 @@ $(function () {
 
     });
 
-    $.getScript('http://relle.ufsc.br/exp_data/9/welcome.js', function () {
-            var shepherd = setupShepherd();
-             $('#return').append('<button id="btnIntro" class="btn btn-sm btn-default"> <span class="long">' + lang.showme + '</span><span class="short">' + lang.showmeshort + '</span></button>');
-             $('#btnIntro').on('click', function (event) {
-                 event.preventDefault();
-                 shepherd.start();
-             });
 
-
-         });
 });
 
- function startTour() {
-        var tour = introJs();
-        tour.setOption('tooltipPosition', 'auto');
-        tour.setOption('positionPrecedence', ['left', 'right', 'bottom', 'top']);
-        tour.setOption("skipLabel", lang.leave);
-        tour.setOption("prevLabel", lang.previous);
-        tour.setOption("nextLabel", lang.next);
-        tour.setOption("doneLabel", lang.done);
-        tour.start();
-    }
+function startTour() {
+    var tour = introJs();
+    tour.setOption('tooltipPosition', 'auto');
+    tour.setOption('positionPrecedence', ['left', 'right', 'bottom', 'top']);
+    tour.setOption("skipLabel", lang.leave);
+    tour.setOption("prevLabel", lang.previous);
+    tour.setOption("nextLabel", lang.next);
+    tour.setOption("doneLabel", lang.done);
+    tour.start();
+}
 
 function report(id) {
     var array = results; //$.parseJSON(results);   //JSON formatado como variável results no topo

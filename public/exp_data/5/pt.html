@@ -4,8 +4,8 @@
 
         <div class="row">
             <div class="col-lg-6 col-sm-12 col-md-6 col-xs-12">
-                <img class="cam" src='http://relle.ufsc.br:8065' width="100%"/> <!-- esta na rede interna 10.10.10.162:8081 --><br><br>
-                <div class='row'>  
+                <img class="cam" src='http://propagacaocalor1.relle.ufsc.br:8080/' width="100%"/> <!-- esta na rede interna 10.10.10.162:8081 --><br><br>
+                <div class='row controllers' style="display: none">  
                     <div class="col-lg-6" style="margin: 10px 0 0 0;">
                         <form class="time">
                             <div class="form-group">
@@ -39,17 +39,17 @@
                 </div>
             </div>
 
-            <div class="col-lg-6 col-sm-12 col-md-6 col-xs-12" style="padding-top: 20px; position: relative">
-                    <div class="labely">Temperatura [&#8451;]</div>
-                    <canvas id="canvas" height="400" width="500"></canvas>
-                    <div class="labelx">Tempo [s]</div>
-                  
-
-                <div class="row" style="margin: 10px 0 10px 0;">
-                    <div class="col-lg-6 col-sm-6 col-xs-6" id="m1"><canvas class="legend" style="font-size: 10pt; width:15px; height:15px; background:rgba(151,187,205,1);"></canvas> Acima da fonte (hélice)</div>
-                    <div  class="col-lg-6 col-sm-6 col-xs-6" id="m2"><canvas class="legend" style="font-size: 10pt; width:15px; height:15px; background:#FDA98F;"/></canvas> Na fonte </div>
+            <div class="col-lg-6 col-sm-12 col-md-6 col-xs-12" style="position: relative">
+                <div class="base loading">
+                    <ul>
+                        <li class=""><div class="loader-1"></div></li>
+                    </ul>
                 </div>
-
+                <div class='controllers' style="display: none">  
+                    <div class="labely">Temperatura [&#8451;]</div>
+                    <canvas id="canvas" height="400" width="500"></canvas>              
+                    <div class="labelx">Tempo [s]</div>
+                </div>
                 <div class="row alerts">
                     <div class="col-lg-12 col-xs-12 alert alert-warning alert-dismissible" id="show-error" style="display: none" role="alert" >
                         <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
@@ -79,16 +79,20 @@
                 previous: "Anterior",
                 done: "Pronto",
                 leave: "Sair",
+                temperature: 'Temperatura [°C]',
+                time: 'Tempo [s]',
+                label1: "Acima da fonte (hélice)",
+                label2: "Ao lado da fonte",
                 intro1: "Neste laboratório você irá analisar diferentes mecanismos de transferência de calor agindo sobre um aparato experimental.",
                 introcamera: "Esta transmissão de vídeo mostrará o que está acontecendo no momento com o experimento.",
-                intro2 : "O aparato consiste em uma caixa acrílico com abertura na parte superior onde esta uma hélice e uma lâmpada como fonte de calor na parte inferior.",
+                intro2: "O aparato consiste em uma caixa acrílico com abertura na parte superior onde esta uma hélice e uma lâmpada como fonte de calor na parte inferior.",
                 chart: "As medidas de temperatura de dois locais do aparato (indicado abaixo) serão plotados aqui.",
-                time: "Ajuste o intervalo de tempo entre leituras (eixo horizontal) no gŕafico e também o tempo em que a fonte de calor ficará ligada.",
+                introtime: "Ajuste o intervalo de tempo entre leituras (eixo horizontal) no gŕafico e também o tempo em que a fonte de calor ficará ligada.",
                 power: "É possível escolher entre dois valores para a potência da fonte de calor.",
                 start: "Inicie o experimento e observe o comportamento das curvas no gráfico e da hélice na porção superior do aparato.",
                 alerts: "Fique atento a notificações que podem aparecer aqui.",
                 report: "Ao sair é possível gerar um relatório com o gráfico e também baixar os dados para uma análise mais profunda em outro software."
-                
+
             };
 
 

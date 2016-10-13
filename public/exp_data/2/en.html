@@ -4,18 +4,27 @@
 
         <div class="row">
             <div class="col-lg-5 col-lg-offset-1 col-md-5 col-sm-5 col-xs-12" >
-                <img class="cam" src='http://150.162.232.4:8055' width="100%"/> <!-- esta na rede interna 10.10.10.178:8081 -->
+                <img class="cam" src='http://painelac1.relle.ufsc.br:8080' width="100%"/> <!-- esta na rede interna 10.10.10.178:8081 -->
                 <div  style="margin: 20px 0 10px 0" class="switches">
-                    
-                        <input class='switch' id='sw0' type="checkbox" data-toggle="toggle" data-on="S1" data-off="S1"/>
-                        <input class='switch' id='sw1' type="checkbox" data-toggle="toggle" data-on="S2" data-off="S2"/>
-                        <input class='switch' id='sw2' type="checkbox" data-toggle="toggle" data-on="S3" data-off="S3"/>
-                        <input class='switch' id='sw3' type="checkbox" data-toggle="toggle" data-on="S4" data-off="S4"/>
+
+                    <input class='switch' id='sw0' type="checkbox" data-toggle="toggle" data-on="S1" data-off="S1"/>
+                    <input class='switch' id='sw1' type="checkbox" data-toggle="toggle" data-on="S2" data-off="S2"/>
+                    <input class='switch' id='sw2' type="checkbox" data-toggle="toggle" data-on="S3" data-off="S3"/>
+                    <input class='switch' id='sw3' type="checkbox" data-toggle="toggle" data-on="S4" data-off="S4"/>
                 </div>
             </div>
             <div class="col-lg-5 col-md-5 col-sm-5 col-xs-12" style="padding-top: 20px">
-                <img class="default_circuit" src="http://relle.ufsc.br/exp_data/2/img/diagrama.jpg" width="100%"/>
+                <div class="base loading">
+                    <ul>
+                        <li class=""><div class="loader-1"></div></li>
+                    </ul>
+                </div>
 
+                <div class='controllers' style="display: none">
+                    <p style="display: none;" class="default_circuit">This equivalent circuit was not drawn yet.</p>
+                    <img class="img-responsive  default_circuit" src="http://relle.ufsc.br/exp_data/2/img/diagrama.jpg" width="100%"/>                                            
+                    <img style="display: none;" class="equivalent hiddencircuit" src="" width="80%"/>
+                </div>
             </div>
         </div>
     </center>
@@ -23,7 +32,7 @@
 
 
 <script>
-var lang =
+    var lang =
             {
                 showme: "Show me how it works",
                 next: "Next",

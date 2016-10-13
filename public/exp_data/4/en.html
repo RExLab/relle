@@ -1,19 +1,24 @@
 <div id='DivExp' class="container" style="text-align: left !important;">
-<!--
-    <div class="alert alert-info alert-dismissible" role="alert">
-        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <i class="fa fa-info-circle"></i> 
-        Esta é uma releitura do primeiro experimento do RExLab criado em 1997, um depurador remoto para 8051. 
-        <a href='http://rexlab.ufsc.br/primeiro_experimento.php' target='_blank'>Saiba mais</a>.
-    </div>
--->
+    <!--
+        <div class="alert alert-info alert-dismissible" role="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <i class="fa fa-info-circle"></i> 
+            Esta é uma releitura do primeiro experimento do RExLab criado em 1997, um depurador remoto para 8051. 
+            <a href='http://rexlab.ufsc.br/primeiro_experimento.php' target='_blank'>Saiba mais</a>.
+        </div>
+    -->
 
     <center>
         <h3>Ambiente de Desenvolvimento para Arduino</h3>
     </center>
     <div class="row">
-        <div class='col-lg-8 col-md-8' id='ide' data-step="1" data-intro="O editor possui funcionalidades semelhantes às da IDE original do Arduino." >
-            <div class="panel-title">
+        <div class='col-lg-8 col-md-8' id='ide' >
+            <div class="base loading_ide">
+                <ul>
+                    <li><div class="loader-1"></div></li>
+                </ul>
+            </div>
+            <div class="panel-title controllers" style="display: none" >
                 <ul class="nav nav-tabs" style='padding: 10px 0 0 10px !important;'>
                     <li class="dropdown aqui" data-step="3" data-intro="Aqui encontram-se alguns exemplos e algumas bibliotecas presentes no ambiente remoto. Basta adicionar a biblioteca e chamar as funções no seu código.">
                         <button class="btn btn-default btn-sm-custom dropdown-toggle square" id="drop_menu" type="button" data-toggle="dropdown" style="margin-right:8px;"><i class="fa fa-bars" style="margin-left: -6px; margin-top:-5px;"></i></button>
@@ -50,7 +55,7 @@
                 </ul>
             </div>
 
-            <div class="content-box-large box-with-header">
+            <div class="content-box-large box-with-header controllers" style="display: none">
                 <div id="editor"></div>
                 <div id='after' style="display:none" data-step="5" data-intro="Após compilar ou enviar, o retorno destas ações aparecerão neste espaço indicando se foram executadas com sucesso ou não.">
                     <div id="verify_bar">
@@ -108,9 +113,14 @@
                 </div>
             </div>
         </div>
-        
+
         <div class="col-lg-4 col-lg-offset-0 col-md-offset-2 col-md-8 col-sm-12 col-xs-12  content-box-large" id='right'>
-            <div class="row">
+            <div class="base loading">
+                <ul>
+                    <li class=""><div class="loader-1"></div></li>
+                </ul>
+            </div>
+            <div class='row controllers' style="display: none">
                 <div class="col-lg-12 col-md-6 col-sm-6 col-xs-12" id="lab">          
                     <button class="btn btn-normal pull-left" style="position:absolute" id='reset'>Reset<i class="fa fa-refresh" style="margin-left:5px;"></i> </button>
                     <div class="pushbutton" style="display: none"></div>
@@ -119,13 +129,13 @@
                         <button class="btn btn-sm" id='pushbutton8'>8</button>
                     </div>
 
-                    <img id="labcam" src='http://150.162.232.4:8025/' width="100%" data-step="7" data-intro="E, finalmente, é possível ver o que está acontecendo no momento através dessa transmissão de vídeo."/>
+                    <img id="labcam" src='http://arduino1.relle.ufsc.br:8080' width="100%" data-step="7" data-intro="E, finalmente, é possível ver o que está acontecendo no momento através dessa transmissão de vídeo."/>
                 </div>
                 <div class="col-lg-12 col-md-6 col-sm-6 col-xs-12" id="diagram">
                     <span class='zoom' id='img-zoomed'> 
                         <img id="cameraaa" src='http://relle.ufsc.br/exp_data/4/diagrama.png' alt='' data-step="4" data-intro="Esta figura representa o circuito montado. Ela é útil na identificação dos sensores e pinos que serão utilizados durante o desenvolvimento de seu programa."/>
                     </span>
-                    <p><i>*Segure e mova o mouse para ampliar</i></p>
+                    <p><i>*Hold and move to magnify</i></p>
                 </div>
 
             </div>
@@ -162,7 +172,7 @@
 
 
     <form method="post" id="form" enctype="multipart/form-data" style="display:none">
-        <input type="file" name='file' id="file" accept=".ino"/>
+        <input type="file" name="file" id="file" accept=".ino"/>
         <input type="submit" id='submit'/>
     </form>
 
@@ -200,6 +210,6 @@
                 intro4: "This figure presents the real circuit. It is useful to identify sensors and pins that will be used during the development of your program",
                 intro5: "After compiling and uploading, the feedback of these actions will appear here showing if they were successfully carried out or not.",
                 intro6: "If you used serial communication functions in your code, it will be possible to exchange information with the Arduino board in this terminal.",
-                intro7:"Finally, it is possible to see what is happening now through this video streaming."
+                intro7: "Finally, it is possible to see what is happening now through this video streaming."
             };
 </script>

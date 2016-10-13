@@ -4,7 +4,7 @@
 
         <div class="row">
             <div class="col-lg-6  col-md-6 col-sm-6 col-xs-12" >
-                <img class="cam" src='http://150.162.232.4:8055' width="100%"/> 
+                <img class="cam" src='http://painelac1.relle.ufsc.br:8080' width="100%"/> 
                 <div  style="margin: 20px 0 10px 0" class="switches">
                     <input class='switch' id='sw0' type="checkbox" data-toggle="toggle" data-on="S1" data-off="S1"/>
                     <input class='switch' id='sw1' type="checkbox" data-toggle="toggle" data-on="S2" data-off="S2"/>
@@ -13,14 +13,24 @@
                 </div>
             </div>
             <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12" style="padding-top: 20px">
-                <img class="default_circuit" src="http://relle.ufsc.br/exp_data/2/img/diagrama.jpg" width="100%"/>                
+                <div class="base loading">
+                    <ul>
+                        <li class=""><div class="loader-1"></div></li>
+                    </ul>
+                </div>
+
+                <div class='controllers' style="display: none">
+                    <p style="display: none;" class="default_circuit">Este circuito equivalente não foi definido ainda.</p>
+                    <img class="img-responsive  default_circuit" src="http://relle.ufsc.br/exp_data/2/img/diagrama.jpg" width="100%"/>                                            
+                    <img style="display: none;" class="equivalent hiddencircuit" src="" width="80%"/>
+                </div>
             </div>
         </div>
     </center>
 </div>
 
 <script>
-var lang =
+    var lang =
             {
                 showme: 'Mostre-me como funciona',
                 showmeshort: 'Como funciona',
@@ -33,7 +43,7 @@ var lang =
                 diagram: "Este diagrama representa o mesmo circuito disponível remotamente. Note que ele indica a localização das chaves.",
                 switches: "Use as chaves para abrir ou fechar um caminho para a corrente.",
                 intro2: "A intensidade de luz emitida por cada lâmpada dá uma percepção visual da potência dissipada por elas."
-                
+
             };
 
 </script>

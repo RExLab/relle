@@ -1,12 +1,23 @@
 $('head').append('<link rel="stylesheet" href="http://relle.ufsc.br/css/shepherd-theme-arrows.css" type="text/css"/>');
 
-var rpi_server = "http://relle.ufsc.br:8014";
+var rpi_server = "http://bancooptico1.relle.ufsc.br";
 
 function setupUI(id) {
     $("#lens").attr('src', path + image[id]);
     $("#sample").text(sample[id]);
     $("#sampledescription").text(description[id]);
 }
+
+
+$.getScript('http://relle.ufsc.br/exp_data/12/welcome.js', function () {
+    var shepherd = setupShepherd();
+    $('#return').prepend('<button id="btnIntro" class="btn btn-sm btn-default"> <span class="long">' + lang.showme + '</span><span class="short">' + lang.showmeshort + '</span> <span class="how-icon fui-question-circle"></span> </button>');
+    $('#btnIntro').on('click', function (event) {
+        event.preventDefault();
+        shepherd.start();
+    });
+});
+
 
 $(function () {
     $.getScript(rpi_server + '/socket.io/socket.io.js', function () {
@@ -35,21 +46,11 @@ $(function () {
             setupUI(data.pos);
         });
 
-        $("#loading-button").hide();
-        $(".content-micro").show();
+         $(".controllers").show();
+        $(".loading").hide();
 
 
     });
-    
-       
-    $.getScript('http://relle.ufsc.br/exp_data/12/welcome.js', function () {
-            var shepherd = setupShepherd();
-             $('#return').prepend('<button id="btnIntro" class="btn btn-sm btn-default"> <span class="long">' + lang.showme + '</span><span class="short">' + lang.showmeshort + '</span> <span class="how-icon fui-question-circle"></span> </button>');
-             $('#btnIntro').on('click', function (event) {
-                 event.preventDefault();
-                 shepherd.start();
-             });
-        });
 
 });
 
@@ -72,34 +73,3 @@ function report(id) {
     });
 }
 
-function startTour() {
-    console.log('ready');
-    var tour = introJs();
-    tour.setOption('tooltipPosition', 'auto');
-    tour.setOption('positionPrecedence', ['left', 'right', 'bottom', 'top']);
-    tour.setOption("skipLabel", lang.leave);
-    tour.setOption("prevLabel", lang.previous);
-    tour.setOption("nextLabel", lang.next);
-    tour.setOption("doneLabel", lang.done);
-    tour.setOption('showProgress', true);
-
-    tour.setOptions({
-        steps: [
-            {
-                intro: lang.intro1
-            },
-            {
-                element: 'img.cam',
-                intro: lang.introcamera
-            },
-            {   element: 'div.description',
-                intro: lang.description
-            },
-            {   element: 'div.buttons',
-                intro: lang.buttons
-            } 
-        ]
-    });
-    
-    tour.start();
-}

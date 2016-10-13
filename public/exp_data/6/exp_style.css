@@ -68,9 +68,6 @@ div .lab-box{
     margin-top: 30px;
 }
 
-
-.introjs-helperNumberLayer{
-    width:25px !important;
-    height:25px !important;
+.sampledata{
+    font-size: 15px;
 }
-  
