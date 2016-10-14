@@ -2,7 +2,7 @@ $('head').append('<link rel="stylesheet" href="http://relle.ufsc.br/css/shepherd
 
 var rpi_server = "http://paineldc2.relle.ufsc.br";
 var results;
-var socket = '';
+var lab_socket = null;
 var switches = 0;
 var UIimg_interval = null;
 var circuit_images = [10, 12, 13, 14, 17, 18, 20, 21, 24, 30, 32, 34, 36, 37, 38, 4, 40, 42, 48, 5, 54, 58, 64, 65, 66, 67, 68, 69, 7, 70, 72, 73, 74, 8, 80, 81, 9, 96, 97];
@@ -35,9 +35,9 @@ $(function () {
         for (var i = 0; i < 7; i++) {
             message.sw[i] = 0;
         }
-        if (message && socket) {
+        if (message && lab_socket) {
             message.pass = $('meta[name=csrf-token]').attr('content');
-            socket.emit('new message', message);
+            lab_socket.emit('new message', message);
         }
     }
 
@@ -56,9 +56,9 @@ $(function () {
                 message.sw[i] = 0;
             }
         }
-        if (message && socket) {
+        if (message && lab_socket) {
             message.pass = $('meta[name=csrf-token]').attr('content');
-            socket.emit('new message', message);
+            lab_socket.emit('new message', message);
         }
         UIimg_interval = setTimeout(function () {
             if (circuit_images.indexOf(switches) >= 0) {
@@ -78,20 +78,20 @@ $(function () {
         sendMessage();
     });
 
-    // depende da biblioteca socket.io carregada pela fila
-    socket = io.connect(rpi_server);
+    // depende da biblioteca lab_socket.io carregada pela fila
+    lab_socket = io.connect(rpi_server);
 
-    socket.emit('new connection', {pass: $('meta[name=csrf-token]').attr('content')});
+    lab_socket.emit('new connection', {pass: $('meta[name=csrf-token]').attr('content')});
     $(".controllers").show();
     $(".loading").hide();
 
-    socket.on('new message', function (data) {
+    lab_socket.on('new message', function (data) {
         console.log(data);
     });
 
 
     // Whenever the server emits 'user joined', log it in the chat body
-    socket.on('data received', function (data) {
+    lab_socket.on('data received', function (data) {
         //printLog(data);
         results = $.parseJSON(data);
         console.log("I'm receiving " + data);

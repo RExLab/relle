@@ -367,7 +367,10 @@ footer>a>img{
     }
 }
 
-@media (max-width: 1024px) {
+/*@media only screen 
+  and (min-device-width: 768px) 
+  and (max-device-width: 1024px) 
+  and (-webkit-min-device-pixel-ratio: 1) {
     .navbar-header {
         float: none;
     }
@@ -402,7 +405,7 @@ footer>a>img{
     .collapsing {
         overflow: hidden!important;
     }
-}
+}*/
 
 
 // End

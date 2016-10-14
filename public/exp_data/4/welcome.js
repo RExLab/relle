@@ -10,7 +10,7 @@ var setupShepherd = function () {
     // Entrar no tour 
     shepherd.addStep('shep_intro', { 
         text: [lang.intro1],
-        attachTo:'#ide',
+        attachTo:'.ace_content left',
         classes: 'shepherd shepherd-open shepherd-theme-arrows shepherd-transparent-text',
         buttons: [
             {
@@ -32,7 +32,7 @@ var setupShepherd = function () {
     // Tour no meio
     shepherd.addStep('shep_grafico', { 
         text: [lang.intro2],
-        attachTo: '#menu',
+        attachTo: '#menu left',
         classes: 'shepherd shepherd-open shepherd-theme-arrows shepherd-transparent-text',
         buttons: [
             {
@@ -90,6 +90,7 @@ var setupShepherd = function () {
             }, {
                 text: lang.next,
                 action: function () {
+                    $('#after').toggle();
                     shepherd.next();
                 },
                 classes: 'shepherd-button-example-primary'
@@ -98,18 +99,21 @@ var setupShepherd = function () {
     });
     shepherd.addStep('shep_termo', { 
         text: [lang.intro5],
-        attachTo: '#after ',
+        attachTo: '#after top',
         classes: 'shepherd shepherd-open shepherd-theme-arrows shepherd-transparent-text',
         buttons: [
             {
                 text: lang.previous,
                 classes: 'shepherd-button-secondary',
                 action: function () {
+                    $('#after').toggle();
                     shepherd.back();
                 }
             }, {
                 text: lang.next,
                 action: function () {
+                    $('#after').toggle();
+                    $('#serial_monitor').toggle();
                     shepherd.next();
                 },
                 classes: 'shepherd-button-example-primary'
@@ -118,18 +122,21 @@ var setupShepherd = function () {
     });
     shepherd.addStep('shep_curvas', { 
         text: [lang.intro6],
-        attachTo: '#serial monitor ',
+        attachTo: '#serial_monitor right',
         classes: 'shepherd shepherd-open shepherd-theme-arrows shepherd-transparent-text',
         buttons: [
             {
                 text: lang.previous,
                 classes: 'shepherd-button-secondary',
                 action: function () {
+                    $('#serial_monitor').toggle();
+                    $('#after').toggle();
                     shepherd.back();
                 }
             }, {
                 text: lang.next,
                 action: function () {
+                    $('#serial_monitor').toggle();
                     shepherd.next();
                 },
                 classes: 'shepherd-button-example-primary'
@@ -141,13 +148,14 @@ var setupShepherd = function () {
     
     shepherd.addStep('shep_volte', { 
         text: [lang.intro7],
-        attachTo: "#labcam left ",
+        attachTo: "#labcam right",
         classes: 'shepherd shepherd-open shepherd-theme-arrows shepherd-transparent-text',
         buttons: [
             {
                 text: lang.previous,
                 classes: 'shepherd-button-secondary',
                 action: function () {
+                    $('#serial_monitor').toggle();
                     shepherd.back();
                 }  
             }, { 
