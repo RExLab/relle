@@ -322,12 +322,11 @@ class LabsController extends Controller {
         $req = Input::all();
         $lab = Labs::find($req['id']);
 
-        File::delete(public_path() . $lab->thumbnail);
-        File::deleteDirectory(public_path() . '/exp_data/' . $lab->id);
-        File::deleteDirectory(base_path() . '/resources/views/reports/' . $lab->id);
+        /*      Exclusão dos arquivos no servidor       */
+//        File::delete(public_path() . $lab->thumbnail);
+//        File::deleteDirectory(public_path() . '/exp_data/' . $lab->id);
+//        File::deleteDirectory(base_path() . '/resources/views/reports/' . $lab->id);
 
-
-        $log = Log::where('lab_id', $lab->id)->delete();
         $lab->delete();
         return redirect('labs/all');
     }
