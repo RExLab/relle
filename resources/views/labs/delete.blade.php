@@ -1,6 +1,6 @@
 @extends ('layout.dashboard')
 @section('page')
-{{trans('interface.name', ['page'=>trans('delete.title')])}}
+{{trans('interface.name', ['page'=>trans('labs.delete')])}}
 @stop
 
 @section ('title_inside')

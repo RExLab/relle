@@ -45,5 +45,10 @@ return [
     'test' => 'Em Teste',
     'atention' => 'Atenção',
     'popup' => 'habilite os pop-ups para emissão de relátórios.',
-    'comments' => 'Comentários',
+    'comments' => 'Comentários',    
+    'reconnecting_header'=> 'Erro de conexão',
+    'reconnecting_body'=> 'Sua conexão foi interrompida. Espere enquanto tentamos lhe reconectar.',
+    'labs_unavailable'=> 'Nenhum experimento disponível',
+    'resources'=> 'Recursos'
+
 ];

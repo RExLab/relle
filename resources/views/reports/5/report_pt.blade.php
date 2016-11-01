@@ -33,7 +33,7 @@ $troca = $rpijson['dados'];
 
 <div class="data">
     <div id = "snapshot">      
-        <img src = "http://10.10.10.4/snapshot" width = "320" height = "240">    <!-- URL Server Apache -->
+        <img src = "http://propagacaocalor1.relle.ufsc.br/snapshot.jpg" width = "320" height = "240">    <!-- URL Server Apache -->
     </div>
 
     <div id = "picture">

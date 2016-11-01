@@ -5,10 +5,8 @@
 <link href="{{ asset('/css/style.css') }}" rel="stylesheet">
 <link href="{{ asset('/css/btn.css') }}" rel="stylesheet">
 <link href="{{ asset('/css/jasny-bootstrap.css') }}" rel="stylesheet">
-<link href="{{ asset('/css/switch.css') }}" rel="stylesheet">
 
 <link rel="shortcut icon" type="image/x-icon" href="{{asset('/favicon.png')}}"/> 
-
 
 <!-- Fonts -->
 <link href='//fonts.googleapis.com/css?family=Roboto:400,300' rel='stylesheet' type='text/css'>
@@ -16,8 +14,13 @@
 <script src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.1/js/bootstrap.min.js"></script>
 <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css"/>
 <script src="{{ asset('/js/jasny-bootstrap.js') }}"></script>
-<script src="{{ asset('/js/switch.js') }}"></script>
-
+<link href="{{ asset('/css/one.css') }}" rel="stylesheet">
+<style>
+    .shepherd-element.shepherd-theme-arrows .shepherd-content .shepherd-text {
+        padding: 0.5em 0.9em 0.9em 0.9em; 
+        min-height: 50px !important; 
+    }
+</style>
 <div id='body' style="height: 800px; margin-top:40px;">
 
 <?php
@@ -64,6 +67,8 @@ $files = 'exp_data/' . $exp['id'] . '/';
 <center><div id='exp'></div></center>
 
 </div>
+<script src="{{ asset('js/tether.js') }}"></script>
+<script src="{{ asset('js/shepherd.js') }}"></script>
 <script>
         $("#link").click(function () {
 $("#embeed").show().select();
@@ -94,115 +99,35 @@ user_id: '{{$user}}',
 
 
 <script>
-    var url = '{{asset("/exp_data/".$exp['id'])}}';
-            var html = url + "/{{App::getLocale()}}.html";
-            var js = url + '/exp_script.js';
-            var css = url + '/exp_style.css';
-            var urlqueue = 'http://' + window.location.hostname + '/api';
-            var duration = parseInt('{{$exp['duration']}}');
-            var exp_id = parseInt('{{$exp['id']}}');
-            var close_message = "<p> {{trans('interface.closelab')}}</p> <p>{{trans('interface.redirect')}}</p><br>";
-            function loadLab(data){
-            $('#pre_experiment').remove();
-                    log_entry();
-                    $('#error').html("");
-                    $('head').append('<link rel="stylesheet" href=' + css + ' type="text/css" />');
-                    $('#return').css('margin-top', '-3%');
-                    $('#return').css('margin-bottom', '3%');
-                    $('#return').addClass('well well-sm');
-                    $('#return').html('<button id="btnLeave" class="btn btn-sm btn-default" name="leave" >{{trans('interface.leave')}}</button>' +
-                    "{{trans('interface.timeleft')}}: " +
-                    "<span id='min'>" + data.clock.min + "</span>:<span id='seg'>" + data.clock.seg + "</span>");
-                    $('#exp').load(html, function() {
-            $.getScript(js);
-                    $.getScript("/js/queue.js", function () {
-                    refresh = setInterval(RefreshTimeAlive, 5000); // Intervalo para refresh da fila (5 em 5 segundos deve mandar um POST para identificar que usuario continua conectado)  
-                            setTimeout(LeaveExperiment, duration * 60 * 1000); // Agenda a execucao da funcao que envia um POST com action de deixar experimento
-                            timer = setInterval(TimerMinus, 1000); // Refresh do contador visual
-                            $("#btnLeave").click(LeaveExperiment);
-                    });
-                    $('#report').replaceWith('<input class="btn" onClick="report({{$exp['id']}})" type="button"  value="{{trans('labs.report')}}">');
-                    $("#exp").find('img').each(function () {
-            if ($(this).prop("src").indexOf("exp_data") == - 1 && $(this).prop("src").indexOf("relle") > 0) {
-            var url = $(this).prop("src");
-                    console.log('!:' + url);
-                    var right = url.replace('http://relle.ufsc.br/labs', 'http://relle.ufsc.br/exp_data/{{$exp['id']}}');
-                    $(this).attr('src', right);
-            }
-            });
-            });
-            }
+       
+        var url = '{{asset("/exp_data/".$exp['id'])}}';
+        var html = url + "/{{App::getLocale()}}.html";
+        var js = url + '/exp_script.js';
+        var css = url + '/exp_style.css';
+        var urlqueue = 'http://' + window.location.hostname + '/api/';
+        var duration = {{$exp['duration']}};
+        var exp_id = {{$exp['id']}};
+        var locale = "{{App::getLocale()}}";
+        var uilang = {};
+        uilang.close_message = "<p> {{trans('interface.closelab')}}</p> <p>{{trans('interface.redirect')}}</p><br>";
+        uilang.end = "{{trans('labs.end')}}";
+        uilang.leave = "{{trans('interface.leave')}}";
+        uilang.end_rep = "{{trans('labs.end_rep')}}";
+        uilang.report = "{{trans('labs.report')}}";
+        uilang.csvreport = "{{trans('labs.csvexport')}}";
+        uilang.attention = "{{trans('interface.atention')}}";
+        uilang.popup = "{{trans('interface.popup')}}"; 
+        uilang.wait = "{{trans('interface.wait')}}";
+        uilang.message_error = "{{trans('message.tab')}}";
+        uilang.timeleft = "{{trans('interface.timeleft')}}";
+        uilang.reconnectingheader = "{{trans('interface.reconnecting_header')}}"; 
+        uilang.reconnectingbody = "{{trans('interface.reconnecting_body')}}";
+        uilang.labsunavailable = "{{trans('interface.labs_unavailable')}}"; 
+        uilang.resources = "{{trans('interface.resources')}}"; 
+    </script>
 
+    <script src="{{ asset('js/queue_design.js') }}"></script>
+    <script src="{{ asset('js/queue.js') }}"></script>
 
+    <script src="{{ asset('js/socket.io.js') }}"></script>
 
-    function waitLab(data){
-    $('#error').html("");
-            $('#return').html("");
-            if (data.clock.min < 0 || data.clock.seg < 0){
-    data.clock.min = data.clock.seg = 0;
-    }
-    $('#error').append(
-            "<div class='alert alert-warning alert-dismissible'>" +
-            "<button id='btnLeave' class='btn btn-warning btn-sm' name='leave'>{{trans("interface.leave")}}</button>&nbsp;&nbsp;" +
-            "<div class='col-xs-4'>" +
-            "<strong>{{trans('interface.wait')}}</strong><span id='nwait'>" + data.wait + " </span>&nbsp;&nbsp;" +
-            "</div><div class='col-xs-4'>" +
-            "<strong>{{trans('interface.timeleft')}}: </strong>" +
-            "<span id='min'>" + data.clock.min + "</span>:<span id='seg'>" + data.clock.seg + "</span>" +
-            '</div>' +
-            '</div>');
-            $("#access").css("display", "none");
-            $.getScript("/js/queue.js", function () {
-            refresh = setInterval(Refresh, 200);
-                    timer = setInterval(TimerMinus, 1000);
-                    $("#btnLeave").click(LeaveExperiment);
-            });
-    }
-
-    function errorLab(){
-    $('#error').html("");
-            $('#error').html(
-            "<div class='alert alert-warning alert-dismissible'>" +
-            '<button id="btnLeave" class="btn btn-warning btn-sm" name="leave">{{trans("interface.leave")}}</button>' +
-            "<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button>" +
-            "{{trans('message.tab')}}" +
-            '</div>'
-            );
-            $.getScript("/js/queue.js", function () {
-            $("#btnLeave").click(LeaveExperiment);
-            });
-    }
-
-    $("#access").click(function () {
-    var json = { 'exp_id': exp_id,
-            'pass': $('meta[name=csrf-token]').attr('content'),
-            'exec_time':duration };
-            $.ajax({
-            type: "POST",
-                    url: urlqueue + "/queue",
-                    data: json,
-                    success:function(data){
-                    data = $.parseJSON(data);
-                            if (data['message'] == 'first'){
-                    loadLab(data);
-                    } else if (data.wait) {
-                    waitLab(data);
-                    } else{
-                    errorLab();
-                    }
-                    },
-                    error: function (XMLHttpRequest, textStatus, errorThrown) {
-                    errorLab();
-                    }
-
-            });
-            $(window).on('beforeunload', function () {
-    var jsonlogout = {
-    time: Math.round( + new Date() / 1000),
-            lab_id: exp_id
-    };
-            LeaveExperiment();
-    });
-    });
-
-</script>

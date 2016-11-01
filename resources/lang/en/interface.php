@@ -35,7 +35,7 @@ return [
     'timeleft' => 'Time left',
     'closelab' => 'Your session is finished',
     'redirect' => 'You are going to be redirected in a second.',
-    'wait' => 'Users waiting before you:',
+    'wait' => 'Users waiting:',
     'unavailable' => 'Unavailable',
     'select' => 'Select',
     'remove' => 'Remove',
@@ -47,4 +47,10 @@ return [
     'atention' => 'Heads up',
     'popup' => 'enable pop-ups to generate reports.',
     'comments'=> 'Comments',
+    'reconnecting_header'=> 'Connection error',
+    'reconnecting_body'=> 'Your connection was interrupted. Please wait as we try to reconnect you.',
+    'labs_unavailable'=> 'No lab available',
+    'resources'=> 'Resources'
+
 ];
+ 
