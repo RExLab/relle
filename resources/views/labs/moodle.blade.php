@@ -15,6 +15,8 @@
 <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css"/>
 <script src="{{ asset('/js/jasny-bootstrap.js') }}"></script>
 <link href="{{ asset('/css/one.css') }}" rel="stylesheet">
+<link href="{{ asset('flat/dist/css/flat-ui.css') }}" rel="stylesheet">
+
 <style>
     .shepherd-element.shepherd-theme-arrows .shepherd-content .shepherd-text {
         padding: 0.5em 0.9em 0.9em 0.9em; 
@@ -44,23 +46,23 @@ $files = 'exp_data/' . $exp['id'] . '/';
         <img src='{{asset($exp['thumbnail'])}}' width="350px" />
     </div>
     <div class="col-lg-8">
-        <h1>{{$exp[$name]}}</h1>
-        <p>
-            <strong>{{trans('labs.description')}}: </strong>
-            {{$exp[$desc]}}
-        </p>
-        <p>
-            <strong>{{trans('labs.subject')}}: </strong>
-            <span id="subject"> {{trans('labs.'.$exp['subject'])}}</span> 
-        </p>
-        <p>
-            <strong>{{trans('labs.duration')}}: </strong>
-            <span id="duration"> {{$exp['duration']}}</span> 
-            {{trans('interface.minutes')}}
-        </p>
+        <h3>{{$exp[$name]}}</h3>
+            <p>
+                <strong>{{trans('labs.description')}}: </strong>
+                {{$exp[$desc]}}
+            </p>  
+            <p>
+                <strong>{{trans('labs.subject')}}: </strong>
+                <span id="subject"> {{trans('labs.'.$exp['subject'])}}</span> 
+            </p>
+            <p>
+                <strong>{{trans('labs.duration')}}: </strong>
+                <span id="duration"> {{$exp['duration']}}</span> 
+                {{trans('interface.minutes')}}
+            </p>
 
 
-        <a href="#" id="access" class="btn btn-fresh" role="button">{{trans('interface.access')}}</a>
+        <a href="#" id="access" class="btn btn-primary" role="button">{{trans('interface.access')}}</a>
     </div>
 </div> 
 
@@ -84,17 +86,6 @@ if (Auth::check()) {
 }
 ?>
 
-function log_entry() {
-var json = {
-user_id: '{{$user}}',
-        lab_id: '{{$exp['id']}}'
-        };
-        $.ajax({
-        type: "POST",
-                url: "http://relle.ufsc.br/log/put",
-                data: json
-        });
-}
 </script>
 
 
