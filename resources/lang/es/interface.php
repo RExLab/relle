@@ -1,0 +1,56 @@
+<?php
+
+return [
+    'home' => 'Remote Labs Learning Environment',
+    'name' => ':page | RELLE - Remote Labs Learning Environment',
+    'save' => 'Salvar',
+    'cancel' => 'Cancelar',
+    'login' => 'Login',
+    'logout' => 'Logout',
+    'delete' => 'Borrar',
+    'confirm' => 'Confirmar',
+    'submit' => 'Ejecutar',
+    'access' => 'Acceder',
+    'read_more' => 'Leer mas',
+    'schedule' => 'Programar',
+    'click' => 'Haz click aquí',
+    'guest' => 'Invitado',
+    'low' => 'Bajo',
+    'medium' => 'Medio',
+    'high' => 'Alto',
+    'previous' => 'Previo',
+    'next' => 'Siguiente',
+    /* Search */
+    'search' => 'Buscar',
+    'advanced_search' => 'Búsqueda avanzada',
+    /* Login */
+    'sorry' => 'Perdón',
+    'menu' => 'Menu',
+    /* Time */
+    'minutes' => 'minutos',
+    'seconds' => 'segundos',
+    'pt' => 'Portugues',
+    'en' => 'Inglés',
+    'leave' => 'Abandonar',
+    'timeleft' => 'Tiempo restante',
+    'closelab' => 'Tu sesión ha finalizado',
+    'redirect' => 'Vas a ser redirigido en un momento.',
+    'wait' => 'Usuarios en espera:',
+    'unavailable' => 'No disponible',
+    'select' => 'Seleccionar',
+    'remove' => 'Eliminar',
+    'change' => 'Cambiar',
+    'make_admin' => 'Crear administrador',
+    'export' => 'Exportar',
+    'with_user'=>'Con el usuario seleccionado: ',
+    'test' => 'Test',
+    'atention' => 'Atención',
+    'popup' => 'Habilitar pop-ups para generar informes.',
+    'comments'=> 'Comentarios',
+    'reconnecting_header'=> 'Error de conexion',
+    'reconnecting_body'=> 'Tu conexión ha sido interrumpida. Espera mientras tratamos de reconectarte.',
+    'labs_unavailable'=> 'Laboratorio no disponible',
+    'resources'=> 'Recursos'
+
+];
+ 

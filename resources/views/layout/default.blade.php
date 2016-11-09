@@ -69,6 +69,21 @@
 
 
         </style>
+        <style>
+            .btn-default, .btn-default:hover, .btn-default.active, .open > .dropdown-toggle.btn-default {
+                color: inherit;
+                background-color: inherit;
+            }
+            .btn-default.active.focus, .btn-default.active:focus, .btn-default.active:hover, .btn-default:active.focus, .btn-default:active:focus, .btn-default:active:hover, .open>.dropdown-toggle.btn-default.focus, .open>.dropdown-toggle.btn-default:focus, .open>.dropdown-toggle.btn-default:hover {
+                color: inherit;
+                background-color: inherit;
+            }
+            #flag {
+                max-width: 80px !important;
+                min-width: 50px !important;
+
+            }
+        </style>
         @yield('head')
     </head>
 
@@ -94,20 +109,48 @@
                                 <li><a href="{{url('about')}}">{{trans('menu.about')}}</a></li>
                                 <li><a href="{{url('contact')}}">{{trans('menu.contact')}}</a></li>
                             </ul>
-                            <ul class="nav navbar-nav navbar-right">
-                                <?php
-                                if (App::getLocale() == 'pt') {
-                                    ?>
-                                    <li><a href="{{url('/en')}}"><img src="{{asset('img/en.png')}}"></a></li>
-                                    <?php
-                                } else {
-                                    ?>
-                                    <li><a href="{{url('/pt')}}"><img src="{{asset('img/pt.png')}}"></a></li>
-                                    <?php
-                                }
-                                ?>
+                            <style>
 
+                                 .caret {
+                                    border-left: 6px solid transparent;
+                                    border-right: 6px solid transparent;
+                                    border-top: 8px solid #fff;
+                                    left: 90%;
+                                    top: 45%;
+                                    position: absolute;
+                                }
+                            </style>
+                            <ul class="nav navbar-nav navbar-right">
+                                <div class="btn-group">
+                                    <button style="color:none" class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">
+                                      <!--  <span class="caret"></span> -->
+                                        <?php
+                                        if (App::getLocale() == 'pt') {
+                                            ?>
+                                            <li><a href="{{url('/pt')}}"><img src="{{asset('img/pt.png')}}"></a></li>
+                                            <?php
+                                        }
+                                        if (App::getLocale() == 'en') {
+                                            ?>
+                                            <li><a href="{{url('/en')}}"><img src="{{asset('img/en.png')}}"></a></li>
+                                            <?php
+                                        }
+                                        if (App::getLocale() == 'es') {
+                                            ?>
+                                            <li><a href="{{url('/es')}}"><img src="{{asset('img/es.png')}}"></a></li>
+                                            <?php
+                                        }
+                                        ?>
+                                        <center><span class="caret"></span></center>
+                                    </button>
+                                    <ul id='flag' class="dropdown-menu" role="menu">
+                                        <li><a href="{{url('/en')}}"><img src="{{asset('img/en.png')}}"></a></li>
+                                        <li><a href="{{url('/pt')}}"><img src="{{asset('img/pt.png')}}"></a></li>
+                                        <li><a href="{{url('/es')}}"><img src="{{asset('img/es.png')}}"></a></li>
+                                    </ul>
+                                </div>
                             </ul>
+
                             <ul class="nav navbar-nav navbar-right">
                                 <?php
                                 if (Auth::check()) {

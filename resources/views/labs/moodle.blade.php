@@ -21,6 +21,7 @@
     .shepherd-element.shepherd-theme-arrows .shepherd-content .shepherd-text {
         padding: 0.5em 0.9em 0.9em 0.9em; 
         min-height: 50px !important; 
+        padding-bottom: 80px;
     }
 </style>
 <div id='body' style="height: 800px; margin-top:40px;">
@@ -121,4 +122,3 @@ if (Auth::check()) {
     <script src="{{ asset('js/queue.js') }}"></script>
 
     <script src="{{ asset('js/socket.io.js') }}"></script>
-

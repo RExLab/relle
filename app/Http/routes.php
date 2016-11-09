@@ -27,6 +27,11 @@ Route::get('/pt', function() {
 });
 
 
+Route::get('/es', function() {
+    Session::put('lang', 'es');
+    return redirect(url(URL::previous()));
+});
+ 
 
 
 

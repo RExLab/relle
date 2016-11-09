@@ -32,7 +32,7 @@ $lab = Labs::find($exp);
 
 <div class="data">
     <div id = "snapshot">
-        <img src = "http://paineldc1.relle.ufsc.br/snapshot.jpg" width = "320" height = "240"><br>
+        <img src = "{{$rpijson['cam_url']}}" width = "320" height = "240"><br>
         <i class="legenda">Câmera</i>
     </div>
 
