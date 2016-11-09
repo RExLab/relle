@@ -42,7 +42,6 @@
         <![endif]-->
 
         <style>
-
             .navbar{
                 background:#34495E;
                 border-bottom:9pt solid #2C3E50;
@@ -70,14 +69,6 @@
 
         </style>
         <style>
-            .btn-default, .btn-default:hover, .btn-default.active, .open > .dropdown-toggle.btn-default {
-                color: inherit;
-                background-color: inherit;
-            }
-            .btn-default.active.focus, .btn-default.active:focus, .btn-default.active:hover, .btn-default:active.focus, .btn-default:active:focus, .btn-default:active:hover, .open>.dropdown-toggle.btn-default.focus, .open>.dropdown-toggle.btn-default:focus, .open>.dropdown-toggle.btn-default:hover {
-                color: inherit;
-                background-color: inherit;
-            }
             #flag {
                 max-width: 80px !important;
                 min-width: 50px !important;
@@ -110,8 +101,7 @@
                                 <li><a href="{{url('contact')}}">{{trans('menu.contact')}}</a></li>
                             </ul>
                             <style>
-
-                                 .caret {
+                                .caret {
                                     border-left: 6px solid transparent;
                                     border-right: 6px solid transparent;
                                     border-top: 8px solid #fff;
@@ -122,8 +112,8 @@
                             </style>
                             <ul class="nav navbar-nav navbar-right">
                                 <div class="btn-group">
-                                    <button style="color:none" class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">
-                                      <!--  <span class="caret"></span> -->
+                                    <button style="color: inherit; background-color: inherit;" class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">
+                                                                  <!--  <span class="caret"></span> -->
                                         <?php
                                         if (App::getLocale() == 'pt') {
                                             ?>
@@ -141,7 +131,7 @@
                                             <?php
                                         }
                                         ?>
-                                        <center><span class="caret"></span></center>
+                                        <span class="caret"></span>
                                     </button>
                                     <ul id='flag' class="dropdown-menu" role="menu">
                                         <li><a href="{{url('/en')}}"><img src="{{asset('img/en.png')}}"></a></li>
