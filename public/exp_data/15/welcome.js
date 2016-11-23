@@ -55,7 +55,7 @@ var setupShepherd = function () {
   
     shepherd.addStep('shep_slider', { 
         text: [lang.introslider],
-        attachTO: '#slider top',
+        attachTo: '#slider bottom',
         classes: 'shepherd shepherd-open shepherd-theme-arrows shepherd-transparent-text',
         buttons: [
             {
@@ -96,7 +96,7 @@ var setupShepherd = function () {
     });
     shepherd.addStep('shep_send', { 
         text: [lang.introsend],
-        attachTO: '#send top',
+        attachTo: '#send left',
         classes: 'shepherd shepherd-open shepherd-theme-arrows shepherd-transparent-text',
         buttons: [
             {
@@ -116,7 +116,7 @@ var setupShepherd = function () {
     });
     shepherd.addStep('shep_drop', { 
         text: [lang.introdrop],
-        attachTO: '#drop top',
+        attachTo: '#drop right',
         classes: 'shepherd shepherd-open shepherd-theme-arrows shepherd-transparent-text',
         buttons: [
             {
@@ -137,7 +137,7 @@ var setupShepherd = function () {
     
     shepherd.addStep('shep_tabela', { 
         text: [lang.introtabela],
-        attachTO: 'div.tabela top ',
+        attachTo: 'div.tabela top ',
         classes: 'shepherd shepherd-open shepherd-theme-arrows shepherd-transparent-text',
         buttons: [
             {
@@ -176,7 +176,7 @@ var setupShepherd = function () {
     });
     shepherd.addStep('shep_forcay', { 
         text: [lang.introforcay],
-        attachTO: 'div.forcay top',
+        attachTo: 'div.forcay top',
         classes: 'shepherd shepherd-open shepherd-theme-arrows shepherd-transparent-text',
         buttons: [
             {
@@ -196,7 +196,7 @@ var setupShepherd = function () {
     });
     shepherd.addStep('shep_forcax', { 
         text: [lang.introforcax],
-        attachTO: 'div.forcax top',
+        attachTo: 'div.forcax top',
         classes: 'shepherd shepherd-open shepherd-theme-arrows shepherd-transparent-text',
         buttons: [
             {

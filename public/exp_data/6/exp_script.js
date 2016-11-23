@@ -1,10 +1,11 @@
 $('head').append('<link rel="stylesheet" href="http://relle.ufsc.br/css/shepherd-theme-arrows.css" type="text/css"/>');
 
 var rpi_server = "http://microscopio1.relle.ufsc.br";
+var lab_socket = null; 
 
 $.getScript('http://relle.ufsc.br/exp_data/6/welcome.js', function () {
     var shepherd = setupShepherd();
-    $('#return').prepend('<button id="btnIntro" class="btn btn-sm btn-default"> <span class="long">' + lang.showme + '</span><span class="short">' + lang.showmeshort + '</span> <span class="how-icon fui-question-circle"></span> </button>');
+    addShowmeButton('<button id="btnIntro" class="btn btn-sm btn-default"> <span class="long">' + lang.showme + '</span><span class="short">' + lang.showmeshort + '</span> <span class="how-icon fui-question-circle"></span></button>')
     $('#btnIntro').on('click', function (event) {
         event.preventDefault();
         shepherd.start();
@@ -28,14 +29,14 @@ $(function () {
     $.getScript(rpi_server + '/socket.io/socket.io.js', function () {
         // Initialize varibles
         // Prompt for setting a username
-        var socket = io.connect(rpi_server);
-        socket.emit('new connection', {pass: $('meta[name=csrf-token]').attr('content')});
+        lab_socket = io.connect(rpi_server);
+        lab_socket.emit('new connection', {pass: $('meta[name=csrf-token]').attr('content')});
 
         function sendMessage(key) {
             var message = {};
             message.key = key;
             message.sw = {};
-            socket.emit('new message', message);
+            lab_socket.emit('new message', message);
         }
 
         // Eventos nas chaves
@@ -46,7 +47,7 @@ $(function () {
 
         });
 
-        socket.on('initial', function (data) {
+        lab_socket.on('initial', function (data) {
             console.log("Iniciou em: " + data.pos);
             setupUI(parseInt(data.pos));
 

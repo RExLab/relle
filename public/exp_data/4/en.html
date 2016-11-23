@@ -9,10 +9,10 @@
     -->
 
     <center>
-        <h3>Ambiente de Desenvolvimento para Arduino</h3>
+        <h3>Development environment for Arduino</h3>
     </center>
     <div class="row">
-        <div class='col-lg-8 col-md-8' id='ide' >
+        <div class='col-lg-8 col-md-12' id='ide' >
             <div class="base loading_ide">
                 <ul>
                     <li><div class="loader-1"></div></li>
@@ -20,18 +20,18 @@
             </div>
             <div class="panel-title controllers" style="display: none" >
                 <ul class="nav nav-tabs" style='padding: 10px 0 0 10px !important;'>
-                    <li class="dropdown aqui" data-step="3" data-intro="Aqui encontram-se alguns exemplos e algumas bibliotecas presentes no ambiente remoto. Basta adicionar a biblioteca e chamar as funções no seu código.">
+                    <li class="dropdown aqui">
                         <button class="btn btn-default btn-sm-custom dropdown-toggle square" id="drop_menu" type="button" data-toggle="dropdown" style="margin-right:8px;"><i class="fa fa-bars" style="margin-left: -6px; margin-top:-5px;"></i></button>
                         <ul class="dropdown-menu" aria-labelledby="drop_menu">
                             <li><a href="#/" id="editing">file.ino</a></li>
-                            <li><a data-toggle="collapse" data-target="#example">Exemplos</a> </li>
+                            <li><a data-toggle="collapse" data-target="#example">Examples</a> </li>
                             <div  id="example" class="list-group collapse">
                                 <a href="#/" class="list-group-item" id="servo">LCD + Servo</a>
                                 <a href="#/" class="list-group-item" id="led">LCD + LED</a>
                                 <a href="#/" class="list-group-item" id="lm35">LCD + LM35</a>
                                 <a href="#/" class="list-group-item" id="ldr">LED + LDR</a>
                             </div>
-                            <li><a data-toggle="collapse" data-target="#libraries">Bibliotecas</a> </li>
+                            <li><a data-toggle="collapse" data-target="#libraries">Libraries</a> </li>
                             <div  id="libraries" class="list-group collapse">
                                 <a href="#/"  class="list-group-item"id="servo_h">Servo.h</a>
                                 <a href="#/" class="list-group-item" id="wire_h">Wire.h</a>
@@ -42,7 +42,7 @@
                     </li>
                     <li class="active"><a href="#/" id="tab" >file.ino</a></li>
 
-                    <li id='menu' data-step="2" data-intro="Aqui estão as funções para compilar e enviar código, abrir e baixar arquivos .ino, e abrir o terminal serial." >
+                    <li id='menu' >
                         <ul style="margin-left:-38px;">
                             <li style="display:inline;"><a href="#/" class="btn btn-default btn-sm-custom round" id='verify' style='opacity: 0.35;' disabled><i class="fa fa-check" style="margin-left: -6px; margin-top:-5px;"></i></a></li>
                             <li style="display:inline;"><a href="#/" class="btn btn-default btn-sm-custom round" id='upload' style='opacity: 0.35;' disabled><i class="fa fa-arrow-right" style="margin-left: -6px; margin-top:-5px; "></i></a></li>
@@ -57,7 +57,7 @@
 
             <div class="content-box-large box-with-header controllers" style="display: none">
                 <div id="editor"></div>
-                <div id='after' style="display:none" data-step="5" data-intro="Após compilar ou enviar, o retorno destas ações aparecerão neste espaço indicando se foram executadas com sucesso ou não.">
+                <div id='after' style="display:none" >
                     <div id="verify_bar">
                         <div class="col-lg-8 col-md-8 col-xs-8 col-sm-8">
                             <p class="message"></p>
@@ -72,7 +72,7 @@
             </div>
         </div>
 
-        <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12"  id="serial_monitor"  style="display:none;" data-step="6" data-intro="Se você utilizar as funções da comunicação serial do Arduino no seu código, será possível trocar informações com a placa neste terminal.">
+        <div class="col-lg-4 col-md-5 col-sm-12 col-xs-12"  id="serial_monitor"  style="display:none;">
             <div class="panel-title" style="height: 40px; padding: 5px;">
 
                 <div  style="color:white;padding:5px;">
@@ -86,7 +86,7 @@
                     <div class="input-group">
                         <input type="text" class="form-control" id='serial_input'>
                         <span class="input-group-btn">
-                            <button class="btn btn-default" type="button" id='serial_send'>Enviar</button>
+                            <button class="btn btn-default" type="button" id='serial_send'>Send</button>
                         </span>
                     </div>
                     <textarea readonly> </textarea>
@@ -96,8 +96,8 @@
                 </div>
 
                 <div class="panel-footer">
-                    <select id='baudrate' class='selectpicker' style="padding-bottom:5px" >
-                        <option value='300'>300 baud</option>
+                    <select id='baudrate' class="form-control select select-block mbl">
+                         <option value='300'>300 baud</option>
                         <option value='1200'>1200 baud</option>
                         <option value='2400'>2400 baud</option>
                         <option value='4800'>4800 baud</option>
@@ -109,12 +109,26 @@
                         <option value='57600'>57600 baud</option>
                         <option value='115200'>115200 baud</option>
                     </select>
-                    <button class="btn btn-sm btn-normal" id='clear'>Limpar</button>
+
+                    <!-- bootstrap compatible only select id='baudrate' class='selectpicker' style="padding-bottom:5px" >
+                        <option value='300'>300 baud</option>
+                        <option value='1200'>1200 baud</option>
+                        <option value='2400'>2400 baud</option>
+                        <option value='4800'>4800 baud</option>
+                        <option value='9600' selected>9600 baud</option>
+                        <option value='14400'>14400 baud</option>
+                        <option value='19200'>19200 baud</option>
+                        <option value='28800'>28800 baud</option>
+                        <option value='34800'>34800 baud</option>
+                        <option value='57600'>57600 baud</option>
+                        <option value='115200'>115200 baud</option>
+                    </select-->
+                    <button class="btn btn-sm btn-normal" id='clear'>Clean</button>
                 </div>
             </div>
         </div>
 
-        <div class="col-lg-4 col-lg-offset-0 col-md-offset-2 col-md-8 col-sm-12 col-xs-12  content-box-large" id='right'>
+        <div class="col-lg-4 col-lg-offset-0 col-md-offset-1 col-md-10 col-sm-12 col-xs-12  content-box-large" id='right'>
             <div class="base loading">
                 <ul>
                     <li class=""><div class="loader-1"></div></li>
@@ -129,11 +143,11 @@
                         <button class="btn btn-sm" id='pushbutton8'>8</button>
                     </div>
 
-                    <img id="labcam" src='http://arduino1.relle.ufsc.br:8080' width="100%" data-step="7" data-intro="E, finalmente, é possível ver o que está acontecendo no momento através dessa transmissão de vídeo."/>
+                    <img id="labcam" src='http://arduino1.relle.ufsc.br:8080' width="100%" />
                 </div>
                 <div class="col-lg-12 col-md-6 col-sm-6 col-xs-12" id="diagram">
                     <span class='zoom' id='img-zoomed'> 
-                        <img id="cameraaa" src='http://relle.ufsc.br/exp_data/4/diagrama.png' alt='' data-step="4" data-intro="Esta figura representa o circuito montado. Ela é útil na identificação dos sensores e pinos que serão utilizados durante o desenvolvimento de seu programa."/>
+                        <img id="cameraaa" src='http://relle.ufsc.br/exp_data/4/diagrama.png' alt=''  />
                     </span>
                     <p><i>*Hold and move to magnify</i></p>
                 </div>
@@ -145,30 +159,25 @@
     </div>
 
 
-
-
-
-    <button type="button" style="display: none" id="modal" class="btn btn-sm"  data-toggle="modal" data-target="#myModal">
-        Launch demo modal
-    </button>
-
     <!-- Modal -->
-    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div id="myModal" class="modal fade in" style="display: none; padding: 10px">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title" id="myModalLabel">Ops, aconteceu um erro</h4>
+                    <h4 class="modal-title" id="myModalLabel">Ops, an error occurred.</h4>
                 </div>
                 <div class="modal-body">
                     <center>
-                        <p>Verifique e envie seu código novamente para ter certeza que ele será executado corretamente.</p>
+                        <p>Please verify and send your code again to be sure it will properly run.</p>
                     </center>
                 </div>
 
             </div>
         </div>
     </div>
+    
+    <button style="display:none" type="button" id="modal" class="btn btn-info btn-lg open">Open Modal</button>
 
 
     <form method="post" id="form" enctype="multipart/form-data" style="display:none">
@@ -197,7 +206,7 @@
                 compiling: 'Compiling sketch...',
                 uploading: 'Uploading sketch... ',
                 leave: 'Leave',
-                time: 'Tempo restante',
+                time: 'Remaining time',
                 language: 'en',
                 showme: "Show me how it works",
                 next: "Next",

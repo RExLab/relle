@@ -3,7 +3,7 @@
     Include rules for your lab.
 */
 
-h1{
+h5{
     text-align: center;
     padding-bottom: 20px;
 }
@@ -20,4 +20,43 @@ h1{
 footer{
     position:relative;
     margin-top: 100%;
+}
+
+.multbg-top-to-bottom {
+    border-top: 3px solid black;
+    background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#000), to(transparent));
+    background-image: -webkit-linear-gradient(#000, transparent);
+    background-image:
+        -moz-linear-gradient(#000, transparent),
+        -moz-linear-gradient(#000, transparent);
+    background-image:
+        -o-linear-gradient(#000, transparent),
+        -o-linear-gradient(#000, transparent);
+    background-image: 
+        linear-gradient(#000, transparent),
+        linear-gradient(#000, transparent);
+    -moz-background-size: 3px 100%;
+    background-size: 3px 100%;
+    background-position: 0 0, 100% 0;
+    background-repeat: no-repeat; 
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    border-radius: 10px;
+}
+
+.fonte{
+    position: relative;
+    
+}
+
+.on, .off {
+     -webkit-transform: rotate(-1.5deg);
+    -moz-transform: rotate(-1.5deg);
+    -ms-transform: rotate(-1.5deg);
+    -o-transform: rotate(-1.5deg);
+    transform: rotate(-1.5deg);
+    position: absolute;
+    bottom: 20px;
+    left: 11.2px;
+    position: absolute;
 }

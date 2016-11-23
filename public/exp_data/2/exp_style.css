@@ -7,12 +7,4 @@ h1{
     margin-top:7%;
 }
 
-.introjs-helperNumberLayer{
-    width:25px !important;
-    height:25px !important;
-}
 
-.img-responsive{
-    max-height: 500px;
-    width: auto;
-}

@@ -2,21 +2,22 @@ $('head').append('<link rel="stylesheet" href="http://relle.ufsc.br/css/shepherd
 
 $.getScript('http://relle.ufsc.br/exp_data/1/welcome.js', function () {
     var shepherd = setupShepherd();
-    $('#return').prepend('<button id="btnIntro" class="btn btn-sm btn-default"> <span class="long">' + lang.showme + '</span><span class="short">' + lang.showmeshort + '</span> <span class="how-icon fui-question-circle"></span> </button>');
+    addShowmeButton('<button id="btnIntro" class="btn btn-sm btn-default"> <span class="long">' + lang.showme + '</span><span class="short">' + lang.showmeshort + '</span> <span class="how-icon fui-question-circle"></span></button>')
     $('#btnIntro').on('click', function (event) {
         event.preventDefault();
         shepherd.start();
     });
-
-
 });
 
 var rpi_server = "http://paineldc1.relle.ufsc.br";
+var cam_snapshot = rpi_server + "/snapshot.jpg"
 var results;
 var socket = '';
 var switches = 0;
 var UIimg_interval = null;
-var circuit_images = [10, 12, 13, 14, 17, 18, 20, 21, 24, 30, 32, 34, 36, 37, 38, 4, 40, 42, 48, 5, 54, 58, 64, 65, 66, 67, 68, 69, 7, 70, 72, 73, 74, 8, 80, 81, 9, 96, 97];
+var circuit_images = [10, 12, 13, 14, 17, 18, 20, 21, 24, 25,30, 32, 34, 36, 37, 38, 4, 40, 41, 42, 48, 49, 5, 53, 54, 58, 64, 65, 66, 67, 68, 69, 7, 70, 72, 73, 74, 8, 80, 81, 9, 96, 97];
+var image = '';
+
 $(function () {
 
 
@@ -83,7 +84,7 @@ $(function () {
         // Initialize varibles
         // Prompt for setting a username
         socket = io.connect(rpi_server);
-        socket.emit('new connection', {pass: $("#pass").html()});
+        socket.emit('new connection', {pass: $('meta[name=csrf-token]').attr('content')});
 
         $(".controllers").show();
         $(".loading").hide();
@@ -112,19 +113,23 @@ $(function () {
 
         });
 
+
     });
 });
 
-function report(id) {
-    var array = results;
-    var image = '';
+function LabLeaveSessionHandler() {
     if ($('.equivalent.hiddencircuit').length > 0) {
         image = $('img.default_circuit').attr('src');
     } else {
         image = $('.equivalent').attr('src');
     }
+}
 
+function report(id) {
+    var array = results;
     array.equivalent = image;
+    array.cam_url = cam_snapshot;
+    console.log(array);
 //$.parseJSON(results);   //JSON formatado como variável results no topo
     //$.redirect('http://relle.ufsc.br/labs/'+ id + '/report', array);
     $.ajax({

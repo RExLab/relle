@@ -6,16 +6,16 @@ var start = 0;
 var step = 2;
 var stephelp = 2;
 var interval, time_plotting = 4 * 60;
-var timer = null;
+var timer = null; 
 var readings = [];
 var url;
 var $window = $(window);
 window.charts = [];
-
+var lab_socket= null;
 
 $.getScript('http://relle.ufsc.br/exp_data/13/welcome.js', function () {
     var shepherd = setupShepherd();
-    $('#return').prepend('<button id="btnIntro" class="btn btn-sm btn-default"> <span class="long">' + lang.showme + '</span><span class="short">' + lang.showmeshort + '</span> <span class="how-icon fui-question-circle"></span> </button>');
+    addShowmeButton('<button id="btnIntro" class="btn btn-sm btn-default"> <span class="long">' + lang.showme + '</span><span class="short">' + lang.showmeshort + '</span> <span class="how-icon fui-question-circle"></span></button>')
     $('#btnIntro').on('click', function (event) {
         event.preventDefault();
         shepherd.start();
@@ -70,6 +70,10 @@ var lineChartData = {
 };
 
 function init_chart() {
+    if(document.getElementById("canvas") == null){
+        console.log('canvas element not found')
+        return;
+    }
     var ctx = document.getElementById("canvas").getContext("2d");
     var chart = {};
     chart.lineChartData = lineChartData;
@@ -79,7 +83,6 @@ function init_chart() {
     });
     $("#canvas").width('');
     window.charts.push(chart);
-
 
 }
 
@@ -125,7 +128,7 @@ function ResizeSamples(stepold) {
 
 $(function () {
     $.getScript('http://relle.ufsc.br/js/Chart.js', function () {
-        init_chart();
+
         $(".grafico").show();
         $(".grafico.loading").hide();
     });
@@ -133,37 +136,19 @@ $(function () {
 
     $.getScript(rpi_server + '/socket.io/socket.io.js', function () {
         var mult = 0;
-        var socket = io.connect(rpi_server);
+        lab_socket = io.connect(rpi_server);
         //Conecta-se enviando chave de acesso ao lab
-        socket.emit('new connection', {
+        lab_socket.emit('new connection', {
             pass: $('meta[name=csrf-token]').attr('content')
         });
         $(".controllers").show();
         $(".controllers.loading").hide();
 
         // Send a message
-        function sendMessage(status) {
-            var message = {};
-            message.sw = status;
-            step = message.step = parseInt($("#step").val());
-            message.duration = 240;
-            stephelp = step;
-            console.log(message);
-            if (message) {
-                var time = new Date();
-                message.date = time;
-                message.pass = $('meta[name=csrf-token]').attr('content');
-                socket.emit('start', message);
-                start = 0;
-            }
-            $('.info-bars').hide();
-            $('.labelx').show();
-            $('.labely').show();
-
-        }
+        
 
         // Servidor deve mandar leituras a cada intervalo de tempo estabelecido
-        socket.on('data received', function (data) {
+        lab_socket.on('data received', function (data) {
             var parsed = JSON.parse(data);
             readings.push(parsed.thermometers);
             if (mult == 0) {
@@ -190,17 +175,15 @@ $(function () {
 
         $('#start').click(function () {
             $(this).prop('disabled', true);
+            $('#canvas').show();
+            init_chart();
+            $('.info-bars').hide();
             sendMessage(1);
         });
 
-
-        $('#btnLeave').on('click', function () {
-            if (socket) {
-                sendMessage(0);
-                socket.disconnect();
-                socket = null;
-            }
-        });
+        // TODO trocar por #btnLeaveExp
+        $('#btnLeaveExp').click(LabLeaveSessionHandler);
+       
 
         $('#newvariable').on('click', function (event) {
             event.preventDefault();
@@ -315,10 +298,22 @@ function addNewChart() {
     return chart;
 }
 
+function LabLeaveSessionHandler() {
+    if (document.getElementById("canvas") != null)
+        url = document.getElementById("canvas").toDataURL();
+
+    if (lab_socket) {
+        sendMessage(0);
+        lab_socket.disconnect();
+        lab_socket = null;
+    }
+
+}
+
 function report(id) {
-    url = document.getElementById("canvas").toDataURL();
+  
     console.log('<img> converted');
-    //console.log(url);
+    console.log(url);
     $.ajax({
         type: "POST",
         url: location.pathname + "/report/",
@@ -347,3 +342,23 @@ function exportcsv() {
     $.redirect('http://relle.ufsc.br/labs/export/', data);
 
 }
+
+function sendMessage(status) {
+            var message = {};
+            message.sw = status;
+            step = message.step = parseInt($("#step").val());
+            message.duration = 240;
+            stephelp = step;
+            console.log(message);
+            if (message) {
+                var time = new Date();
+                message.date = time;
+                message.pass = $('meta[name=csrf-token]').attr('content');
+                lab_socket.emit('start', message);
+                start = 0;
+            }
+            
+            $('.labelx').show();
+            $('.labely').show();
+
+        }

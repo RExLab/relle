@@ -31,7 +31,7 @@ var setupShepherd = function () {
     // Entrar no tour 
     shepherd.addStep('shep_intro', { 
         text: [lang.intro1],
-        attachTo:'img.cam right',
+        attachTo:'.cam right',
         classes: 'shepherd shepherd-open shepherd-theme-arrows shepherd-transparent-text',
         buttons: [
             {
@@ -52,7 +52,7 @@ var setupShepherd = function () {
     // Tour no meio
     shepherd.addStep('shep_grafico', { 
         text: [lang.intro2],
-        attachTo: 'div.grafico left',
+        attachTo: 'div.row.grafico center',
         classes: 'shepherd shepherd-open shepherd-theme-arrows shepherd-transparent-text',
         buttons: [
             {
@@ -76,7 +76,7 @@ var setupShepherd = function () {
   
     shepherd.addStep('shep_legenda', { 
         text: [lang.intro3],
-        attachTo: 'div.legendas left',
+        attachTo: '.legendas left',
         classes: 'shepherd shepherd-open shepherd-theme-arrows shepherd-transparent-text',
         buttons: [
             {
@@ -98,7 +98,7 @@ var setupShepherd = function () {
     
     shepherd.addStep('shep_barras', { 
         text: [lang.intro4],
-        attachTo:"div.barras",
+        attachTo:".barras",
         classes: "shepherd shepherd-open shepherd-theme-arrows shepherd-transparent-text",
         buttons: [
             {
@@ -138,7 +138,7 @@ var setupShepherd = function () {
     });
     shepherd.addStep('shep_curvas', { 
         text: [lang.intro6],
-        attachTo: 'button.curvas botton',
+        attachTo: '#newvariable botton',
         classes: 'shepherd shepherd-open shepherd-theme-arrows shepherd-transparent-text',
         buttons: [
             {
@@ -159,7 +159,7 @@ var setupShepherd = function () {
     
     shepherd.addStep("shep.erro", { 
         text: [lang.intro7],
-        attachTo: 'button.erro bottom',
+        attachTo: '#removevariable bottom',
         classes: 'shepherd shepherd-open shepherd-theme-arrows shepherd-transparent-text',
         buttons: [
             {
@@ -179,7 +179,7 @@ var setupShepherd = function () {
     });
     shepherd.addStep('shep_novo', {
         text: [lang.intro8],
-        attachTo: "button.novo bottom",
+        attachTo: "#newchart bottom",
         classes: 'shepherd shepherd-open shepherd-theme-arrows shepherd-transparent-text',
         buttons: [
             {
@@ -199,7 +199,7 @@ var setupShepherd = function () {
     });
     shepherd.addStep('shep_intervalo', { 
         text: [lang.intro9],
-        attachTo: 'select.intervalo bottom',
+        attachTo: '#step bottom',
         classes: 'shepherd shepherd-open shepherd-theme-arrows shepherd-transparent-text',
         buttons: [
             {
@@ -219,7 +219,7 @@ var setupShepherd = function () {
     });
     shepherd.addStep('shep_fonte', { 
         text: [lang.intro10],
-        attachTo: 'input.fonte bottom',
+        attachTo: '#start bottom',
         classes: 'shepherd shepherd-open shepherd-theme-arrows shepherd-transparent-text',
         buttons: [
             {
@@ -241,7 +241,7 @@ var setupShepherd = function () {
     
     shepherd.addStep('shep_volte', { 
         text: [lang.intro11],
-        attachTo: "div.volte bottom",
+        attachTo: ".volte bottom",
         classes: 'shepherd shepherd-open shepherd-theme-arrows shepherd-transparent-text',
         buttons: [
             {

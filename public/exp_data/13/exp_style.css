@@ -45,11 +45,6 @@ h1{
 }
 
 
-canvas{
-
-}
-
-
 .labelx{
     position: relative;
     clear: left;
@@ -106,11 +101,6 @@ select.form-control {
     float:left;
 }
 
-.introjs-helperNumberLayer{
-    width:25px !important;
-    height:25px !important;
-}
-
 .info-bars{
     position: absolute;
     height:auto;
@@ -130,4 +120,8 @@ select.form-control {
 
 #start{
     margin-top: 15px;
+}
+
+#canvas{
+    display: none;
 }

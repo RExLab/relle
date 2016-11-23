@@ -55,7 +55,7 @@ var setupShepherd = function () {
   
     shepherd.addStep('shep_zoom', { 
         text: [lang.camera2],
-        attachTO: 'span#img-zoomed top',
+        attachTo: 'span#img-zoomed top',
         classes: 'shepherd shepherd-open shepherd-theme-arrows shepherd-transparent-text',
         buttons: [
             {

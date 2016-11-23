@@ -21,13 +21,13 @@
                 <center><p>Ângulo</p></center>
                 <div class='col-lg-12 col-xs-12' style="margin:0px 0 5px 0;">
                     <div class="row">
-                        <div class="col-lg-4  col-xs-4">
+                        <div class="col-lg-4  col-xs-12">
                             <button class='btn btn-fresh' id='drop' style="display:none;">Soltar</button>
                         </div>
-                        <div class="col-lg-4  col-xs-4">
+                        <div class="col-lg-4  col-xs-12">
                             <button class='btn btn-fresh' id='setup' style="display:none;">Configuração inicial</button>
                         </div>
-                        <div class="col-lg-4  col-xs-4">
+                        <div class="col-lg-4  col-xs-12">
                             <button class='btn btn-fresh' id='send' style="display:none;">Enviar</button>
                         </div>
 
@@ -36,13 +36,12 @@
 
                 <div class='col-lg-12  col-xs-12' style="margin:5px 0 5px 0;">
                     <div class="row">
-
                         <div class="col-lg-6  col-sm-6 col-xs-12 forcay">
-                            <label for="forcay"><b><i>mg </i>sin(<span class="angle">x</span>) [N] :</b></label>
+                            <label for="forcay"><b><i>mg </i>cos(<span class="angle">x</span>) [N] :</b></label>
                             <input class="input-sm" style="max-width: 70px;border:1px solid #cccccc; box-shadow:0 1px 1px rgba(0, 0, 0, 0.075) inset;margin:5px;"  id="forcay" disabled> 
                         </div>
                         <div class="col-lg-6 col-sm-6 col-xs-12 forcax">
-                            <label for="forcax"><b><i>mg </i>cos(<span class="angle">x</span>) [N] :</b></label>
+                            <label for="forcax"><b><i>mg </i>sin(<span class="angle">x</span>) [N] :</b></label>
                             <input class="input-sm" style="max-width: 70px;border:1px solid #cccccc; box-shadow:0 1px 1px rgba(0, 0, 0, 0.075) inset;margin:5px;"  id="forcax" disabled>
                         </div>
 
@@ -113,11 +112,11 @@
                 introsend: "Após indicar o ângulo, é necessário enviá-lo. Este botão ficará desativado até que o plano esteja na posição configurada.",
                 introdrop: "Se a esfera já se encontra presa e o ângulo desejado foi configurado, agora a esfera deverá ser solta.",
                 introtabela: "As leituras de tempo e distâncias serão mostradas nesta tabela após a esfera atingir o fim do plano.",
-                intro3: "Outra experiência possível é com as componentes da força gravitacional. Confira este <a href='http://gt-mre.ufsc.br/course/view.php?id=16' target='_blank'>material</a> para saber mais.",
+                intro3: "Outra experiência possível é com as componentes da força gravitacional. Confira este <a href='http://gt-mre.ufsc.br/course/view.php?id=16' target='_blank'><u>material</u></a> para saber mais.",
                 introforcay: "O sensor de força indica somente a componente paralela à força gravitacional.",
                 introforcax: "Já a componente perpendicular deve ser calculada. Se o plano for ajustado em 90°, esta componente será calculada nas próximas leituras.",
                 introalerts: "Algumas dicas e alertas serão mostradas aqui enquanto você estiver expermimentando."
             };
 
-
+ 
 </script>

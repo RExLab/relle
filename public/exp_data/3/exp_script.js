@@ -5,7 +5,9 @@ var results;
 var lab_socket = null;
 var switches = 0;
 var UIimg_interval = null;
-var circuit_images = [10, 12, 13, 14, 17, 18, 20, 21, 24, 30, 32, 34, 36, 37, 38, 4, 40, 42, 48, 5, 54, 58, 64, 65, 66, 67, 68, 69, 7, 70, 72, 73, 74, 8, 80, 81, 9, 96, 97];
+var circuit_images = [10, 12, 13, 14, 17, 18, 20, 21, 24, 25,30, 32, 34, 36, 37, 38, 4, 40, 41, 42, 48, 49, 5, 53, 54, 58, 64, 65, 66, 67, 68, 69, 7, 70, 72, 73, 74, 8, 80, 81, 9, 96, 97];
+var image = "";
+var cam_snapshot = rpi_server + "/snapshot.jpg"
 
 $.getScript('http://relle.ufsc.br/exp_data/3/welcome.js', function () {
     var shepherd = setupShepherd();
@@ -79,8 +81,7 @@ $(function () {
     });
 
     // depende da biblioteca lab_socket.io carregada pela fila
-    lab_socket = io.connect(rpi_server);
-
+    lab_socket = io.connect(rpi_server, {'force new connection': true});
     lab_socket.emit('new connection', {pass: $('meta[name=csrf-token]').attr('content')});
     $(".controllers").show();
     $(".loading").hide();
@@ -109,19 +110,41 @@ $(function () {
 
     });
 
+    lab_socket.on('reconnect', function (data) {
+        console.log('reconnect');
+        $(".cam").attr('src', $(".cam").attr('src'));
+    });
+
+    lab_socket.on('reconnecting', function () {
+        console.log('reconnecting');
+
+    });
 });
 
-function report(id) {
-    var array = results;
+function LabReconnectedSessionHandler() {
+    if (lab_socket) {
+        lab_socket.emit('reconnection', {pass: $('meta[name=csrf-token]').attr('content'),
+            'exp_id': exp_id,
+            'exec_time': duration});
+    }
+}
 
-    var image = '';
+
+function LabLeaveSessionHandler() {
     if ($('.equivalent.hiddencircuit').length > 0) {
         image = $('img.default_circuit').attr('src');
     } else {
         image = $('.equivalent').attr('src');
     }
+}
 
+function report(id) {
+    var array = results;
     array.equivalent = image;
+    array.cam_url = cam_snapshot;
+    console.log(array);
+//$.parseJSON(results);   //JSON formatado como variável results no topo
+    //$.redirect('http://relle.ufsc.br/labs/'+ id + '/report', array);
     $.ajax({
         type: "POST",
         url: location.pathname + "/report/",

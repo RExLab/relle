@@ -1,7 +1,7 @@
 $('head').append('<link rel="stylesheet" href="http://relle.ufsc.br/css/shepherd-theme-arrows.css" type="text/css"/>');
 $.getScript('http://relle.ufsc.br/exp_data/4/welcome.js', function () {
     var shepherd = setupShepherd();
-    $('#return').prepend('<button id="btnIntro" class="btn btn-sm btn-default"> <span class="long">' + lang.showme + '</span><span class="short">' + lang.showmeshort + '</span> <span class="how-icon fui-question-circle"></span> </button>');
+    addShowmeButton('<button id="btnIntro" class="btn btn-sm btn-default"> <span class="long">' + lang.showme + '</span><span class="short">' + lang.showmeshort + '</span> <span class="how-icon fui-question-circle"></span></button>')
     $('#btnIntro').on('click', function (event) {
         event.preventDefault();
         shepherd.start();
@@ -9,19 +9,28 @@ $.getScript('http://relle.ufsc.br/exp_data/4/welcome.js', function () {
 });
 
 $(function () {
+
+    $('button.open').click(function () {
+        $('#myModal').show();
+    });
+    $('button.close').click(function () {
+        $('#myModal').hide();
+
+    });
+
     $('.dropdown-toggle').dropdown();
     var interval, verifytimeout, uploadtimeout;
     var addr = 'http://arduino1.relle.ufsc.br';
-    var socket = null;
-    
-    function isConnected(socket){
-        if (socket == null) {
-                $('.message').html(lang.error_connection);
-                $('.progress').hide();
-                $('#verify_bar').css('background-color', '#E65100');
-                $('#verify_bar').css('color', 'white');
-        } 
-        return (socket != null)
+    var lab_socket = null;
+
+    function isConnected(lab_socket) {
+        if (lab_socket == null) {
+            $('.message').html(lang.error_connection);
+            $('.progress').hide();
+            $('#verify_bar').css('background-color', '#E65100');
+            $('#verify_bar').css('color', 'white');
+        }
+        return (lab_socket != null)
     }
     function verifyBarError(error, msg) {
         $('.progress').hide();
@@ -57,8 +66,8 @@ $(function () {
         var start = '/*\n* Pino LDR: A0\n* Pino LM35: A1\n* Pino LED: 2\n* Pino Servo: 5 \n*\n*/\nvoid setup() {\n\n' + lang.setup + '\n\n}\n\nvoid loop(){\n\n' + lang.loop + '\n\n}';
         var editor = ace.edit("editor");
 
-        $('.selectpicker').selectpicker();
-
+        //$('.selectpicker').selectpicker(); bootstrap compatible only
+        $("select").select2({dropdownCssClass: 'dropdown-inverse'});
         $("#ide .controllers").show();
         $(".loading_ide").hide();
 
@@ -143,8 +152,8 @@ $(function () {
 
         $('#reset').click(function (event) {
             event.preventDefault();
-            if (isConnected(socket)){
-                socket.emit('reset');
+            if (isConnected(lab_socket)) {
+                lab_socket.emit('reset');
                 $("#labcam").attr("src", $("#labcam").attr('src'));
             }
         });
@@ -225,7 +234,7 @@ $(function () {
                 $('#after').show();
             }
 
-            if (isConnected(socket)){
+            if (isConnected(lab_socket)) {
                 $('#output').html('');
                 $('.message').html(lang.compiling);
                 verifyCode();
@@ -250,9 +259,9 @@ $(function () {
                 pass: $('meta[name=csrf-token]').attr('content'),
                 filename: $('#tab').html()
             };
-            
-            if (isConnected(socket)){
-                socket.emit('compile', data);
+
+            if (isConnected(lab_socket)) {
+                lab_socket.emit('compile', data);
             }
         }
 
@@ -287,8 +296,8 @@ $(function () {
             }
 
             progress();
-            if (isConnected(socket)){
-                socket.emit('upload', null);
+            if (isConnected(lab_socket)) {
+                lab_socket.emit('upload', null);
             }
             uploadtimeout = setTimeout(function () {
                 $('#modal').click();
@@ -303,27 +312,30 @@ $(function () {
 
                 $('#right').removeClass('col-lg-4 col-lg-offset-0')
                         .addClass('col-lg-offset-1 col-lg-10');
-                $('#right div.col-xs-12').removeClass("col-lg-12").addClass("col-lg-5");
+
+                $('#ide').removeClass('col-md-12')
+                    .addClass('col-md-7');
+                $('#right div.col-xs-12').addClass("col-lg-6").removeClass("col-lg-12");
 
                 $('#serial_monitor').show();
-
-
+                
             } else {
+                $('#ide').addClass('col-md-12')
+                    .removeClass('col-md-7');
                 $('#right').addClass('col-lg-4 col-lg-offset-0')
                         .removeClass('col-lg-offset-1 col-lg-10');
-                $('#right div').removeClass("col-lg-5");
-                $('#right div.col-xs-12').removeClass("col-lg-5").addClass("col-lg-12");
+                $('#right div.col-xs-12').removeClass("col-lg-6").addClass("col-lg-12");
                 $('#serial_monitor').hide();
             }
         });
 
         $('#close').click(function (event) {
             event.preventDefault();
-
+            $('#ide').addClass('col-md-12')
+                    .removeClass('col-md-7');
             $('#right').addClass('col-lg-4 col-lg-offset-0')
                     .removeClass('col-lg-offset-1 col-lg-10');
-            $('#right div').removeClass("col-lg-5");
-            $('#right div.col-xs-12').removeClass("col-lg-5").addClass("col-lg-12");
+            $('#right div.col-xs-12').removeClass("col-lg-6").addClass("col-lg-12");
             $('#serial_monitor').hide();
         });
 
@@ -448,13 +460,13 @@ $(function () {
 
         $('#baudrate').on('change', function () {
             var value = $('#baudrate').val();
-            socket.emit('serial setup', {baudrate: value});
+            lab_socket.emit('serial setup', {baudrate: value});
         });
 
         $('#serial_send').click(function (event) {
             event.preventDefault();
             var value = $('#serial_input').val();
-            socket.emit('serial write', {write: value});
+            lab_socket.emit('serial write', {write: value});
             $('#serial_input').val('');
         });
 
@@ -492,13 +504,13 @@ $(function () {
     $.getScript(addr + '/socket.io/socket.io.js', function () {
         console.log("Connected to the lab server");
 
-        socket = io.connect(addr);
-        socket.emit('new connection', {pass: $('meta[name=csrf-token]').attr('content')});
+        lab_socket = io.connect(addr);
+        lab_socket.emit('new connection', {pass: $('meta[name=csrf-token]').attr('content')});
 
         $("#right .controllers").show();
         $("#right .loading").hide();
 
-        socket.on('done compiling', function (data) {
+        lab_socket.on('done compiling', function (data) {
             clearTimeout(verifytimeout);
             console.log('done compiling');
             clearInterval(interval);
@@ -514,7 +526,7 @@ $(function () {
         });
 
 
-        socket.on('done upload', function (data) {
+        lab_socket.on('done upload', function (data) {
             console.log('done upload');
             clearTimeout(uploadtimeout);
             $('#prog').css('width', '100%');
@@ -533,7 +545,7 @@ $(function () {
 
         });
 
-        socket.on('serial monitor', function (data) {
+        lab_socket.on('serial monitor', function (data) {
             if (typeof data.stderr === 'undefined') {
                 var parsed = String.fromCharCode.apply(null, new Uint8Array(data.stream))
                 parsed = parsed.replace(/\n/g, '<br>');

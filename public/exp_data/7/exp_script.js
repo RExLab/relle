@@ -1,6 +1,6 @@
 $('head').append('<link rel="stylesheet" href="http://relle.ufsc.br/css/shepherd-theme-arrows.css" type="text/css"/>');
 
-var rpi_server = "http://relle.ufsc.br:8030";
+var rpi_server = "http://189.8.209.100:30040";
 var rotation = 0;
 var readings = [];
 var readingsfd = [];
@@ -103,7 +103,7 @@ $(function () {
         
         $.getScript('http://relle.ufsc.br/exp_data/7/welcome.js', function () {
             var shepherd = setupShepherd();
-             $('#return').prepend('<button id="btnIntro" class="btn btn-sm btn-default"> <span class="long">' + lang.showme + '</span><span class="short">' + lang.showmeshort + '</span> <span class="how-icon fui-question-circle"></span> </button>');
+             addShowmeButton('<button id="btnIntro" class="btn btn-sm btn-default"> <span class="long">' + lang.showme + '</span><span class="short">' + lang.showmeshort + '</span> <span class="how-icon fui-question-circle"></span></button>')
              $('#btnIntro').on('click', function (event) {
                  event.preventDefault();
                  shepherd.start();

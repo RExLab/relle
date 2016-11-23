@@ -31,7 +31,7 @@ var setupShepherd = function () {
     // Tour no meio
     shepherd.addStep('shep_cam', { 
         text: [lang.introcamera],
-        attachTo: 'img.cam bottom',
+        attachTo: 'img.cam right',
         classes: 'shepherd shepherd-open shepherd-theme-arrows shepherd-transparent-text',
         buttons: [
             {
@@ -55,7 +55,7 @@ var setupShepherd = function () {
   
     shepherd.addStep('shep_description', { 
         text: [lang.description],
-        attachTO: 'div.infor top',
+        attachTo: 'div.infor top',
         classes: 'shepherd shepherd-open shepherd-theme-arrows shepherd-transparent-text',
         buttons: [
             {

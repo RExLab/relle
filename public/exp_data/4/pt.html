@@ -1,20 +1,20 @@
 <div id='DivExp' class="container" style="text-align: left !important;">
-<!--
-    <div class="alert alert-info alert-dismissible" role="alert">
-        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <i class="fa fa-info-circle"></i> 
-        Esta é uma releitura do primeiro experimento do RExLab criado em 1997, um depurador remoto para 8051. 
-        <a href='http://rexlab.ufsc.br/primeiro_experimento.php' target='_blank'>Saiba mais</a>.
-    </div>
--->
+    <!--
+        <div class="alert alert-info alert-dismissible" role="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <i class="fa fa-info-circle"></i> 
+            Esta é uma releitura do primeiro experimento do RExLab criado em 1997, um depurador remoto para 8051. 
+            <a href='http://rexlab.ufsc.br/primeiro_experimento.php' target='_blank'>Saiba mais</a>.
+        </div>
+    -->
 
     <center>
         <h3>Ambiente de Desenvolvimento para Arduino</h3>
     </center>
-   
+
     <div class="row">
-        
-        <div class='col-lg-8 col-md-8' id='ide'>
+
+        <div class='col-lg-8 col-md-12' id='ide'>
             <div class="base loading_ide">
                 <ul>
                     <li><div class="loader-1"></div></li>
@@ -74,7 +74,7 @@
             </div>
         </div>
 
-        <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12"  id="serial_monitor"  style="display:none;" data-step="6" data-intro="Se você utilizar as funções da comunicação serial do Arduino no seu código, será possível trocar informações com a placa neste terminal.">
+        <div class="col-lg-4 col-md-5 col-sm-12 col-xs-12"  id="serial_monitor"  style="display:none;" data-step="6" data-intro="Se você utilizar as funções da comunicação serial do Arduino no seu código, será possível trocar informações com a placa neste terminal.">
             <div class="panel-title" style="height: 40px; padding: 5px;">
 
                 <div  style="color:white;padding:5px;">
@@ -98,8 +98,8 @@
                 </div>
 
                 <div class="panel-footer">
-                    <select id='baudrate' class='selectpicker' style="padding-bottom:5px" >
-                        <option value='300'>300 baud</option>
+                    <select id='baudrate' class="form-control select select-block mbl">
+                         <option value='300'>300 baud</option>
                         <option value='1200'>1200 baud</option>
                         <option value='2400'>2400 baud</option>
                         <option value='4800'>4800 baud</option>
@@ -111,18 +111,32 @@
                         <option value='57600'>57600 baud</option>
                         <option value='115200'>115200 baud</option>
                     </select>
+
+                    <!-- bootstrap compatible only select id='baudrate' class='selectpicker' style="padding-bottom:5px" >
+                        <option value='300'>300 baud</option>
+                        <option value='1200'>1200 baud</option>
+                        <option value='2400'>2400 baud</option>
+                        <option value='4800'>4800 baud</option>
+                        <option value='9600' selected>9600 baud</option>
+                        <option value='14400'>14400 baud</option>
+                        <option value='19200'>19200 baud</option>
+                        <option value='28800'>28800 baud</option>
+                        <option value='34800'>34800 baud</option>
+                        <option value='57600'>57600 baud</option>
+                        <option value='115200'>115200 baud</option>
+                    </select-->
                     <button class="btn btn-sm btn-normal" id='clear'>Limpar</button>
                 </div>
             </div>
         </div>
-        
-        <div class="col-lg-4 col-lg-offset-0 col-md-offset-2 col-md-8 col-sm-12 col-xs-12  content-box-large" id='right'>
-             <div class="base loading">
+
+        <div class="col-lg-4 col-lg-offset-0 col-md-offset-1 col-md-10 col-sm-12 col-xs-12  content-box-large" id='right'>
+            <div class="base loading">
                 <ul>
                     <li class=""><div class="loader-1"></div></li>
                 </ul>
             </div>
- 
+
             <div class='row controllers' style="display: none">
                 <div class="col-lg-12 col-md-6 col-sm-6 col-xs-12" id="lab">          
                     <button class="btn btn-normal pull-left" style="position:absolute" id='reset'>Reset<i class="fa fa-refresh" style="margin-left:5px;"></i> </button>
@@ -147,16 +161,8 @@
 
     </div>
 
-
-
-
-
-    <button type="button" style="display: none" id="modal" class="btn btn-sm"  data-toggle="modal" data-target="#myModal">
-        Launch demo modal
-    </button>
-
     <!-- Modal -->
-    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div id="myModal" class="modal fade in" style="display: none; padding: 10px">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -172,6 +178,8 @@
             </div>
         </div>
     </div>
+    <button style="display:none" type="button" id="modal" class="btn btn-info btn-lg open">Open Modal</button>
+
 
 
     <form method="post" id="form" enctype="multipart/form-data" style="display:none">
@@ -218,4 +226,4 @@
             };
 </script>
 
-<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.5/jquery-ui.min.js"></scr‌​ipt> 
+<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.5/jquery-ui.min.js"></script> 
