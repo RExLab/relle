@@ -46,7 +46,6 @@
                 background:#34495E;
                 border-bottom:9pt solid #2C3E50;
                 border-radius: 0;
-
             }
             .navbar-inverse .navbar-nav>li>a{
                 font-weight: normal;
@@ -65,14 +64,11 @@
             footer,footer > a{
                 color:#828282
             }
-
-
         </style>
         <style>
             #flag {
                 max-width: 80px !important;
                 min-width: 50px !important;
-
             }
         </style>
         @yield('head')
@@ -195,8 +191,6 @@
                     if (App::getLocale() == 'en') {
                         echo '<br>';
                     }
-
-
                     $browser = get_browser($_SERVER['HTTP_USER_AGENT'], true)['browser'];
                     $mobile = get_browser($_SERVER['HTTP_USER_AGENT'], true)['ismobiledevice'];
                     if (($browser == 'Edge' || $browser == 'IE') && !$mobile) {
@@ -262,9 +256,7 @@ $(function () {
     $(".dropdown-toggle").dropdown();
     $('.selectpicker').selectpicker();
     $(".flat-switch").bootstrapSwitch();
-
 });
-
     </script>
 
     @yield('script')

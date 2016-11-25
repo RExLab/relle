@@ -99,7 +99,8 @@ $files = 'exp_data/' . $exp['id'] . '/';
                 <div id="tab_video" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
                     <div class="panel-body tab-body">
                         <div class="embed-responsive embed-responsive-16by9">
-                            <iframe class="embed-responsive-item" src="{{$exp['video']}}" allowfullscreen></iframe>
+                            <iframe class="embed-responsive-item"  src="{{$exp['video']}}"  frameborder="0" scrolling="no" allowfullscreen></iframe>
+                            
                         </div>
                     </div>
                 </div>

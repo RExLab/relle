@@ -1,3 +1,5 @@
+{{ Analytics::trackEvent('Experimento', $exp['name_pt'])}}
+{{ Analytics::trackEvent('Origem', 'Moodle')}}
 
 <meta name="csrf-token" content="{{ csrf_token() }}" />
 
