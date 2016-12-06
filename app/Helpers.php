@@ -308,11 +308,11 @@ function isMobile($useragent) {
 }
 
 function status($id) {
-    $query = 'SELECT id FROM labs WHERE maintenance = "1"';
+    $query = 'select e.lab_id from instances e where not exists (select null from instances i where e.lab_id = i.lab_id and `maintenance` = 0)';
     $out = DB::select($query);
 
     foreach ($out as $one) {
-        if ($one->id == $id) {
+        if ($one->lab_id == $id) {
             return false;
         }
     }
