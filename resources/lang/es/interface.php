@@ -31,7 +31,7 @@ return [
     'seconds' => 'segundos',
     'pt' => 'Portugues',
     'en' => 'Inglés',
-    'leave' => 'Abandonar',
+    'leave' => 'Salir',
     'timeleft' => 'Tiempo restante',
     'closelab' => 'Tu sesión ha finalizado',
     'redirect' => 'Vas a ser redirigido en un momento.',

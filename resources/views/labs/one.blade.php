@@ -91,7 +91,7 @@ $files = 'exp_data/' . $exp['id'] . '/';
                     <div class="panel">
                         <div class="panel-heading" role="tab" id="headingOne">
                             <h4 class="panel-title">
-                                <i class="fa fa-play" aria-hidden="true" style="padding-right: 10px"></i>  Vídeo
+                                <i class="fa fa-play" aria-hidden="true" style="padding-right: 10px"></i>  {{trans('one.video')}}
                             </h4>
                         </div>
                     </div>
@@ -110,7 +110,7 @@ $files = 'exp_data/' . $exp['id'] . '/';
                     <div class="panel">
                         <div class="panel-heading" role="tab" id="headingOne">
                             <h4 class="panel-title">
-                                <i class="fa fa-info" aria-hidden="true" style="padding-right: 10px"></i>  Tutorial
+                                <i class="fa fa-info" aria-hidden="true" style="padding-right: 10px"></i>  {{trans('one.tutorial')}}
                             </h4>
                         </div>
                     </div>
@@ -127,7 +127,7 @@ $files = 'exp_data/' . $exp['id'] . '/';
                     <div class="panel">
                         <div class="panel-heading" role="tab" id="headingOne">
                             <h4 class="panel-title">
-                                <i class="fa fa-book" aria-hidden="true" style="padding-right: 10px"></i>  Material Didático
+                                <i class="fa fa-book" aria-hidden="true" style="padding-right: 10px"></i>  {{trans('one.didatic')}}
                             </h4>
                         </div>
                     </div>
@@ -153,7 +153,7 @@ $files = 'exp_data/' . $exp['id'] . '/';
                     <div class="panel">
                         <div class="panel-heading" role="tab" id="headingOne">
                             <h4 class="panel-title">
-                                <i class="fa fa-file-text-o" aria-hidden="true" style="padding-right: 10px"></i>  Documentação
+                                <i class="fa fa-file-text-o" aria-hidden="true" style="padding-right: 10px"></i>  {{trans('one.documents')}}
                             </h4>
                         </div>
                     </div>

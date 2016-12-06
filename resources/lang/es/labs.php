@@ -41,7 +41,7 @@ return [
     'report' => 'Generar Informe',
     'csvexport' => 'Exportar a fichero CSV',
     'end_rep' => 'Tu sesión ha finalizado. Haz click en "Generar Informe" para descargar un documento con los resultados de tu sesión o haz click en "Abandonar" para salir de esta página.',
-    'end' => 'Tu sesión ha finalizado. Haz click en "Abandonar" para salir de esta página.',
+    'end' => 'Tu sesión ha finalizado. Haz click en "Salir" para salir de esta página.',
     'pack' => 'Un ejemplo del Paquete con los Ficheros del Laboratorio se puede encontrar en ',
     'queue' => 'Cola',
     

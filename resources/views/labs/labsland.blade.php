@@ -114,3 +114,9 @@ if (Auth::check()) {
 <script src="{{ asset('js/queue_design.js') }}"></script>
 <script src="{{ asset('js/queue.js') }}"></script>
 <script src="{{ asset('js/socket.io.js') }}"></script>
+<script>
+//var orig_Mybasefunction = window.reloadPage;
+//window.reloadPage = function(){
+//    alert('oi');
+//}
+</script>

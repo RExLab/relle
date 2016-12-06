@@ -11,7 +11,7 @@ return [
     'reset' => 'Ha ocurrido un error al reiniciar tu contraseña. Por favor, intíatalo de nuevo.',
     'sent' => 'Las instrucciones para reiniciar tu contraseña se ha enviado a ',
     'email'=>'Email inválido. Por favor, intíntalo de nuevo.',
-    'tab' => 'Este laboratorio está abierto en otra pestaña. Si no es así, haz click en "Abandonar". Si el problema persiste, contáctanos en la página de Contacto',
+    'tab' => 'Este laboratorio está abierto en otra pestaña. Si no es así, haz click en "Salir". Si el problema persiste, contáctanos en la página de Contacto',
     'error' => 'Se ha producido un error con tu petición.',
     'success'=>'OK',
     'request' => 'Tu petición se ha completado satisfactoriamente.',
