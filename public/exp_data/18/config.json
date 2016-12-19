@@ -1,0 +1,9 @@
+{
+	"teacherMode": true,
+	"instrReg": null,
+	"locale": "pt_BR",
+	"mesServer": "http://visir.rexlab.ufsc.br:8080/measureserver",
+	"readOnly": false,
+	"transMethod": "http",
+	"oscRunnable": true
+}
