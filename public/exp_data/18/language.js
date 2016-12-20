@@ -6,7 +6,7 @@ visir.Language = function()
 
 	if ($.inArray(locale, ["en_UK", "es_ES", "pt_BR"]) === -1)
 	{
-		locale = "en_UK";
+		locale = "pt_BR";
 	}
 
 	strings = {};

@@ -2,7 +2,7 @@ $('head').append('<link rel="stylesheet" href="http://relle.ufsc.br/css/shepherd
 
 var rpi_server = "http://painelac1.relle.ufsc.br";
 var socket = '';
-var circuit_images = [0, 7, 11, 15];
+var circuit_images = [0, 7, 11, 13, 14, 15];
 var UIimg_interval = null;
 
 $.getScript('http://relle.ufsc.br/exp_data/2/welcome.js', function () {

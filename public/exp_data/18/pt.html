@@ -1,14 +1,53 @@
+<div id="return" class="row well well-sm" style="margin-top: -20px;">
+<div class="col-lg-12"><button id="btnIntro" class="btn btn-sm btn-default pull-left"> <span class="long">Mostre-me como funciona</span><span class="short">Como funciona</span> <span class="how-icon fui-question-circle"></span></button>
+	<button class="btn btn-sm btn-default" id="btnLeaveExp" name="leave" style="float:right;">Sair</button>
+</div>
+</div>
 <div id='DivExp' class="container">
+	<h3>VISIR</h3>
 	<center>
-		<h3>VISIR</h3>
-		<div id="instrumentframe"></div>
-
-		<div>
-			<a href="#" id="load_experiment_1">Test 1</a>
-			<br/>
-			<a href="#" id="load_experiment_2">Test 2</a>
+		<div class='row'>
+			<div id="instrumentframe"></div>
 		</div>
-	</center>
+		<div class="row">
+			<p style="margin-top: 15px" class="pull-left">Exemplos de práticas</p>
+
+<div id='example-board' class="row col-xs-12 col-md-12 col-sm-12">
+	<div class="col-xs-2 col-md-4 col-sm-6">
+		<a href="#" id="load_cgeral">
+			<p>Componentes Gerais</p>
+		</a>
+		<img class="exp-img" data-action="zoom" src="http://relle.ufsc.br/exp_data/18/img/cgeral.png" />
+
+		<a href="#" id="load_armista">
+			<p>Associação de Resistores Mista</p>
+		</a>
+		<img class="exp-img" data-actiom='zoom' src="http://relle.ufsc.br/exp_data/18/img/armista.png" />
+	</div>
+	<div class="col-xs-2 col-md-4 col-sm-12">
+		<a href="#" id="load_arparalelo">
+			<p>Associação de Resistores em Paralelo</p>
+		</a>
+		<img class="exp-img" data-action="zoom" src="http://relle.ufsc.br/exp_data/18/img/arparalelo.png" />
+		<a href="#" id="load_arserie">
+			<p>Associação de Resistores em Série</p>
+		</a>
+		<img class="exp-img" data-action="zoom" src="http://relle.ufsc.br/exp_data/18/img/arserie.png" />
+	</div>
+	<div class="col-xs-2 col-md-4 col-sm-12">
+		<a href="#" id="load_tnpn">
+			<p>Transistor NPN</p>
+		</a>
+		<img class="exp-img" data-action="zoom" src="http://relle.ufsc.br/exp_data/18/img/tnpn.png" />
+		<a href="#" id="load_fgen">
+			<p>Teste do Gerador de Funções</p>
+		</a>
+		<img class="exp-img" data-action="zoom" src="http://relle.ufsc.br/exp_data/18/img/fgen.png" />
+	</div>
+	<p class="pull-right">*Clique na imagem para ampliar</p>
+</div>
+</div>
+</center>
 </div>
 
 <!--<div>
@@ -19,46 +58,3 @@
 	<div id="logwindow" style="border: 1px solid #000000; padding: 2px; height: 500px; width: 800px; overflow: scroll; display:none"></div>
 <br/>
 <br/>-->
-<script>
-
-	function init() {
-		function MakeMeasurement() {
-			reg.MakeRequest(transport);
-		}
-
-		trace("starting up..");
-
-		var transport = new visir.JSTransport(visir.SetWorking);
-		transport.onerror = function (err) { alert("Error: " + err); }
-
-		transport.Connect(visir.Config.Get("mesServer"), "fnord");
-
-		var extservice = new visir.ExtServices({ MakeMeasurement: MakeMeasurement });
-		var reg = new visir.InstrumentRegistry(extservice);
-		var frame = new visir.InstrumentFrame(reg, transport, $("#instrumentframe"));
-
-		var savedexperiment_1 = '<save><instruments list="breadboard/breadboard.swf|multimeter/multimeter.swf|functiongenerator/functiongenerator.swf|oscilloscope/oscilloscope.swf|tripledc/tripledc.swf" /><multimeter /><circuit><circuitlist><component>W 0 312 312 235 336 156 364</component><component>W 0 403 325 357.5 309.8 312 325</component><component>W 0 481 312 442 299 403 312</component><component>W 16711680 403 234 442 221 481 234</component><component>W 16711680 312 221 357.5 205.8 403 221</component><component>W 16711680 156 260 229.65 221 312 234</component><component>R 1k 312 273 1</component><component>R 1k 65 52 0</component><component>R 1k 65 39 0</component><component>R 1k 65 78 0</component><component>R 1k 65 65 0</component><component>R 1.6k 481 273 1</component><component>R 10k 260 78 0</component><component>R 10k 403 273 1</component><component>R 10k 260 52 0</component><component>R 10k 260 39 0</component><component>R 10k 260 65 0</component><component>R 2.7k 195 26 0</component><component>R 2.7k 195 52 0</component><component>R 2.7k 195 39 0</component><component>C 56n 312 39 0</component><component>C 56n 312 91 0</component></circuitlist></circuit></save>';
-		savedexperiment_2 = '<save version="2"><instruments htmlinstruments="Breadboard|FlukeMultimeter|HPFunctionGenerator|AgilentOscilloscope|TripleDC"></instruments><circuit><circuitlist><component>W 0 312 312 235 336 156 364</component><component>W 0 403 325 357 309 312 325</component><component>W 0 481 312 442 299 403 312</component><component>W 16711680 403 234 442 221 481 234</component><component>W 16711680 312 221 357 205 403 221</component><component>W 16711680 156 260 229 221 312 234</component><component>R 1k 312 273 1</component><component>R 1k 65 52 0</component><component>R 1k 65 39 0</component><component>R 1k 65 78 0</component><component>R 1k 65 65 0</component><component>R 1.6k 481 273 1</component><component>R 10k 260 78 0</component><component>R 10k 403 273 1</component><component>R 10k 260 52 0</component><component>R 10k 260 39 0</component><component>R 10k 260 65 0</component><component>R 2.7k 195 26 0</component><component>R 2.7k 195 52 0</component><component>R 2.7k 195 39 0</component><component>C 56n 312 39 0</component><component>C 56n 559 221 0</component></circuitlist></circuit></save>';
-		emptyexperiment = '<save version="2"><instruments htmlinstruments="Breadboard|FlukeMultimeter|HPFunctionGenerator|AgilentOscilloscope|TripleDC"></instruments><circuit></circuit></save>';
-		reg.LoadExperiment(emptyexperiment, frame.GetInstrumentContainer());
-
-		$(".measure").click(function () {
-			MakeMeasurement();
-		});
-
-		$("#showlog").click(function () {
-			$("#logwindow").css("display", "block");
-		});
-		$("#hidelog").click(function () {
-			$("#logwindow").css("display", "none");
-		});
-
-		$("#load_experiment_1").click(function () {
-			reg.LoadExperiment(savedexperiment_1, frame.GetInstrumentContainer());
-		});
-
-		$("#load_experiment_2").click(function () {
-			reg.LoadExperiment(savedexperiment_2, frame.GetInstrumentContainer());
-		});
-	}
-</script>
