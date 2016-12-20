@@ -51,6 +51,7 @@ $retrunURL = $extract['return'];
 
     <div id="access"></div>  
 </div>
+@section('script')
 
 <!-- For direct access -->
 <script>
@@ -65,6 +66,8 @@ $('#btnIntro').nextAll().remove();
 setTimeout(pageRedirect, {{$exp['duration']}}*60000);*/
    
 });</script>
+<script src="{{ asset('js/tether.js') }}"></script>
+<script src="{{ asset('js/shepherd.js') }}"></script>
 
 <script>
     $.ajaxSetup({
