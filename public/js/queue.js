@@ -1,112 +1,178 @@
-var refresh, timer;
-var str_url = "http://" + window.location.hostname+"/api/";  
-
-function setDataRunning(data) {
-    if(data.error == 'defined'){
-        console.log("Error");
-        return;
+function getParameterByName(name, url) {
+    if (!url) {
+      url = window.location.href;
     }
-    $("#min").html(data.clock.min);
-    var seg_old = parseInt($("#seg").html());
-    if(Math.abs(seg_old-data.clock.seg)>10){
-        $("#seg").html(data.clock.seg);
-        console.log(Math.abs(seg_old-data.clock.seg));               
-    }
-
+    name = name.replace(/[\[\]]/g, "\\$&");
+    var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+        results = regex.exec(url);
+    if (!results) return null;
+    if (!results[2]) return '';
+    return decodeURIComponent(results[2].replace(/\+/g, " "));
 }
 
-
-function RefreshTimeAlive() {
-    var dataout = {'pass': $('meta[name=csrf-token]').attr('content'), 'exp_id': exp_id,  'exec_time': duration};
-
-    $.ajax({
-        
-        url: str_url+"refresh", 
-        data: dataout,
-        type: "POST",
-        success: function (data) {
-             setDataRunning($.parseJSON(data));
-        }
-    });
-}
-
-function setData(data) {
-    data = $.parseJSON(data);
-    if (data.status > 0) {
-        clearInterval(timer);
-        clearInterval(refresh);
-        loadLab(data);
-    } else {
-        var intval = parseInt(data.interval);
-        intval = (intval >= 1 ) ? intval : 0.5;
-        //$("#exp").html("<p> Proxima requisicao em " + intval + " segundos </p>");
-        refresh = setInterval(Refresh, intval * 1000);
-        if(data.n_wait){
-            $("#nwait").html(data.n_wait);
-            $("#min").html(data.clock.min);
-            var seg_old = parseInt($("#seg").html());
-            if(Math.abs(seg_old-data.clock.seg)>5){
-                $("#seg").html(data.clock.seg);
-                console.log(Math.abs(seg_old-data.clock.seg));               
-            }
-        }
-    }
-}
-
-
-function Refresh() {
-    var dataout = { 'pass': $('meta[name=csrf-token]').attr('content'), 'exp_id': exp_id, 'exec_time': duration};
-    clearInterval(refresh);
-    $.ajax({
-        url: str_url+"wait",
-        data: dataout,
-        type: "POST",
-        timeout: 10000, 
-        success: function (data) {
-            setData(data);
-        }
-    });
-}
-function reloadPage(){
-         location.reload(true); 
+function reloadPage() {
+    var callbacksite = getParameterByName('return');
+    console.log(callbacksite);
+    if(callbacksite)
+        window.location.replace(callbacksite);
+    else
+        location.reload(true);
 }
 
 function LeaveExperiment() {
-    clearInterval(refresh);
-    clearInterval(timer);
-    $('#exp').html(close_message);// Isto limpa a pagina
-    
-        var dataout = {'pass': $('meta[name=csrf-token]').attr('content'), exp_id: exp_id};
-        $.ajax({
-            url: str_url+"delete",
-            data: dataout,
-            type: "POST",
-            timeout: 5000,
-            success: function (data) {
-                $("#btnLeave").off('click'); 
-                reloadPage();
-            },
-            error: function (XMLHttpRequest, textStatus, errorThrown) {
-               reloadPage();
-            }
-        });
+    $('#exp').html("");
+    $('#return').html("");
+    reloadPage();
 }
 
-function TimerMinus() {
-    var soma = parseInt($("#min").html()) * 60 + parseInt($("#seg").html());
-    soma = (soma - 1) / 60;
+$(function () {
+    var timer;
 
-    if (soma > 0) {
-        $("#min").html(parseInt(soma));
-        var seg = Math.round((soma - parseInt(soma)) * 60);
-        var zero = "";
-        if (seg < 10) {
-            zero = "0";
-        }
-        $("#seg").html(zero + seg);
-    } else {
-        clearInterval(timer);
+    $("#access").click(Acess);
+
+    function ExtendedSessionHandler() {
+        uilang.extended = 'Sessão extendida.';
+        console.log('Sessão foi extendida. Fique atento, a qualquer momento a sessão pode ser terminada.');
+        $(".timeleft").html(uilang.extended);
     }
-}
 
+    function StatusHandler(data) {
+        $("#min").html(data.clock.min);
+        var seg_old = parseInt($("#seg").html());
+        if (Math.abs(seg_old - data.clock.seg) > 10) {
+            $("#seg").html(data.clock.seg);
+            console.log(Math.abs(seg_old - data.clock.seg));
+        }
+        $('#nwait').html(data.wait);
 
+    }
+
+    function FinishedSessionHandler() {
+        console.log('Sessão finalizada.');
+        clearInterval(timer)
+        LeaveExperiment()
+    }
+
+    function ReconnectedSessionHandler() {
+        hideReconnectingAlert();
+        if (typeof (LabReconnectedSessionHandler) == 'function')
+            LabReconnectedSessionHandler();
+        else
+            console.log('Callback function for lab reconnection is missing');
+    }
+
+    function Countdown() {
+        var soma = parseInt($("#min").html()) * 60 + parseInt($("#seg").html());
+        soma = (soma - 1) / 60;
+        if (soma > 0) {
+            $("#min").html(parseInt(soma));
+            var seg = Math.round((soma - parseInt(soma)) * 60);
+            var zero = "";
+            if (seg < 10) {
+                zero = "0";
+            }
+            $("#seg").html(zero + seg);
+        } else {
+            clearInterval(timer);
+        }
+    }
+
+    function Acess(event) {
+        event.preventDefault();
+
+        $("#access").off();
+
+        var socket = io.connect('http://relle.ufsc.br/' + exp_id, { path: '/socket.io','force new connection': true});
+
+        socket.emit('new connection', {pass: $('meta[name=csrf-token]').attr('content'),
+            'exp_id': exp_id,
+            'exec_time': duration});
+
+        socket.on('wait', waitLab);
+
+        socket.on('status', StatusHandler);
+
+        socket.on('extended session', ExtendedSessionHandler);
+
+        socket.on('finished session', FinishedSessionHandler);
+
+        socket.on('success', function (data) {
+            loadLab(data, socket);
+        });
+
+        socket.on('reconnect', function (data) {
+            
+            socket.emit('reconnection', {pass: $('meta[name=csrf-token]').attr('content'),
+                'exp_id': exp_id,
+                'exec_time': duration});
+            socket.on('reconnected session', ReconnectedSessionHandler);
+        });
+
+        socket.on('reconnecting', function () {
+            showReconnectingAlert(uilang);
+        });
+
+        socket.on('err', function (data) {
+            console.log(data);
+            errorLab(uilang);
+            setTimeout(function () {
+                clearInterval(timer)
+                LeaveExperiment();
+            }, 1500);
+        });
+
+    }
+
+    function loadLab(data, queue_socket) {
+        if(typeof(locale) !== 'undefined' && data[locale] !== 'undefined'){
+           data.html = data[locale];
+        }else{
+            data.html =data.defaulthtml; 
+        }                
+            
+        UILoadLab(data, uilang).load(data.html, function () {
+
+            $.getScript(data.js);
+
+            timer = setInterval(Countdown, 1000);
+
+            $("#btnLeaveExp").click(function (event) {
+                event.preventDefault();
+
+                if (typeof (LabLeaveSessionHandler) == 'function')
+                    LabLeaveSessionHandler();
+                else
+                    console.log('Callback function before leaving lab is missing');
+
+                if (typeof (lab_socket) !== 'undefined') {
+                    if (lab_socket !== null)
+                        lab_socket.disconnect();
+                } else {
+                    console.log('lab_socket not found');
+                }
+                if (queue_socket !== null)
+                    queue_socket.disconnect();
+                
+                var btnRedirect = UILeave(uilang, exp_id)
+                console.log(btnRedirect.length);
+                if(btnRedirect.length)
+                    btnRedirect.click(LeaveExperiment);
+                else
+                    LeaveExperiment();
+
+            });
+
+        });
+
+    }
+
+    function waitLab(data) {
+        UIWaitLab(data, uilang).click(function () {
+            clearInterval(timer);
+            LeaveExperiment();
+        });
+
+        timer = setInterval(Countdown, 1000);
+    }
+
+});
