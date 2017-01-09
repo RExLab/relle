@@ -1,3 +1,4 @@
+
 <?php 
 $query = parse_url($_SERVER['REQUEST_URI'], PHP_URL_QUERY);
 
@@ -9,9 +10,14 @@ $retrunURL = $extract['return'];
 //var_dump($retrunURL);
 // Example of URL http://relle.ufsc.br/labs/7/labsland?access=direct&lang=en&return=http://labsland.com/labs/relle/7
 ?>
+@section('page')
+{{trans('interface.name', ['page'=>$exp['name_'.App::setLocale("$langURL")]])}}
+@stop
+
 {{ App::setLocale("$langURL") }}
 {{ Analytics::trackEvent('Experimento', $exp['name_pt'])}}
 {{ Analytics::trackEvent('Origem', 'LabsLand')}}
+{!! Analytics::render() !!}
 <meta name="csrf-token" content="{{ csrf_token() }}" />
 
 <link href="{{ asset('/css/app.css') }}" rel="stylesheet">
@@ -20,6 +26,8 @@ $retrunURL = $extract['return'];
 <link rel="shortcut icon" type="image/x-icon" href="{{asset('/favicon.png')}}"/> 
 
 <!-- Fonts -->
+<link href='//cdn.jsdelivr.net/jquery.roundslider/1.0/roundslider.min.css' rel="stylesheet">
+
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 <link href="{{ asset('/css/one.css') }}" rel="stylesheet">
 <link href="{{ asset('flat/dist/css/flat-ui.css') }}" rel="stylesheet">
@@ -51,6 +59,7 @@ $retrunURL = $extract['return'];
 
     <div id="access"></div>  
 </div>
+
 @section('script')
 
 <!-- For direct access -->
@@ -73,13 +82,6 @@ setTimeout(pageRedirect, {{$exp['duration']}}*60000);*/
     $.ajaxSetup({
     headers: { 'X-CSRF-Token' : $('meta[name=csrf-token]').attr('content') }
     });
-<?php
-if (Auth::check()) {
-    $user = Auth::user()->id;
-} else {
-    $user = 0;
-}
-?>
 
 </script>
 
@@ -117,9 +119,5 @@ if (Auth::check()) {
 <script src="{{ asset('js/queue_design.js') }}"></script>
 <script src="{{ asset('js/queue.js') }}"></script>
 <script src="{{ asset('js/socket.io.js') }}"></script>
-<script>
-//var orig_Mybasefunction = window.reloadPage;
-//window.reloadPage = function(){
-//    alert('oi');
-//}
-</script>
+    <script src='//cdn.jsdelivr.net/jquery.roundslider/1.0/roundslider.min.js'></script>
+

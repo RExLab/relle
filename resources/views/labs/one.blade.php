@@ -22,7 +22,7 @@ $files = 'exp_data/' . $exp['id'] . '/';
 ?>
 
 <!--{{$name='name_'.App::getLocale()}}
-<!--{{$desc='description_'.App::getLocale()}}
+{{$desc='description_'.App::getLocale()}}
 -->
 @section ('content')
 
@@ -156,7 +156,7 @@ $files = 'exp_data/' . $exp['id'] . '/';
                                 <i class="fa fa-file-text-o" aria-hidden="true" style="padding-right: 10px"></i>  {{trans('one.documents')}}
                             </h4>
                         </div>
-                    </div>
+                    </div> 
                 </a>
                 <div id="tab_docs" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
                     <div class="panel-body tab-body"  style="padding:10px 0;">
@@ -227,9 +227,10 @@ if (Auth::check()) {
                 var js = url + '/exp_script.js';
                 var css = url + '/exp_style.css';
                 $('#access').click(function(){
-        $('#pre_experiment').remove();
+                $('#pre_experiment').remove();
                 $('head').append('<link rel="stylesheet" href="' + css + '" type="text/css" />');
                 $('#exp').load(html);
+                
                 $.getScript(js);
         });
         });</script>
