@@ -52,8 +52,8 @@ $retrunURL = $extract['return'];
     <div id='error'></div>
     <div id='identifier'></div>
     <div id="labsland-logo">
-        <a href="http://relle.ufsc.br/" target="_blank"><img height="10px" width="200px" class="img-responsive img-rounded pull-left" alt="RELLE Logo" src="{{ asset("img/logos/logo.png")}}"></a>
-        <a href="http://rexlab.ufsc.br/" target="_blank"><img height="60px" width="200px" class="img-responsive img-rounded pull-right" alt="RExLab Logo" src="{{ asset("img/footer/r-variacao.jpg")}}"></a>
+        <a href="http://relle.ufsc.br/en" target="_blank"><img height="10px" width="200px" class="img-responsive img-rounded pull-left" alt="RELLE Logo" src="{{ asset("img/logos/logo.png")}}"></a>
+        <a href="http://rexlab.ufsc.br/en" target="_blank"><img height="60px" width="200px" class="img-responsive img-rounded pull-right" alt="RExLab Logo" src="{{ asset("img/footer/r-variacao.jpg")}}"></a>
     </div>
     <center><div id='exp'></div></center> 
 
