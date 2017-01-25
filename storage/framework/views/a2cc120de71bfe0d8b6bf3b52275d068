@@ -1,0 +1,98 @@
+
+
+<?php $__env->startSection('page'); ?>
+<?php echo e(trans('interface.name', ['page'=>trans('users.signup')])); ?>
+
+<?php $__env->stopSection(); ?>
+
+<?php $__env->startSection('title'); ?>
+<?php echo e(trans('users.signup')); ?>
+
+<?php $__env->stopSection(); ?>
+
+<?php $__env->startSection('content'); ?>
+<?php echo Form::open([
+'action' => 'UsersController@doSignUp',
+'files' => true,
+'enctype'=> 'multipart/form-data'
+]); ?>
+
+
+
+<div class="row">
+    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+        <div class='form-group'>
+            <?php echo Form::label('firstname', trans('users.firstname')); ?>
+
+            <?php echo Form::text('firstname', null, ['class'=>'form-control']); ?>
+
+            <?php if($errors->has('firstname')): ?> <p class="text-danger"><?php echo e($errors->first('firstname')); ?></p> <?php endif; ?>
+        </div>
+        <div class='form-group'>
+            <?php echo Form::label('lastname', trans('users.lastname')); ?>
+
+            <?php echo Form::text('lastname', null, ['class'=>'form-control']); ?>
+
+            <?php if($errors->has('lastname')): ?> <p class="text-danger"><?php echo e($errors->first('lastname')); ?></p> <?php endif; ?>
+        </div>
+        <div class='form-group'>
+            <?php echo Form::label('email', trans('users.email')); ?>
+
+            <?php echo Form::text('email', null, ['class'=>'form-control']); ?>
+
+            <?php if($errors->has('email')): ?> <p class="text-danger"><?php echo e($errors->first('email')); ?></p> <?php endif; ?>
+        </div>
+        <div class='form-group'>
+
+            <?php echo Form::label('username', trans('users.username')); ?>
+
+            <?php echo Form::text('username', null, ['class'=>'form-control']); ?>
+
+            <?php if($errors->has('username')): ?> <p class="text-danger"><?php echo e($errors->first('username')); ?></p> <?php endif; ?>
+        </div>
+             
+    </div>
+
+    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+        <div class='form-group'>
+            <?php echo Form::label('password', trans('users.password')); ?>
+
+            <?php echo Form::input('password', 'password', null, ['class'=>'form-control']); ?>
+
+            <?php if($errors->has('password')): ?> <p class="text-danger"><?php echo e($errors->first('password')); ?></p> <?php endif; ?>
+        </div>
+        <div class='form-group'>
+            <?php echo Form::label('repeat', trans('users.repeat')); ?>
+
+            <?php echo Form::input('password', 'repeat', null, ['class'=>'form-control']); ?>
+
+            <?php if($errors->has('repeat')): ?> <p class="text-danger"><?php echo e($errors->first('repeat')); ?></p> <?php endif; ?>
+        </div>
+        <div class='form-group'>
+            <?php echo Form::label('country', trans('users.country')); ?>
+
+            <?php echo Form::text('country', null, ['class'=>'form-control']); ?>
+
+        </div>
+        <div class='form-group'>
+            <?php echo Form::label('organization', trans('users.organization')); ?>
+
+            <?php echo Form::text('organization', null, ['class'=>'form-control']); ?>
+
+        </div>
+        
+        <div class='form-group'>
+            <?php echo Form::label(trans('users.avatar')); ?> 
+            </br>
+            <?php echo Form::input('file', 'avatar'); ?>
+
+        </div>
+        <?php echo Form::submit(trans('interface.submit'), ['class'=>'btn btn-success pull-right']); ?>
+
+    </div>
+</div>
+<?php echo Form::close(); ?>
+
+<?php $__env->stopSection(); ?>
+
+<?php echo $__env->make('layout.default', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

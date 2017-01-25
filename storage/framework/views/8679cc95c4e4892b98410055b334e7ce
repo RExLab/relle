@@ -1,0 +1,54 @@
+
+
+<?php $__env->startSection('page'); ?>
+<?php echo e(trans('interface.name', ['page'=>trans('dashboard.title')])); ?>
+
+<?php $__env->stopSection(); ?>
+
+<?php $__env->startSection('inside'); ?>
+<script type="text/javascript" src='<?php echo e(asset("js/ChartNew.js")); ?>'></script>
+<script type="text/javascript" src='<?php echo e(asset("js/chartScript.js")); ?>'></script>
+
+<div class="row">
+    <div class="col-md-6">
+        <div class="content-box-header">
+            <div class="panel-title"><?php echo e(trans("log.labsAccess")); ?> </div>
+        </div>
+        <div class="content-box-large box-with-header">
+
+            <canvas id="labs" style="margin-left:auto;" height="350" width="350"></canvas>
+        </div>
+    </div>
+
+    <div class="col-md-6">
+
+        <div class="content-box-header">
+            <div class="panel-title"> <?php echo e(trans("log.browserAccess")); ?> </div>
+        </div>
+        <div class="content-box-large box-with-header">
+            <canvas style="margin-left:auto;" id="browser" height="350" width="350"></canvas>
+        </div>
+    </div>
+
+    <div class="col-md-6">
+        <div class="content-box-header">
+            <div class="panel-title"> <?php echo e(trans("log.countryAccess")); ?></div>
+        </div>
+        <div class="content-box-large box-with-header">
+            <canvas style="margin-left:auto;" id="country" height="350" width="350"></canvas>
+
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="content-box-header">
+            <div class="panel-title"> <?php echo e(trans("log.mobileAccess")); ?></div>
+        </div>
+        <div class="content-box-large box-with-header">
+            <canvas id="mobile" style="margin-left:auto;" height="350" width="350"></canvas>
+        </div>
+    </div>
+</div>
+<?php $__env->stopSection(); ?>
+
+
+<?php echo $__env->make('layout.dashboard', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

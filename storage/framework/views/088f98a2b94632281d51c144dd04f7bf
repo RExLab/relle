@@ -1,0 +1,119 @@
+
+<?php
+$files = 'exp_data/' . $exp['id'] . '/';
+?>
+
+<head>
+    <link href="http://relle.ufsc.br/css/app.css" rel="stylesheet">
+    <link href="http://relle.ufsc.br/css/style.css" rel="stylesheet">
+    <link href="http://relle.ufsc.br/css/btn.css" rel="stylesheet">
+    <link href="http://relle.ufsc.br/css/jasny-bootstrap.css" rel="stylesheet">
+    <link href="http://relle.ufsc.br/css/switch.css" rel="stylesheet">
+
+    <link href='//fonts.googleapis.com/css?family=Roboto:400,300' rel='stylesheet' type='text/css'>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.1/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css"/>
+    <script src="http://relle.ufsc.br/js/jasny-bootstrap.js"></script>
+    <script src="http://relle.ufsc.br/js/switch.js"></script>
+    <meta name="csrf-token" content="<?php echo e(csrf_token()); ?>" />
+</head>
+
+<!--<?php echo e($name='name_'.App::getLocale()); ?>
+
+<!--<?php echo e($desc='description_'.App::getLocale()); ?>
+
+-->
+
+<div id='identifier'></div>
+<div id='close'></div>
+<center>
+    <div id='pre_experiment'>
+        <div class="col-lg-12">
+            <img src='<?php echo e(asset($exp['thumbnail'])); ?>' width="350px" />
+        </div>
+        <div class="col-lg-12">
+            <h1><?php echo e($exp[$name]); ?></h1>
+            <p>
+                <strong><?php echo e(trans('labs.description')); ?>: </strong>
+                <?php echo e($exp[$desc]); ?>
+
+            </p>
+            <p>
+                <strong><?php echo e(trans('labs.subject')); ?>: </strong>
+                <span id="duration"> <?php echo e(trans('labs.'.$exp['subject'])); ?></span> 
+            </p>
+            <p>
+                <strong><?php echo e(trans('labs.duration')); ?>: </strong>
+                <span id="duration"> <?php echo e($exp['duration']); ?></span> 
+                <?php echo e(trans('interface.minutes')); ?>
+
+            </p>
+
+            <a href="#" id="access" class="btn btn-fresh" role="button"><?php echo e(trans('interface.access')); ?></a>
+        </div>
+    </div>
+</center>
+<br><br>
+<center>
+    <div id='exp'></div>
+</center>
+<div id='return'></div>
+
+<script>
+$.ajaxSetup({
+    headers: {
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    }
+});
+function log_entry() {
+    var json = {
+        user_id: 'moodle',
+        lab_id: '<?php echo $exp['id']; ?>'
+    };
+    $.ajax({
+        type: "POST",
+        url: "http://relle.ufsc.br/log/put",
+        data: json
+    });
+}
+</script>
+
+
+<script>
+
+    var url = 'http://relle.ufsc.br/exp_data/<?php echo $exp['id']; ?>';
+    var html = url + "/<?php echo $exp['lang']; ?>.html";
+    $("#access").click(function () {
+        var js = url + '/exp_script.js';
+        var css = url + '/exp_style.css';
+        $('#pre_experiment').remove();
+        log_entry();
+        $('head').append('<link rel="stylesheet" href=' + css + ' type="text/css" />');
+        $.getScript(js);
+        $('#exp').load(html, function () {
+
+            $('#report').replaceWith('<input class="btn" onClick="report(<?php echo $exp['id']; ?>)" type="button"  value="Gerar Relatório">');
+            $("#exp").find('img').each(function () {
+                if ($(this).prop("src").indexOf("exp_data") == -1 && $(this).prop("src").indexOf("relle") > 0) {
+                    var url = $(this).prop("src");
+                    console.log('!:' + url);
+                    var right = url.replace('http://relle.ufsc.br/labs/<?php echo $exp['id']; ?>', 'http://relle.ufsc.br/exp_data/<?php echo $exp['id']; ?>');
+                    $(this).attr('src', right);
+                }
+            });
+            $('[type="checkbox"]').bootstrapSwitch();
+        });
+    });
+    $(window).unload(function () {
+        var json = {
+            time: '<?php time(); ?>',
+            lab_id: '<?php echo $exp['id']; ?>'
+        };
+        $.ajax({
+            type: "POST",
+            url: "http://relle.ufsc.br/log/end",
+            time: json
+        });
+    });
+</script>

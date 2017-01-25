@@ -1,0 +1,115 @@
+
+
+<?php $__env->startSection('page'); ?>
+<?php echo e(trans('interface.name', ['page'=>trans('docs.create')])); ?>
+
+<?php $__env->stopSection(); ?>
+
+<link href="<?php echo e(asset('css/dropzone.min.css')); ?>" rel="stylesheet" type="text/css"/>
+
+
+<?php $__env->startSection('title_inside'); ?>
+<?php echo e(trans('docs.create')); ?>
+
+<?php $__env->stopSection(); ?>
+
+<?php $__env->startSection('inside'); ?>
+<style>
+    .btn-file{
+        border-radius: 5px;
+        margin:3px;
+    }
+    .bootstrap-tagsinput{
+        border: 2px solid #bdc3c7;
+    }
+    .bootstrap-tagsinput:focus{
+        border: 2px solid #1abc9c;
+    }
+</style>
+<?php echo Form::open([
+'files' => true,
+'enctype'=> 'multipart/form-data',
+'class' => 'dropzone'
+]); ?>
+
+
+
+<div class="row">
+    <?php if($errors->has()): ?>
+    <?php foreach($errors->all() as $error): ?>
+    <div class="alert alert-danger alert-dismissible">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <strong><?php echo e(trans('interface.sorry')); ?>.</strong>
+        <?php echo e($error); ?>
+
+    </div>
+    <?php endforeach; ?>
+    <?php endif; ?>
+
+    <div class="form-group col-md-6 col-sm-12">
+        <label><?php echo e(trans('docs.title')); ?></label>
+        <input type="text" name="title" class="form-control" required/>
+    </div>
+
+    <div class="form-group col-md-3 col-sm-12">
+        <label><?php echo e(trans('docs.type')); ?></label>
+        <select class="form-control select select-default" name="type">
+            <optgroup label="<?php echo e(trans('docs.technical')); ?>">
+                <option value="manual"><?php echo e(trans('docs.manual')); ?></option>
+            </optgroup>
+            <optgroup label="<?php echo e(trans('docs.didactic')); ?>">
+                <option value="teaching"><?php echo e(trans('docs.teaching')); ?></option>
+                <option value="plan"><?php echo e(trans('docs.plan')); ?></option>
+                <option value="guide"><?php echo e(trans('docs.guide')); ?></option>
+            </optgroup>
+        </select>
+    </div>
+</div>
+<div class="row">
+    <div class="form-group col-md-6 col-sm-12">
+        <label>Tags</label>
+        <input name="tags" class="tagsinput form-control" data-role="tagsinput"/>
+    </div>
+    <div class="form-group col-md-3 col-sm-12">
+        <label><?php echo e(trans('docs.lang')); ?>:</label>
+        <select class="form-control select select-default " name='lang'>
+            <option value="en"><?php echo e(trans("interface.pt")); ?></option>
+            <option value="pt"><?php echo e(trans("interface.en")); ?></option>
+        </select>        
+    </div>
+</div>
+<div class="row">
+    <div class="form-group col-md-6 col-sm-12">
+        <label><?php echo e(trans('docs.file')); ?></label>
+        <input type="file" name="file" required/>
+        <!--
+        <div class="fileinput fileinput-new input-group" data-provides="fileinput">
+            <div class="form-control" data-trigger="fileinput"><i class="glyphicon glyphicon-file fileinput-exists"></i> <span class="fileinput-filename"></span></div>
+            <span class="input-group-addon btn btn-default btn-file input-group-btn"><span class="fileinput-new"><?php echo e(trans('interface.select')); ?></span><span class="fileinput-exists"><?php echo e(trans('interface.change')); ?></span><input type="file" name="file" required></span>
+            <a href="#" class="input-group-addon btn btn-default fileinput-exists" data-dismiss="fileinput"><?php echo e(trans('interface.remove')); ?></a>
+        </div>
+        -->
+    </div>
+    <div class="form-group col-md-12">
+        <button class="btn btn-primary btn-wide"><?php echo e(trans("interface.submit")); ?></button>
+    </div>
+</div>
+<?php echo Form::close(); ?>
+
+<?php $__env->stopSection(); ?>
+
+<?php $__env->startSection('post_body'); ?>
+<script src="<?php echo e(asset('js/dropzone.js')); ?>"></script>
+<script>
+    $('.btnNext').click(function () {
+        $('.nav-tabs > .active').next('li').find('a').trigger('click');
+    });
+
+    $('.btnPrevious').click(function () {
+        $('.nav-tabs > .active').prev('li').find('a').trigger('click');
+    });
+</script>
+<?php $__env->stopSection(); ?>
+
+
+<?php echo $__env->make('layout.dashboard', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

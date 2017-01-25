@@ -1,0 +1,262 @@
+
+
+<?php $__env->startSection('page'); ?>
+<?php echo e(trans('interface.name', ['page'=>trans('labs.create')])); ?>
+
+<?php $__env->stopSection(); ?>
+
+
+<?php $__env->startSection('title_inside'); ?>
+<?php echo e(trans('labs.create')); ?>
+
+<?php $__env->stopSection(); ?>
+
+<?php echo e($url = trans('routes.labs') . '/' . trans('routes.create')); ?>
+
+
+
+<?php $__env->startSection('inside'); ?>
+<?php echo Form::open([
+'files' => true,
+'enctype'=> 'multipart/form-data'
+]); ?>
+
+
+<div class="row">
+
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <div class="panel with-nav-tabs panel-default">
+            <div class="panel-heading">
+                <ul class="nav nav-tabs">
+                    <li class="active"><a href="#tab1" data-toggle="tab"><?php echo e(trans('labs.description')); ?></a></li>
+                    <li><a href="#tab2" data-toggle="tab"><?php echo e(trans('labs.details')); ?></a></li>
+                    <li><a href="#tab3" data-toggle="tab"><?php echo e(trans('labs.files')); ?></a></li>
+                </ul>
+            </div>
+            <div class="panel-body">
+                <div class="tab-content">
+                    <!--
+                        TAB 1
+                    -->
+                    <div class="tab-pane active" id="tab1">
+
+                        <div class='lang-box col-lg-12'>
+                            <h5><?php echo e(trans('labs.pt')); ?></h5>
+                            <div class='form-group col-lg-6 col-xs-12 pt'>
+                                <label for='name_pt'><?php echo e(trans('labs.name')); ?></label>
+                                <input name='name_pt' id='name_en' class='form-control pt' type='text'/>
+                                <?php if($errors->has('name_pt')): ?> <p class="text-danger"><?php echo e($errors->first('name_pt')); ?></p> <?php endif; ?>
+                            </div>
+                            <div class='form-group col-lg-6 col-xs-12 pt'>
+                                <label for='description_pt'><?php echo e(trans('labs.description')); ?></label>
+                                <textarea name='description_pt' id='description_en' class='form-control pt'  maxlength='105'/></textarea>
+                                <?php if($errors->has('description_pt')): ?> <p class="text-danger"><?php echo e($errors->first('description_pt')); ?></p> <?php endif; ?>
+                            </div>
+                        </div>
+                        <div class='lang-box col-lg-12'>
+                            <h5><?php echo e(trans('labs.en')); ?></h5>
+                            <div class='form-group col-lg-6 col-xs-12 en'>
+                                <label for='name_en'><?php echo e(trans('labs.name')); ?></label>
+                                <input name='name_en' id='name_en' class='form-control en' type='text'/>
+                                <?php if($errors->has('name_en')): ?> <p class="text-danger"><?php echo e($errors->first('name_en')); ?></p> <?php endif; ?>
+                            </div>
+                            <div class='form-group col-lg-6 col-xs-12 en'>
+                                <label for='description_en'><?php echo e(trans('labs.description')); ?></label>
+                                <textarea name='description_en' id='description_en' class='form-control en' maxlength='105'></textarea>
+                                <?php if($errors->has('description_en')): ?> <p class="text-danger"><?php echo e($errors->first('description_en')); ?></p> <?php endif; ?>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class='form-group col-lg-6 col-md-6 col-sm-6 col-xs-12'>
+                                <div class='form-group'>
+                                    <?php echo Form::label('tags', trans('labs.tags')); ?>
+
+                                    <?php echo Form::text('tags', null, ['class'=>'form-control']); ?>
+
+                                    <?php if($errors->has('tags')): ?> <p class="text-danger"><?php echo e($errors->first('tags')); ?></p> <?php endif; ?>
+                                </div>
+                            </div>
+                            <div class='form-group col-lg-6 col-md-6 col-sm-6 col-xs-12'>
+                                <div class='form-group'>
+                                    <?php echo Form::label('duration', trans('labs.duration')); ?>
+
+                                    <?php echo Form::input('number','duration', null, ['class'=>'form-control']); ?>
+
+                                    <?php if($errors->has('duration')): ?> <p class="text-danger"><?php echo e($errors->first('duration')); ?></p> <?php endif; ?>
+                                </div>
+                            </div>
+                            <a class="btn btn-success pull-right btnNext"><?php echo e(trans('interface.next')); ?></a>
+                        </div>
+                    </div>
+                    <!--
+                        TAB 2
+                    -->
+                    <div class="tab-pane fade" id="tab2">
+
+                        <div class="row">
+                            <div class='form-group col-lg-6 col-md-6 col-sm-6 col-xs-6'>
+                                <?php echo Form::label(trans('labs.target')); ?>
+
+                                </br>
+                                <?php echo Form::checkbox('target[]', 'elementary'); ?>
+
+                                <?php echo Form::label(trans('labs.elementary')); ?>
+
+                                </br>
+                                <?php echo Form::checkbox('target[]', 'secondary'); ?>
+
+                                <?php echo Form::label(trans('labs.secondary')); ?>
+
+                                </br>
+                                <?php echo Form::checkbox('target[]', 'high'); ?>
+
+                                <?php echo Form::label(trans('labs.high')); ?>
+
+                                </br>
+                                <?php echo Form::checkbox('target[]', 'higher'); ?>
+
+                                <?php echo Form::label(trans('labs.higher')); ?>
+
+                                <?php if($errors->has('target')): ?> <p class="text-danger"><?php echo e($errors->first('target')); ?></p> <?php endif; ?>
+                            </div>
+
+                            <div class='form-group col-lg-6 col-md-6 col-sm-6 col-xs-6'>
+                                <?php echo Form::label(trans('labs.subject')); ?>
+
+                                </br>
+                                <?php echo Form::checkbox('subject[]', 'physics'); ?>
+
+                                <?php echo Form::label(trans('labs.physics')); ?>
+
+                                </br>
+                                <?php echo Form::checkbox('subject[]', 'biology'); ?>
+
+                                <?php echo Form::label(trans('labs.biology')); ?>
+
+                                </br>
+                                <?php echo Form::checkbox('subject[]', 'chemistry'); ?>
+
+                                <?php echo Form::label(trans('labs.chemistry')); ?>
+
+                                </br>
+                                <?php echo Form::checkbox('subject[]', 'robotics'); ?>
+
+                                <?php echo Form::label(trans('labs.robotics')); ?>
+
+                                <?php if($errors->has('subject')): ?> <p class="text-danger"><?php echo e($errors->first('subject')); ?></p> <?php endif; ?>
+                            </div>
+
+
+
+                            <div class='form-group col-lg-6 col-md-6 col-sm-6 col-xs-12'>
+                                <?php echo Form::label(trans('labs.difficulty')); ?>
+
+                                </br>
+                                <?php echo Form::radio('difficulty', 'low'); ?>
+
+                                <?php echo Form::label(trans('interface.low')); ?>
+
+
+                                <?php echo Form::radio('difficulty', 'medium'); ?>
+
+                                <?php echo Form::label(trans('interface.medium')); ?>
+
+
+                                <?php echo Form::radio('difficulty', 'high'); ?>
+
+                                <?php echo Form::label(trans('interface.high')); ?>
+
+                                <?php if($errors->has('difficulty')): ?> <p class="text-danger"><?php echo e($errors->first('difficulty')); ?></p> <?php endif; ?>
+                            </div>
+
+                            <div class='form-group col-lg-12 col-md-12 col-sm-12 col-xs-12'>
+                                <?php echo Form::label(trans('labs.interaction')); ?>
+
+                                </br>
+                                <?php echo Form::radio('interaction', 'low'); ?>
+
+                                <?php echo Form::label(trans('interface.low')); ?>
+
+
+                                <?php echo Form::radio('interaction', 'medium'); ?>
+
+                                <?php echo Form::label(trans('interface.medium')); ?>
+
+
+                                <?php echo Form::radio('interaction', 'high'); ?>
+
+                                <?php echo Form::label(trans('interface.high')); ?>
+
+                                <?php if($errors->has('interaction')): ?> <p class="text-danger"><?php echo e($errors->first('interaction')); ?></p> <?php endif; ?>
+                            </div>
+                        </div>
+                        <a class="btn btn-success pull-left btnPrevious"><?php echo e(trans('interface.previous')); ?></a>
+                        <a class="btn btn-success pull-right btnNext"><?php echo e(trans('interface.next')); ?></a>
+                    </div>
+                    <!--
+                        TAB 
+                    -->
+                    <div class="tab-pane fade" id="tab3">
+                        <div class='form-group'>
+                            <?php echo Form::label(trans('labs.thumbnail')); ?>
+
+                            <br>
+                            <div class="fileinput fileinput-new" data-provides="fileinput">
+                                <div class="fileinput-preview thumbnail" data-trigger="fileinput" style="width: 200px; height: 150px;">
+                                    <img src="<?php echo e(asset("/img/exp/default.gif")); ?>"/>
+                                </div>
+                                <div>
+                                    <span class="btn btn-default btn-file"><span class="fileinput-new">Selecionar</span><span class="fileinput-exists">Trocar</span><input type="file" name="thumbnail" id="thumbnail"></span>
+                                    <a href="#" class="btn btn-hot fileinput-exists" data-dismiss="fileinput">Remover</a>
+                                </div>
+                            </div>
+
+                            </br>
+                            <!--
+                            <?php echo Form::input('file', 'thumbnail'); ?>
+
+                            -->
+                            <?php if($errors->has('thumbnail')): ?> <p class="text-danger"><?php echo e($errors->first('thumbnail')); ?></p> <?php endif; ?>
+                        </div>
+                        <div class='form-group'>
+                            <?php echo Form::label(trans('labs.package')); ?> 
+                            </br>
+                            <div class="fileinput fileinput-new input-group col-lg-6" data-provides="fileinput">
+                                <div class="form-control" data-trigger="fileinput"><i class="glyphicon glyphicon-file fileinput-exists"></i> <span class="fileinput-filename"></span></div>
+                                <span class="input-group-addon btn btn-default btn-file"><span class="fileinput-new">Select file</span><span class="fileinput-exists">Change</span><input type="file" name="package"></span>
+                                <a href="#" class="input-group-addon btn btn-default fileinput-exists" data-dismiss="fileinput">Remove</a>
+                            </div>
+                            <!--
+                            <?php echo Form::input('file', 'package'); ?> 
+                            -->
+                            <?php if($errors->has('package')): ?> <p class="text-danger"><?php echo e($errors->first('package')); ?></p> <?php endif; ?>
+                        </div>
+
+                        <a class="btn btn-success pull-left btnPrevious"><?php echo e(trans('interface.previous')); ?></a>
+                        <?php echo Form::submit(trans('interface.submit'), ['class'=>'btn btn-success pull-right']); ?>
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<?php echo Form::close(); ?>
+
+<?php $__env->stopSection(); ?>
+
+<?php $__env->startSection('post_body'); ?>
+<script>
+    $('.btnNext').click(function () {
+        $('.nav-tabs > .active').next('li').find('a').trigger('click');
+    });
+
+    $('.btnPrevious').click(function () {
+        $('.nav-tabs > .active').prev('li').find('a').trigger('click');
+    });
+</script>
+<?php $__env->stopSection(); ?>
+
+
+<?php echo $__env->make('layout.dashboard', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

@@ -1,0 +1,21 @@
+
+
+<?php $__env->startSection('page'); ?>
+Error 404
+<?php $__env->stopSection(); ?>
+
+
+<?php $__env->startSection('content'); ?>
+    <?php echo e(Analytics::trackEvent('Página', 'Erro 404')); ?>
+
+
+<center>
+    <br><br>
+    <img src="img/404_<?php echo e(App::getLocale()); ?>.png" width="25%"/>
+</center>
+<?php $__env->stopSection(); ?>
+
+
+
+
+<?php echo $__env->make('layout.default', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

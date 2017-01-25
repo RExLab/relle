@@ -1,0 +1,74 @@
+<?php $__env->startSection('page'); ?>
+<?php echo e(trans('interface.name', ['page'=>trans('log.title')])); ?>
+
+<?php $__env->stopSection(); ?>
+
+<?php $__env->startSection("title_inside"); ?>
+<?php echo e(trans('log.title')); ?>
+
+<?php $__env->stopSection(); ?>
+
+<?php $__env->startSection('inside'); ?>
+<?php
+
+use App\Labs;
+use App\User;
+
+//print_r($logs);die;
+?>
+<table class="table table-responsive table-condensed table-hover" style="width: 100%;">
+    <thead>
+        <tr>
+            <th><?php echo e(trans('log.lab')); ?></th>
+            <th><?php echo e(trans('log.username')); ?></th>
+            <th><?php echo e(trans('log.start')); ?></th>
+            <th><?php echo e(trans('log.end')); ?></th>
+            <th><?php echo e(trans('log.ip')); ?></th>     
+            <th><?php echo e(trans('log.os')); ?></th>     
+            <th><?php echo e(trans('log.browser')); ?></th>     
+            <th><?php echo e(trans('log.mobile')); ?></th>     
+            <th><?php echo e(trans('log.language')); ?></th>     
+            <th><?php echo e(trans('log.country')); ?></th>     
+            <th><?php echo e(trans('log.city')); ?></th>     
+
+        </tr>
+    </thead>
+    <tbody>
+
+        <?php foreach($logs as $log): ?>
+        <tr>
+
+            <?php
+            $idExp = $log->lab_id;
+            $lab = Labs::find($idExp);
+            $idUser = $log->user_id;
+            $user = User::find($idUser);
+            $locale = 'name_' . App::getlocale();
+            $name = "";
+            if ($log->mobile == "1"){
+                $name = trans('log.true');
+            }else{
+                $name = trans('log.false');
+            }
+            ?>
+
+            <td><?php echo e($lab[$locale]); ?></td>
+            <td><?php echo e($user['username']); ?></td>
+            <td><?php echo e($log->start); ?></td>
+            <td><?php echo e($log->end); ?></td>
+            <td><?php echo e($log->ip); ?></td>
+            <td><?php echo e($log->os); ?></td>
+            <td><?php echo e($log->browser); ?></td>
+            <td><?php echo e($name); ?></td>
+            <td><?php echo e($log->language); ?></td>
+            <td><?php echo e($log->country); ?></td>
+            <td><?php echo e($log->city); ?></td>
+
+        </tr>
+        <?php endforeach; ?>
+    </tbody>
+</table>
+
+<?php $__env->stopSection(); ?>
+
+<?php echo $__env->make('layout.dashboard', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

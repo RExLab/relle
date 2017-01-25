@@ -1,0 +1,67 @@
+
+
+<?php $__env->startSection('page'); ?>
+<?php echo e(trans('interface.name', ['page'=>$exp['name_'.$exp['lang']]])); ?>
+
+<?php $__env->stopSection(); ?>
+
+<!--<?php echo e($name='name_'.App::getLocale()); ?>
+
+<!--<?php echo e($desc='description_'.App::getLocale()); ?>
+
+-->
+<?php $__env->startSection('content'); ?>
+<div id='identifier'></div>
+<div id='close'></div>
+
+<div class="container">
+    <div class="col-lg-12 well"> 
+
+        <div id='pre_experiment'>
+            <div class="col-lg-4">
+                <img src='<?php echo e(asset($exp['thumbnail'])); ?>' width="350px" />
+            </div>
+            <div class="col-lg-8">
+                <h1><?php echo e($exp[$name]); ?></h1>
+                <p>
+                    <strong><?php echo e(trans('labs.description')); ?>: </strong>
+                    <?php echo e($exp[$desc]); ?>
+
+                </p>
+                <p>
+                    <strong><?php echo e(trans('labs.subject')); ?>: </strong>
+                    <span id="duration"> <?php echo e(trans('labs.'.$exp['subject'])); ?></span> 
+                </p>
+                <p>
+                    <strong><?php echo e(trans('labs.duration')); ?>: </strong>
+                    <span id="duration"> <?php echo e($exp['duration']); ?></span> 
+                    <?php echo e(trans('interface.minutes')); ?>
+
+                </p>
+                
+                <a href="#" id="access" class="btn btn-fresh" role="button"><?php echo e(trans('interface.access')); ?></a>
+            </div>
+        </div>
+        <div id='exp'></div>
+        <div id='return'></div>
+    </div>
+</div>  
+<?php $__env->stopSection(); ?>   
+
+<?php $__env->startSection('script'); ?>
+<script>
+    
+    $("#access").click(function () {
+        var url = '<?php echo e(asset("/exp_data/".$exp['id'])); ?>';
+        var html = url + "/<?php echo e($exp['lang']); ?>.html";
+        var js = url + '/exp_script.js';
+        var css = url + '/exp_style.css';
+        
+        $('#pre_experiment').remove();
+        $('head').append('<link rel="stylesheet" href='+css+' type="text/css" />');
+        $.getScript(js);
+        $('#exp').load(html);
+    });
+</script>
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('layout.default', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

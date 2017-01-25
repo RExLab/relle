@@ -1,0 +1,114 @@
+
+
+<?php $__env->startSection('page'); ?>
+<?php echo e(trans('interface.name', ['page'=>trans('users.edit')])); ?>
+
+<?php $__env->stopSection(); ?>
+
+<?php echo e(Analytics::trackEvent('Páginas', 'Editar Usuário')); ?>
+
+
+<?php $__env->startSection('title_inside'); ?>
+<?php echo e(trans('users.edit')); ?>
+
+<?php $__env->stopSection(); ?>
+
+<?php $__env->startSection('inside'); ?>
+<?php echo Form::open([
+'action' => 'UsersController@edit',
+'files' => true,
+'enctype'=> 'multipart/form-data'
+]); ?>
+
+<div class="row">
+    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+        <div class='form-group'>
+            <?php echo Form::label('firstname', trans('users.firstname')); ?>
+
+            <?php echo Form::text('firstname', $users->firstname, ['class'=>'form-control']); ?>
+
+            <?php if($errors->has('firstname')): ?> <p class="text-danger"><?php echo e($errors->first('firstname')); ?></p> <?php endif; ?>
+        </div>
+        <div class='form-group'>
+            <?php echo Form::label('lastname', trans('users.lastname')); ?>
+
+            <?php echo Form::text('lastname', $users->lastname, ['class'=>'form-control']); ?>
+
+            <?php if($errors->has('lastname')): ?> <p class="text-danger"><?php echo e($errors->first('lastname')); ?></p> <?php endif; ?>
+        </div>
+        <div class='form-group'>
+            <?php echo Form::label('email', trans('users.email')); ?>
+
+            <?php echo Form::text('email', $users->email, ['class'=>'form-control']); ?>
+
+            <?php if($errors->has('email')): ?> <p class="text-danger"><?php echo e($errors->first('email')); ?></p> <?php endif; ?>
+        </div> 
+        <div class='form-group'>
+            <?php echo Form::label('password', trans('users.password')); ?>
+
+            <?php echo Form::input('password', 'password', null, ['class'=>'form-control']); ?>
+
+            <?php if($errors->has('password')): ?> <p class="text-danger"><?php echo e($errors->first('password')); ?></p> <?php endif; ?>
+        </div>
+        <?php echo Form::submit(trans('interface.submit'), ['class'=>'btn btn-success']); ?>
+
+    </div>
+    
+    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+        <div class='form-group'>
+            <?php echo Form::label('country', trans('users.country')); ?>
+
+            <?php echo Form::text('country', $users->country, ['class'=>'form-control']); ?>
+
+        </div>
+        <div class='form-group'>
+            <?php echo Form::label('organization', trans('users.organization')); ?>
+
+            <?php echo Form::text('organization', $users->organization, ['class'=>'form-control']); ?>
+
+        </div>
+        <div class='form-group'>
+            <?php echo Form::label('type', trans('users.type')); ?>
+
+            <?php if($users->type == 'admin'): ?>
+            <?php echo Form::select('type', 
+                [null=> trans('interface.select')] +
+            [
+                    "admin"=> trans('users.admin'), 
+                    "user"=> trans('users.user') 
+                ], 
+                $users->type, ['class' => 'form-control']); ?>
+
+            <?php else: ?>
+            <?php echo Form::select('type', 
+                [null=> trans('interface.select')] +
+            [
+                    "user"=> trans('users.user') 
+                ], 
+                $users->type, ['class' => 'form-control']); ?>
+
+            <?php endif; ?>
+        </div>
+        <div class='form-group'>
+            <?php echo Form::label(trans('users.avatar')); ?> 
+            </br>
+            <?php echo Form::input('file', 'avatar'); ?>
+
+        </div>
+        <input type="hidden" name='id' value="<?php echo e($users->id); ?>"/>
+    </div>
+</div>
+
+<?php echo Form::close(); ?>
+
+<?php $__env->stopSection(); ?>
+
+<?php $__env->startSection('script_dash'); ?>
+
+<script>
+$(document).ready(function() {
+    $('.select2-choice').css({'padding': '0px'});
+});
+</script>
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('layout.dashboard', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

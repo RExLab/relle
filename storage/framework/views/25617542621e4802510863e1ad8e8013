@@ -1,0 +1,202 @@
+
+
+<?php $__env->startSection('page'); ?>
+<?php echo e(trans('interface.name', ['page'=>$exp['name_'.App::getLocale()]])); ?>
+
+<?php $__env->stopSection(); ?>
+
+<?php
+$files = 'exp_data/' . $exp['id'] . '/';
+?>
+
+<!--<?php echo e($name='name_'.App::getLocale()); ?>
+
+<!--<?php echo e($desc='description_'.App::getLocale()); ?>
+
+-->
+<?php $__env->startSection('content'); ?>
+
+<link href="https://gitcdn.github.io/bootstrap-toggle/2.2.0/css/bootstrap-toggle.min.css" rel="stylesheet">
+<script src="https://gitcdn.github.io/bootstrap-toggle/2.2.0/js/bootstrap-toggle.min.js"></script>
+
+<div id='identifier'></div>
+<div id='close'></div>
+<div id='pre_experiment'>
+    <div class="col-lg-4">
+        <img src='<?php echo e(asset($exp['thumbnail'])); ?>' width="350px" />
+    </div>
+    <div class="col-lg-8">
+        <h1><?php echo e($exp[$name]); ?></h1>
+        <p>
+            <strong><?php echo e(trans('labs.description')); ?>: </strong>
+            <?php echo e($exp[$desc]); ?>
+
+        </p>
+        <p>
+            <strong><?php echo e(trans('labs.subject')); ?>: </strong>
+            <span id="subject"> <?php echo e(trans('labs.'.$exp['subject'])); ?></span> 
+        </p>
+        <p>
+            <strong><?php echo e(trans('labs.duration')); ?>: </strong>
+            <span id="duration"> <?php echo e($exp['duration']); ?></span> 
+            <?php echo e(trans('interface.minutes')); ?>
+
+        </p>
+        <p>
+            <a href='#'id='link' ><?php echo e(trans('labs.embeed')); ?></a><br>
+            <input id='embeed' style='display:none;' type='text' 
+                   value='<object width="100%" height="450px" data="http://relle.ufsc.br/labs/<?php echo e($exp['id']); ?>/moodle"></object>' 
+                   class='col-lg-6' readonly/><br>
+        </p>
+
+        <a href="#" id="access" class="btn btn-fresh" role="button"><?php echo e(trans('interface.access')); ?></a>
+    </div>
+</div> 
+<div id='return'></div>
+<center><div id='exp'></div></center>
+<div id='error'></div>
+<?php $__env->stopSection(); ?>   
+
+<?php $__env->startSection('script'); ?>
+
+<script>
+    $("#link").click(function () {
+        $("#embeed").show().select();
+    });
+    
+    $.ajaxSetup({
+        headers: { 'X-CSRF-Token' : $('meta[name=csrf-token]').attr('content') }
+    });
+<?php
+if (Auth::check()) {
+    $user = Auth::user()->id;
+} else {
+    $user = 0;
+}
+?>
+function log_entry() {
+var json = {
+user_id: '<?php echo e($user); ?>',
+        lab_id: '<?php echo e($exp['id']); ?>'
+};
+        $.ajax({
+        type: "POST",
+                url: "http://relle.ufsc.br/log/put",
+                data: json
+        });
+        }
+</script>
+
+
+<script>
+
+    var url = '<?php echo e(asset("/exp_data/".$exp['id'])); ?>';
+    var html = url + "/<?php echo e(App::getLocale()); ?>.html";
+    var js = url + '/exp_script.js';
+    var css = url + '/exp_style.css';
+    var urlqueue = 'http://'+window.location.hostname + '/api';
+    var duration = parseInt('<?php echo e($exp['duration']); ?>');
+    var exp_id = parseInt('<?php echo e($exp['id']); ?>');
+    
+    function loadLab(data){
+        $('#pre_experiment').remove();
+        log_entry();
+        $('#error').html("");
+        $('head').append('<link rel="stylesheet" href=' + css + ' type="text/css" />');
+        $('#return').css('margin-top','-3%');
+        $('#return').css('margin-bottom','3%');
+        $('#return').addClass('well well-sm');
+        $('#return').html('<button id="btnLeave" class="btn btn-sm btn-default" name="sair" ><?php echo e(trans('interface.leave')); ?></button>' + 
+                "<?php echo e(trans('interface.timeleft')); ?>: "+
+                "<span id='min'>"+data.clock.min+"</span>:<span id='seg'>"+data.clock.seg+"</span>");
+        //$('#return').append(data['clock']);
+        $('#exp').load(html, function() {
+            $.getScript(js);
+            $.getScript(urlqueue+"/js/access.js", function () {
+                refresh = setInterval(RefreshTimeAlive, 5000); // Intervalo para refresh da fila (5 em 5 segundos deve mandar um POST para identificar que usuario continua conectado)  
+                setTimeout(LeaveExperiment, duration * 60 * 1000); // Agenda a execucao da funcao que envia um POST com action de deixar experimento
+                timer = setInterval(TimerMinus, 1000); // Refresh do contador visual
+                $("#btnLeave").click(LeaveExperiment);
+            });
+            
+            $('#report').replaceWith('<input class="btn" onClick="report(<?php echo e($exp['id']); ?>)" type="button"  value="<?php echo e(trans('labs.report')); ?>">');
+            $("#exp").find('img').each(function () {
+                if ($(this).prop("src").indexOf("exp_data") == - 1 && $(this).prop("src").indexOf("relle") > 0) {
+                    var url = $(this).prop("src");
+                    console.log('!:' + url);
+                    var right = url.replace('http://relle.ufsc.br/labs', 'http://relle.ufsc.br/exp_data/<?php echo e($exp['id']); ?>');
+                    $(this).attr('src', right);
+                }
+            });
+            
+        });        
+    }
+    
+    function waitLab(data){
+            $('#error').html("");
+            $('#return').html("");
+            $('#error').append(data.message);
+            $('#return').append(data.clock);
+            $('#return').append('<br><button id="btnLeave" class="btn btn-sunny" name="sair" ><?php echo e(trans('interface.leave')); ?></button>');
+            $("#access").css("display", "none");
+            $.getScript(urlqueue+"/js/waiting.js", function () {
+                refresh = setInterval(Refresh, 1000);
+                timer = setInterval(TimerMinus, 1000);
+                $("#btnLeave").click(LeaveExperiment);
+            });
+    }
+    
+    function errorLab(){
+        $('#error').html("");
+        $('#error').html("<?php echo e(trans('message.tab')); ?>");
+        $('#return').append('<button id="btnLeave"  class="btn btn-sunny" name="sair" ><?php echo e(trans('interface.leave')); ?></button>');
+        $.getScript(urlqueue+"/js/opennedtab.js", function () {
+            $("#btnLeave").click(LeaveExperiment);
+        });
+
+    }
+
+    $("#access").click(function () {
+           var json = { 'exp_id': exp_id,
+            'pass': $('meta[name=csrf-token]').attr('content'),
+            'exec_time':duration };
+
+            $.ajax({
+                type: "POST",
+                url: urlqueue+"/queue",
+                data: json,
+                success:function(data){
+                    console.log(data);
+                    data = $.parseJSON(data);
+                    var message = data['message'].toString();
+                    if (message == 'first'){
+                        loadLab(data);
+                    }else if (data['clock']) {
+                        waitLab(data);
+                    }else{
+                        errorLab();
+                    }
+                },
+                error: function (XMLHttpRequest, textStatus, errorThrown) {
+                            errorLab();
+                        }
+                
+            });
+            
+           $(window).on('beforeunload', function () {
+                var jsonlogout = {
+                        time: '<?php echo e(time()); ?>',
+                        lab_id: exp_id
+                };
+                $.ajax({
+                    type: "POST",
+                    url: "http://relle.ufsc.br/log/end",
+                    time: jsonlogout
+                });
+                LeaveExperiment();
+           });
+       });
+            
+</script>
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('layout.default', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

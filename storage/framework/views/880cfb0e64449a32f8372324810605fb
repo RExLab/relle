@@ -1,0 +1,50 @@
+
+
+<?php $__env->startSection('page'); ?>
+<?php echo e(trans('interface.name', ['page'=>trans('docs.title_page')])); ?>
+
+<?php $__env->stopSection(); ?>
+
+<?php $__env->startSection('title_inside'); ?>
+<?php echo e(trans('docs.title_page')); ?>
+
+<?php $__env->stopSection(); ?>
+
+<!--<?php echo e($name='name_'.App::getLocale()); ?>
+
+<?php echo e($desc='description_'.App::getLocale()); ?>-->
+
+
+<?php $__env->startSection('inside'); ?>
+<div class="table-responsive">
+    <table class="table">
+        <tr>
+            <td></td>
+            <td><?php echo e(trans('docs.title')); ?></td>
+            <td><?php echo e(trans('docs.type')); ?></td>
+            <td><?php echo e(trans('docs.size')); ?></td>
+            <td><?php echo e(trans('docs.modified')); ?></td>
+            <td></td>
+        </tr>
+        
+        <?php foreach($docs as $doc): ?>
+
+        <tr>
+            <td><img src="<?php echo e(asset('img/docs/'.formatIcon($doc['format']).'.png')); ?>" height="35px"></td>
+            <td><?php echo e($doc['title']); ?></td>
+            <td><?php echo e(trans('docs.'.$doc['type'])); ?></td>
+            <td><?php echo e(formatSize($doc['size'])); ?></td>
+            <td><?php echo e(date('d/m/Y H:i', strtotime($doc['created_at']))); ?></td>
+            <td>
+                <a href="<?php echo e(asset($doc['url'])); ?>"><img src="<?php echo e(asset('img/docs/download.png')); ?>" height="25px"></a>
+            </td>
+        </tr>
+        <?php endforeach; ?>
+        
+    </table>
+</div>
+<?php $__env->stopSection(); ?>
+
+
+
+<?php echo $__env->make('layout.dashboard', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

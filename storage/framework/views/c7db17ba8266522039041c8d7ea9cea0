@@ -1,0 +1,180 @@
+
+
+<?php $__env->startSection('page'); ?>
+<?php echo e(trans('interface.name', ['page'=>trans('labs.title')])); ?>
+
+<?php $__env->stopSection(); ?>
+
+<?php $__env->startSection('title'); ?>
+<?php echo e(trans('labs.title')); ?>
+
+<?php $__env->stopSection(); ?>
+
+<!--<?php echo e($name='name_'.App::getLocale()); ?>
+
+<?php echo e($desc='description_'.App::getLocale()); ?>-->
+
+
+<?php $__env->startSection('content'); ?>
+<div class='xs-hidden' style="margin-top:20px;"></div>
+<div class="col-lg-3 col-md-3 col-sm-3 col-xs-12 well"  style=" margin-bottom:0; padding-bottom:0">
+
+    <?php echo Form::open([
+    'url'=>'labs',
+    ]); ?>
+
+
+    <div class="form-group has-feedback">
+        <input type="text" name="terms" id='search' placeholder="<?php echo e(trans('interface.search')); ?>" class="form-control" />
+        <i class="glyphicon glyphicon-search form-control-feedback"></i>
+    </div>
+    <div class="form-group visible-xs visible-sm'>
+         <a href="#" data-toggle="collapse" 
+         data-target="#goup" aria-expanded="true" aria-controls="goup">
+        <?php echo e(trans('interface.advanced_search')); ?><i class="caret"></i>
+        </a>
+    </div>
+    <ul id='goup' class='nav collapse'>
+        <?php echo Form::label(trans('labs.target')); ?>
+
+        </br>
+        <?php echo Form::checkbox('target[]', 'elementary'); ?>
+
+        <?php echo Form::label(trans('labs.elementary')); ?>
+
+        </br>
+        <?php echo Form::checkbox('target[]', 'secondary'); ?>
+
+        <?php echo Form::label(trans('labs.secondary')); ?>
+
+        </br>
+        <?php echo Form::checkbox('target[]', 'high'); ?>
+
+        <?php echo Form::label(trans('labs.high')); ?>
+
+        </br>
+        <?php echo Form::checkbox('target[]', 'higher'); ?>
+
+        <?php echo Form::label(trans('labs.higher')); ?>
+
+        </br></br>
+        <?php echo Form::label(trans('labs.subject')); ?>
+
+        </br>
+        <?php echo Form::checkbox('subject[]', 'physics'); ?>
+
+        <?php echo Form::label(trans('labs.physics')); ?>
+
+        </br>
+        <?php echo Form::checkbox('subject[]', 'biology'); ?>
+
+        <?php echo Form::label(trans('labs.biology')); ?>
+
+        </br>
+        <?php echo Form::checkbox('subject[]', 'chemistry'); ?>
+
+        <?php echo Form::label(trans('labs.chemistry')); ?>
+
+        </br>
+        <?php echo Form::checkbox('subject[]', 'robotics'); ?>
+
+        <?php echo Form::label(trans('labs.robotics')); ?>
+
+        </br></br>
+        <?php echo Form::label(trans('labs.difficulty')); ?>
+
+        </br>
+        <?php echo Form::checkbox('difficulty[]', 'low'); ?>
+
+        <?php echo Form::label(trans('interface.low')); ?>
+
+
+        <?php echo Form::checkbox('difficulty[]', 'medium'); ?>
+
+        <?php echo Form::label(trans('interface.medium')); ?>
+
+
+        <?php echo Form::checkbox('difficulty[]', 'high'); ?>
+
+        <?php echo Form::label(trans('interface.high')); ?>
+
+        </br></br>
+
+        <?php echo Form::label(trans('labs.interaction')); ?>
+
+        </br>
+        <?php echo Form::checkbox('interaction[]', 'low'); ?>
+
+        <?php echo Form::label(trans('interface.low')); ?>
+
+
+        <?php echo Form::checkbox('interaction[]', 'medium'); ?>
+
+        <?php echo Form::label(trans('interface.medium')); ?>
+
+
+        <?php echo Form::checkbox('interaction[]', 'high'); ?>
+
+        <?php echo Form::label(trans('interface.high')); ?>
+
+        </br></br>
+
+        <?php echo Form::submit(trans('interface.submit'), ['class'=>'btn btn-fresh']); ?>
+
+
+        <?php echo Form::close(); ?>
+
+    </ul>
+</div>
+
+<div class="col-lg-9 col-md-9 col-sm-9 col-xs-12" style="padding-bottom:75px">
+    <?php foreach($labs as $lab): ?>
+    
+    <?php 
+        if(status($lab->id)){
+            $color = "#51bf87";
+            $btn='';
+            $status = 'Disponível';
+            $title = '';
+        }else{
+            $color = "#f44336";
+            $btn = ' disabled';
+            $status = 'Indisponível';
+            $title = 'Este experimento está indisponível no momento';
+        }
+    ?>
+    
+    
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-image">
+                <img src="<?php echo e(asset($lab->thumbnail)); ?>">
+                <span class="card-title"><a href="<?php echo e(url('/labs/'.$lab->id)); ?>" class="btn btn-fresh <?php echo e($btn); ?>" title="<?php echo e($title); ?>" role="button"><?php echo e(trans('interface.access')); ?></a></span>
+            </div>
+            <div class="card-content">
+                <span class="status" id='<?php echo e($lab->id); ?>' style="color:<?php echo e($color); ?>;" class="tooltip"title="<?php echo e($status); ?>"><i class="fa fa-circle"></i></span>
+                <b><?php echo e($lab->$name); ?></b>
+                <p><?php echo e($lab->$desc); ?></p>
+            </div>
+
+        </div>
+    </div>
+    <?php endforeach; ?>
+</div>
+<?php $__env->stopSection(); ?>
+
+<?php $__env->startSection('script'); ?>
+<script>
+    $(window).resize(function () {
+        if ($(window).width() < 1050) {
+            $('#goup').removeClass('in');
+        } else {
+            $('#goup').addClass('in');
+        }
+    }).resize();
+</script>
+<?php $__env->stopSection(); ?>
+
+
+
+<?php echo $__env->make('layout.default', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

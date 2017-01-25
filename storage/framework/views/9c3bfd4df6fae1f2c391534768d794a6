@@ -1,0 +1,141 @@
+
+
+<?php $__env->startSection('page'); ?>
+<?php echo e(trans('interface.name', ['page'=>trans('login.login')])); ?>
+
+<?php $__env->stopSection(); ?>
+
+<?php $__env->startSection('head'); ?>
+<style>
+    body{
+        background: -webkit-linear-gradient(90deg, #00AA8A 10%, #006653 90%); /* Chrome 10+, Saf5.1+ */
+        background:    -moz-linear-gradient(90deg, #00AA8A 10%, #006653 90%); /* FF3.6+ */
+        background:     -ms-linear-gradient(90deg, #00AA8A 10%, #006653 90%); /* IE10 */
+        background:      -o-linear-gradient(90deg, #00AA8A 10%, #006653 90%); /* Opera 11.10+ */
+        background:         linear-gradient(90deg, #00AA8A 10%, #006653 90%); /* W3C */
+    }
+    .profile-img {
+        width: 96px;
+        height: 96px;
+        margin: 0 auto 10px;
+        display: block;
+        -moz-border-radius: 50%;
+        -webkit-border-radius: 50%;
+        border-radius: 50%;
+    }
+    #tabs{
+        margin-top: -10px;
+    }
+
+</style>
+<?php $__env->stopSection(); ?>
+
+<?php $__env->startSection('content'); ?>
+<div id='error' style="display:none;" class="alert alert-danger alert-dismissible">
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+    <strong><?php echo e(trans('interface.sorry')); ?>.</strong>
+    <?php echo e(trans('message.login')); ?>
+
+</div>
+
+<div class="row">
+    <div class="col-sm-6 col-md-4 col-md-offset-4">
+
+        <div id="my-tab-content" class="tab-content" >
+            <img class="profile-img" src="<?php echo e(asset('/img/default.gif')); ?>" alt=""> 
+
+            <form class="form-group form-signin" id='form' >
+
+                <center><h1 style="color:white"><?php echo e(trans('login.login')); ?></h1></center>
+                <input name="username" id='username' type="text" class="form-control" placeholder="<?php echo e(trans('login.username')); ?>" required autofocus>
+                <input name="password" id='password' type="password" class="form-control" placeholder="<?php echo e(trans('login.password')); ?>" required>
+                <p style="color:white">
+                    <input name='rememberme' type='checkbox'/> <?php echo e(trans('login.remember')); ?>
+
+                    <a href="<?php echo e(url('/login/forgot')); ?>" style="color:white" class="pull-right"><?php echo e(trans('login.forgot_msg')); ?></a>
+                </p> 
+                <input type="hidden" name="_token" value="<?php echo csrf_token(); ?>">
+                <button id="submit" class="btn btn-lg btn-fresh btn-block"><?php echo e(trans('interface.submit')); ?></button>
+
+
+            </form>
+
+            <div id="tabs" data-tabs="tabs" style="text-align: center;">
+                <a href="<?php echo e(url('/users/signup')); ?>"  style="color:white"><?php echo e(trans('login.signup_msg')); ?> </a>
+            </div> 
+
+        </div>  
+    </div>
+</div>
+<?php $__env->stopSection(); ?>
+
+<?php $__env->startSection('script'); ?>
+<script>
+    //default goto
+    var goto = 'http://relle.ufsc.br/lara';
+            $(function () {
+            <?php if(isset($error)): ?>
+                $("#error").show(1000);
+            <?php endif; ?>
+            <?php if(isset($sent)): ?>
+                $("#error").removeClass('alert-danger');
+                $("#error").removeClass('alert-success');
+                $("#error").append('<?php echo e(trans('message.sent')); ?>');
+                $("#error").show(1000);
+            <?php endif; ?>
+
+
+                    $('footer').addClass('login_footer');
+                    /*
+                     * If user is already loged in on moodle, goes back
+                     */
+
+                    $('#submit').click(function () {
+            var formData = {
+            'username': $('input[name=username]').val(),
+                    'password': $('input[name=password]').val(),
+                    '_token': $('input[name=_token]').val(),
+                    'rememberme': $('input[name=rememberme]').val()
+            };
+                    var login_relle = false;
+                    var login_moodle = false;
+                    $.ajax({
+                    url: "http://relle.ufsc.br/login",
+                            data: formData,
+                            type: "POST",
+                            success: function (data) {
+                            if (data.goto) {
+                            goto = data.goto;
+                            } else if (data.error) {
+                            goto = false;
+                                    $("#error").show(1000);
+                            }
+                            }
+                    });
+                    $.ajax({
+                    url: "http://relle.ufsc.br/moodle/login/auth.php",
+                            data: formData,
+                            type: "POST",
+                            //moodle returns error 404 if user is not found
+                            error: function (XMLHttpRequest, textStatus, errorThrown) {
+                            goto = false;
+                                    $("#error").show(1000);
+                            },
+                            success: function () {
+                            if (document.referrer.search('moodle') >= 0) {
+                            goto = document.referrer;
+                            }
+                            }
+                    });
+                    event.preventDefault();
+            });
+            });
+            $(document).ajaxStop(function () {
+    if (goto)
+            window.location.href = goto;
+    });
+</script>
+<?php $__env->stopSection(); ?>
+
+
+<?php echo $__env->make('layout.default', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

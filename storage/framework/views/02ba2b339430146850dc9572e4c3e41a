@@ -1,0 +1,81 @@
+
+
+<?php $__env->startSection('page'); ?>
+<?php echo e(trans('interface.name', ['page'=>trans('login.forgot')])); ?>
+
+<?php $__env->stopSection(); ?>
+
+<?php $__env->startSection('head'); ?>
+<style>
+    body{
+        background: -webkit-linear-gradient(90deg, #00AA8A 10%, #006653 90%); /* Chrome 10+, Saf5.1+ */
+        background:    -moz-linear-gradient(90deg, #00AA8A 10%, #006653 90%); /* FF3.6+ */
+        background:     -ms-linear-gradient(90deg, #00AA8A 10%, #006653 90%); /* IE10 */
+        background:      -o-linear-gradient(90deg, #00AA8A 10%, #006653 90%); /* Opera 11.10+ */
+        background:         linear-gradient(90deg, #00AA8A 10%, #006653 90%); /* W3C */
+    }
+    .profile-img {
+        width: 96px;
+        height: 96px;
+        margin: 0 auto 10px;
+        display: block;
+        -moz-border-radius: 50%;
+        -webkit-border-radius: 50%;
+        border-radius: 50%;
+    }
+    #tabs{
+        margin-top: -10px;
+    }
+</style>
+<?php $__env->stopSection(); ?>
+
+<?php $__env->startSection('content'); ?>
+
+<?php if($errors->has()): ?>
+<div class="alert alert-danger alert-dismissible">
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+    <strong><?php echo e(trans('interface.sorry')); ?>.</strong>
+    <?php echo e(trans('message.reset')); ?>
+
+</div>
+<?php endif; ?>
+
+<div class="row">
+    <div class="col-sm-6 col-md-4 col-md-offset-4">
+
+        <div id="my-tab-content" class="tab-content" >
+            <img class="profile-img" src="<?php echo e(asset('/img/default.gif')); ?>"
+                 alt="">
+            <form class="form-group form-signin" action="<?php echo e(url('/login/forgot')); ?>" method="post">
+                <center><h1 style="color:white"><?php echo e(trans('login.forgot')); ?></h1></center>
+
+                <div class="input-group">
+                    <input name="email" type="email" class="form-control" placeholder="<?php echo e(trans('login.email')); ?>" required autofocus>
+                    <span class="input-group-btn">
+                        <button type="submit" class="btn btn-fresh" style="margin-top:-1px;"><?php echo e(trans('interface.submit')); ?></button>
+                    </span>
+                </div>
+                <input type="hidden" name="_token" value="<?php echo csrf_token(); ?>">
+            </form>
+            <div id="tabs" data-tabs="tabs" style="text-align: center;">
+                <div class="col-lg-6">
+                    <a href="<?php echo e(url('/login')); ?>"  style="color:white"><?php echo e(trans('login.login')); ?></a>
+                </div>
+                <div class="col-lg-6">
+                    <a href="<?php echo e(url('#')); ?>"  style="color:white"><?php echo e(trans('login.signup_msg')); ?> </a>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+<?php $__env->stopSection(); ?>
+
+<?php $__env->startSection('script'); ?>
+<script>
+    $(function () {
+        $('footer').addClass('forget_footer');
+    });
+</script>
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('layout.default', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

@@ -1,0 +1,33 @@
+
+    <?php echo e(Analytics::trackEvent('Página', 'Sobre')); ?>
+
+
+<?php $__env->startSection('page', trans('menu.about')); ?>
+<?php $__env->startSection('title', trans('menu.about')); ?>
+
+<?php $__env->startSection('content'); ?>
+<div class="row">
+    <div class="col-lg-8 col-xs-12">
+        <h4>O que é o RELLE?</h4>
+        <p>O RELLE (do inglês <i>Remote Labs Learning Environment</i>) é um ambiente que permite a manipulação e o gerenciamento
+        de experimentos remotos. </p>
+        <h4>Quem desenvolve o RELLE?</h4>
+        <p>O RELLE é desenvolvido pelo Grupo de Trabalho em Experimentação Remota (GT-MRE) do Laboratório de Experimentação Remota 
+            (RExLab), na Universidade Federal de Santa Catarina. O GT-MRE é um projeto financiado pela Coordenação de Aperfeiçoamento de Pessoal de Nível Superior
+            (CAPES) e pela Rede Nacional de Ensino e Pesquisa (RNP), através dos Programas de P&D Temáticos.</p>
+        <h4>Posso usar os experimentos do RELLE em minhas aulas?</h4>
+        <p>Sim, todos os experimentos disponíveis estão abertos para uso de qualquer usuário. Contudo, para a efitiva integração dos
+            experimentos no conteúdo, utilização dos materiais e sequeências didáticas, <a href='<?php echo e(url('contact')); ?>'>entre em contato</a> com a equipe.</p>
+        <h4>Posso criar meu próprio experimento e disponibilizá-lo no RELLE?</h4>
+        <p>Sim, o RELLE tem funcionalidades que permitem a disponibilização de experimentos remotos como autenticação, fila e emissão de relatórios. 
+            Para tanto, você precisa desenvolver seu experimento a partir das especificações do sistema. Para mais informações,  <a href='<?php echo e(url('contact')); ?>'>entre em contato</a> com a equipe.</p>
+        <h4>Posso instalar o RELLE no meu próprio servidor?</h4>
+        <p>Sim, o RELLE tem código aberto, e está disponível sob licensa MIT no <a href="https://github.com/RExLab/relle" target="_blank">repositório público do RExLab</a>.
+        </p>
+    </div>
+    <div class="col-lg-6 col-xs-12">
+        
+    </div>
+</div>
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('layout.default', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

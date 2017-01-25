@@ -1,0 +1,55 @@
+
+
+<?php $__env->startSection('page'); ?>
+<?php echo e(trans('interface.name', ['page'=>trans('users.title')])); ?>
+
+<?php $__env->stopSection(); ?>
+
+<?php $__env->startSection("title_inside"); ?>
+<?php echo e(trans('users.title')); ?> <a href="/users/export" class="btn btn-default"><?php echo e(trans('interface.export')); ?></a>
+<?php $__env->stopSection(); ?>
+
+    <?php echo e(Analytics::trackEvent('Páginas', 'Users All')); ?>
+
+
+
+<?php $__env->startSection('inside'); ?>
+<style>
+    .pagination > .active > a, .pagination > .active > span, .pagination > .active > a:hover, .pagination > .active > span:hover, .pagination > .active > a:focus, .pagination > .active > span:focus{
+        color:white;
+        background: #00AA8A;
+        border: 1px solid #dddddd;
+    }
+</style>
+<table class="table table-responsive">
+    <thead>
+        <tr>
+            <th><?php echo e(trans('users.username')); ?></th>
+            <th><?php echo e(trans('users.name')); ?></th>
+            <th><?php echo e(trans('users.email')); ?></th>
+            <th><?php echo e(trans('users.organization')); ?></th>
+            <th><?php echo e(trans('users.type')); ?></th>     
+
+        </tr>
+    </thead>
+    <tbody>
+        <?php foreach($users as $user): ?>
+        <tr>
+            <td><?php echo e($user->username); ?></td>
+            <td><?php echo e($user->firstname); ?> <?php echo e($user->lastname); ?></td>
+            <td><?php echo e($user->email); ?></td>
+            <td><?php echo e($user->organization); ?></td>
+            <td><?php echo e($user->type); ?></td>
+            <td>
+                <a href="<?php echo e(url('users/'.$user->id.'/delete')); ?>"><span class="glyphicon glyphicon-trash text-danger"/></a>
+                <a href="<?php echo e(url('users/'.$user->id.'/edit')); ?>"><span class="glyphicon glyphicon-pencil text-success"/></a>
+            </td>
+        </tr>
+        <?php endforeach; ?>
+    </tbody>
+</table>
+<center><?php echo $users->render(); ?></center>
+
+<?php $__env->stopSection(); ?>
+
+<?php echo $__env->make('layout.dashboard', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

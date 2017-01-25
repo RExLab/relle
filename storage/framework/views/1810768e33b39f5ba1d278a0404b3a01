@@ -1,0 +1,29 @@
+
+    <?php echo e(Analytics::trackEvent('Página', 'Sobre')); ?>
+
+
+<?php $__env->startSection('page', trans('menu.about')); ?>
+<?php $__env->startSection('title', trans('menu.about')); ?>
+
+<?php $__env->startSection('content'); ?>
+<div class="row">
+    <div class="col-lg-8 col-xs-12">
+        <h4><?php echo trans('about.what');?></h4>
+        <p><?php echo trans('about.what-desc');?></p>
+        <h4><?php echo trans('about.who');?></h4>
+        <p><?php echo trans('about.who-desc');?></p>
+        <h4><?php echo trans('about.can-use');?></h4>
+        <p><?php echo trans('about.can-use-desc');?></p>
+        
+        <h4><?php echo trans('about.can-create');?></h4>
+        <p><?php echo trans('about.can-create-desc');?></p>
+        
+        <h4><?php echo trans('about.can-install');?></h4>
+        <p><?php echo trans('about.can-install-desc');?></p>
+    </div>
+    <div class="col-lg-6 col-xs-12">
+        
+    </div>
+</div>
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('layout.default', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

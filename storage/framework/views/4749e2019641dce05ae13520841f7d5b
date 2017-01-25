@@ -1,0 +1,559 @@
+
+
+<?php $__env->startSection('page'); ?>
+<?php echo e(trans('interface.name', ['page'=>trans('labs.edit')])); ?>
+
+<?php $__env->stopSection(); ?>
+
+
+<?php $__env->startSection('title_inside'); ?>
+<?php echo e(trans('labs.edit')); ?>
+
+<?php $__env->stopSection(); ?>
+
+<?php $__env->startSection('inside'); ?>
+<style>
+    .docs-container{
+        height: 400px;
+        overflow: auto;
+        border-radius: 4px;
+        background: white;
+    }
+    .doc-box{
+        margin:10px;
+        padding:0;
+        padding-top:12px;
+        height: 120px;
+        background: #ECF0F1;
+        list-style: none;
+        //border: solid 2pt #BDC3C7;
+    }
+    .doc-title{
+        height: 50px;
+        background: #BDC3C7;
+        width: 100%;
+        margin-top:10px;
+        font-weight: bold;
+        color:#2C3E50;
+        line-height: 1;
+        font-size: 10pt;
+        padding: 8px 4px 4px 4px;
+        overflow: hidden;
+        text-overflow: ' ';
+    }
+    .doc-search{
+        margin: 15px;
+    }
+    .box-selected{
+        border: solid 2pt #2C3E50;
+        height: 120px;
+    }
+    .doc-box .box-selected{
+        height: 112px;
+        padding-top:8px;
+    }
+    .box-selected .doc-title {
+        margin-top:4px;
+        padding: 8px 4px 4px 4px;
+    }
+    .box-selected .doc-title:after{
+        content: ' ';
+    }
+</style>
+
+<?php
+$lab = $data['lab'];
+$docs = $data['docs'];
+$instances = $data['instances'];
+?>
+<?php echo Form::open([
+'files' => true,
+'enctype'=> 'multipart/form-data',
+'id'=>'form'
+]); ?>
+
+<div class="row">
+
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <div class="panel with-nav-tabs panel-default">
+            <div class="panel-heading">
+                <ul class="nav nav-tabs">
+                    <li class="active"><a href="#tab1" data-toggle="tab"><?php echo e(trans('labs.description')); ?></a></li>
+                    <li><a href="#tab2" data-toggle="tab"><?php echo e(trans('labs.details')); ?></a></li>
+                    <li><a href="#tab3" data-toggle="tab"><?php echo e(trans('docs.title_page')); ?></a></li>
+                    <li><a href="#tab4" data-toggle="tab">Manuntenção</a></li>
+                    <li><a href="#tab5" data-toggle="tab"><?php echo e(trans('labs.files')); ?></a></li>
+                </ul>
+            </div>
+            <div class="panel-body">
+                <div class="tab-content">
+                    <!--
+                        TAB 1
+                    -->
+                    <div class="tab-pane active" id="tab1">
+                        <?php if($errors->has()): ?>
+                        <div class="alert alert-danger">
+                            <?php foreach($errors->all() as $error): ?>
+                            <?php echo e($error); ?><br>        
+                            <?php endforeach; ?>
+                        </div>
+                        <?php endif; ?>
+                        <!--Old version to maintanance-->
+
+                        <!--<div class="bootstrap-switch-square">
+                            <label for='maintenance'><?php echo e(trans('labs.maintenance')); ?>:   </label>
+                            <input type="checkbox" class="flat-switch" name="maintenance" id="maintenance" />
+                        </div>-->
+
+                        <div class='lang-box col-lg-12'>
+                            <h5><?php echo e(trans('labs.pt')); ?></h5>
+                            <div class='form-group col-lg-6 col-xs-12 pt'>
+                                <label for='name_pt'><?php echo e(trans('labs.name')); ?></label>
+                                <input name='name_pt' value='<?php echo e($lab->name_pt); ?>' id='name_en' class='form-control pt' type='text' />
+                                <?php if($errors->has('name_pt')): ?> <p class="text-danger"><?php echo e($errors->first('name')); ?></p> <?php endif; ?>
+                            </div>
+                            <div class='form-group col-lg-6 col-xs-12 pt'>
+                                <label for='description_pt'><?php echo e(trans('labs.description')); ?></label>
+                                <textarea name='description_pt' id='description_en' class='form-control pt'  maxlength='105' /><?php echo e($lab->description_pt); ?></textarea>
+                                <?php if($errors->has('description_pt')): ?> <p class="text-danger"><?php echo e($errors->first('name')); ?></p> <?php endif; ?>
+                            </div>
+                        </div>
+                        <div class='lang-box col-lg-12'>
+                            <h5><?php echo e(trans('labs.en')); ?></h5>
+                            <div class='form-group col-lg-6 col-xs-12 en'>
+                                <label for='name_en'><?php echo e(trans('labs.name')); ?></label>
+                                <input name='name_en' value='<?php echo e($lab->name_en); ?>' id='name_en' class='form-control en' type='text' />
+                                <?php if($errors->has('name_en')): ?> <p class="text-danger"><?php echo e($errors->first('name')); ?></p> <?php endif; ?>
+                            </div>
+                            <div class='form-group col-lg-6 col-xs-12 en'>
+                                <label for='description_en'><?php echo e(trans('labs.description')); ?></label>
+                                <textarea name='description_en' id='description_en' maxlength='105' class='form-control en'><?php echo e($lab->description_en); ?></textarea>
+                                <?php if($errors->has('description_en')): ?> <p class="text-danger"><?php echo e($errors->first('name')); ?></p> <?php endif; ?>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class='form-group col-lg-6 col-md-6 col-sm-6 col-xs-12'>
+                                <div class='form-group'>
+                                    <?php echo Form::label('tags', trans('labs.tags')); ?>
+
+                                    <?php echo Form::text('tags', $lab->tags, ['class'=>'form-control']); ?>
+
+                                </div>
+                                <?php if($errors->has('tags')): ?> <p class="text-danger"><?php echo e($errors->first('target')); ?></p> <?php endif; ?>
+                            </div>
+                            <div class='form-group col-lg-6 col-md-6 col-sm-6 col-xs-12'>
+                                <div class='form-group'>
+                                    <?php echo Form::label('duration', trans('labs.duration')); ?>
+
+                                    <?php echo Form::input('number','duration', $lab->duration, ['class'=>'form-control']); ?>
+
+                                </div>
+                                <?php if($errors->has('duration')): ?> <p class="text-danger"><?php echo e($errors->first('target')); ?></p> <?php endif; ?>
+                            </div>
+                            <a class="btn btn-success pull-right btnNext"><?php echo e(trans('interface.next')); ?></a>
+                        </div>
+                    </div>
+                    <!--
+                        TAB 2
+                    -->
+                    <div class="tab-pane fade" id="tab2">
+                      
+                        <div class="row">
+                            <div class='form-group col-lg-6 col-md-6 col-sm-6 col-xs-6'>
+                                <?php echo Form::label(trans('labs.target')); ?>
+
+                                </br>
+                                <!--
+                                <?php echo e($target = false); ?>
+
+                                <?php if(in_array('elementary', stringToArray($lab->target))): ?>
+                                <?php echo e($target = true); ?>
+
+                                <?php endif; ?>
+                                -->
+                                <?php echo Form::checkbox('target[]', 'elementary', $target); ?>
+
+                                <?php echo Form::label(trans('labs.elementary')); ?>
+
+                                </br>
+                                <!--
+                                <?php echo e($target = false); ?>
+
+                                <?php if(in_array('secondary', stringToArray($lab->target))): ?>
+                                <?php echo e($target = true); ?>
+
+                                <?php endif; ?>
+                                -->
+                                <?php echo Form::checkbox('target[]', 'secondary', $target); ?>
+
+                                <?php echo Form::label(trans('labs.secondary')); ?>
+
+                                </br>
+                                <!--
+                                <?php echo e($target = false); ?>
+
+                                <?php if(in_array('high', stringToArray($lab->target))): ?>
+                                <?php echo e($target = true); ?>
+
+                                <?php endif; ?>
+                                -->
+                                <?php echo Form::checkbox('target[]', 'high', $target); ?>
+
+                                <?php echo Form::label(trans('labs.high')); ?>
+
+                                </br>
+                                <!--
+                                <?php echo e($target = false); ?>
+
+                                <?php if(in_array('higher', stringToArray($lab->target))): ?>
+                                <?php echo e($target = true); ?>
+
+                                <?php endif; ?>
+                                -->
+                                <?php echo Form::checkbox('target[]', 'higher', $target); ?>
+
+                                <?php echo Form::label(trans('labs.higher')); ?>
+
+                                <?php if($errors->has('target')): ?> <p class="text-danger"><?php echo e($errors->first('target')); ?></p> <?php endif; ?>
+                            </div>
+                            <div class='form-group col-lg-6 col-md-6 col-sm-6 col-xs-6'>
+                                <?php echo Form::label(trans('labs.subject')); ?>
+
+                                </br>
+                                <!--
+                                <?php echo e($target = false); ?>
+
+                                <?php if(in_array('physics', stringToArray($lab->subject))): ?>
+                                <?php echo e($target = true); ?>
+
+                                <?php endif; ?>
+                                -->
+                                <?php echo Form::checkbox('subject[]', 'physics', $target); ?>
+
+                                <?php echo Form::label(trans('labs.physics')); ?>
+
+                                </br>
+                                <!--
+                                <?php echo e($target = false); ?>
+
+                                <?php if(in_array('biology', stringToArray($lab->subject))): ?>
+                                <?php echo e($target = true); ?>
+
+                                <?php endif; ?>
+                                -->
+                                <?php echo Form::checkbox('subject[]', 'biology', $target); ?>
+
+                                <?php echo Form::label(trans('labs.biology')); ?>
+
+                                </br>
+                                <!--
+                                <?php echo e($target = false); ?>
+
+                                <?php if(in_array('chemistry', stringToArray($lab->subject))): ?>
+                                <?php echo e($target = true); ?>
+
+                                <?php endif; ?>
+                                -->
+                                <?php echo Form::checkbox('subject[]', 'chemistry', $target); ?>
+
+                                <?php echo Form::label(trans('labs.chemistry')); ?>
+
+                                </br>
+                                <!--
+                                <?php echo e($target = false); ?>
+
+                                <?php if(in_array('robotics', stringToArray($lab->subject))): ?>
+                                <?php echo e($target = true); ?>
+
+                                <?php endif; ?>
+                                -->
+                                <?php echo Form::checkbox('subject[]', 'robotics', $target); ?>
+
+                                <?php echo Form::label(trans('labs.robotics')); ?>
+
+                                <br>
+                                <!--
+                                <?php echo e($target = false); ?>
+
+                                <?php if(in_array('science', stringToArray($lab->subject))): ?>
+                                <?php echo e($target = true); ?>
+
+                                <?php endif; ?>
+                                -->
+                                <?php echo Form::checkbox('subject[]', 'science', $target); ?>
+
+                                <?php echo Form::label(trans('labs.science')); ?>
+
+                            </div>
+                            <?php if($errors->has('subject')): ?> <p class="text-danger"><?php echo e($errors->first('subject')); ?></p> <?php endif; ?>
+
+
+                            <div class='form-group col-lg-6 col-md-6 col-sm-6 col-xs-12'>
+                                <?php echo Form::label(trans('labs.difficulty')); ?>
+
+                                </br>
+                                <!--
+                                <?php echo e($target = false); ?>
+
+                                <?php if($lab->difficulty=='low'): ?>
+                                <?php echo e($target = true); ?>
+
+                                <?php endif; ?>
+                                -->
+                                <?php echo Form::radio('difficulty', 'low', $target); ?>
+
+                                <?php echo Form::label(trans('interface.low')); ?>
+
+                                <!--
+                                <?php echo e($target = false); ?>
+
+                                <?php if($lab->difficulty=='medium'): ?>
+                                <?php echo e($target = true); ?>
+
+                                <?php endif; ?>
+                                -->
+                                <?php echo Form::radio('difficulty', 'medium', $target); ?>
+
+                                <?php echo Form::label(trans('interface.medium')); ?>
+
+                                <!--
+                                <?php echo e($target = false); ?>
+
+                                <?php if($lab->difficulty=='high'): ?>
+                                <?php echo e($target = true); ?>
+
+                                <?php endif; ?>
+                                -->
+                                <?php echo Form::radio('difficulty', 'high', $target); ?>
+
+                                <?php echo Form::label(trans('interface.high')); ?>
+
+                            </div>
+
+                            <div class='form-group col-lg-12 col-md-12 col-sm-12 col-xs-12'>
+                                <?php echo Form::label(trans('labs.interaction')); ?>
+
+                                </br>
+                                <!--
+                                <?php echo e($target = false); ?>
+
+                                <?php if($lab->interaction=='low'): ?>
+                                <?php echo e($target = true); ?>
+
+                                <?php endif; ?>
+                                -->
+                                <?php echo Form::radio('interaction', 'low', $target); ?>
+
+                                <?php echo Form::label(trans('interface.low')); ?>
+
+                                <!--
+                                <?php echo e($target = false); ?>
+
+                                <?php if($lab->interaction=='medium'): ?>
+                                <?php echo e($target = true); ?>
+
+                                <?php endif; ?>
+                                -->
+                                <?php echo Form::radio('interaction', 'medium', $target); ?>
+
+                                <?php echo Form::label(trans('interface.medium')); ?>
+
+                                <!--
+                                <?php echo e($target = false); ?>
+
+                                <?php if($lab->interaction=='high'): ?>
+                                <?php echo e($target = true); ?>
+
+                                <?php endif; ?>
+                                -->
+                                <?php echo Form::radio('interaction', 'high', $target); ?>
+
+                                <?php echo Form::label(trans('interface.high')); ?>
+
+                            </div>
+                        </div>
+                        <a class="btn btn-success pull-left btnPrevious"><?php echo e(trans('interface.previous')); ?></a>
+                        <a class="btn btn-success pull-right btnNext"><?php echo e(trans('interface.next')); ?></a>
+                    </div>
+                    <!--
+                        TAB 3
+                    -->
+                    <div class="tab-pane fade" id="tab3">
+                        <input name='docs' id='docs' type="hidden" value='' >
+                        <div class="row">
+
+                            <div class="panel panel-default" style="margin: 0 10px 0 10px;">
+                                <div class="panel-heading">
+                                    <div class="col-md-6">
+                                        <h4><?php echo e(trans('docs.title_page')); ?></h4>
+                                    </div>
+                                    <div class="input-group doc-search  col-md-6 col-sm-12">
+                                        <input class="form-control" type="text" id="docs-search" data-list="#docs" placeholder="<?php echo e(trans('interface.search')); ?>">
+                                        <span class="input-group-btn">
+                                            <button type="submit" class="btn"><span class="fui-search"></span></button>
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="panel-body  docs-container">
+                                    <ul id="docs">
+                                        <?php foreach($docs as $doc): ?>
+                                        <li class="col-md-2 col-sm-3 doc-box" data-id="<?php echo e($doc['id']); ?>">
+                                        <center>
+                                            <img src="<?php echo e(asset('img/docs/'.formatIcon($doc['format']).'.png')); ?>" height="50px" style="padding-bottom:4px"><br>
+                                            <div class="doc-title"><?php echo e($doc['title']); ?></div>
+                                            <span hidden><?php echo e($doc['tags']); ?></span>
+                                        </center>
+                                        </li>
+                                        <?php endforeach; ?>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <input type="hidden" name="id" value="<?php echo e($lab->id); ?>">
+                        <input type="hidden" name="_token" value="<?php echo csrf_token(); ?>">
+                        <a class="btn btn-success pull-left btnPrevious"><?php echo e(trans('interface.previous')); ?></a>
+                        <a class="btn btn-success pull-right btnNext"><?php echo e(trans('interface.next')); ?></a>
+
+                    </div>
+                    <!--
+                        TAB 4
+                    -->
+
+
+                    <div class="tab-pane" id="tab4">
+                        <?php if($errors->has()): ?>
+                        <div class="alert alert-danger">
+                            <?php foreach($errors->all() as $error): ?>
+                            <?php echo e($error); ?><br>        
+                            <?php endforeach; ?>
+                        </div>
+                        <?php endif; ?>
+                        
+
+                        <div class='lang-box col-lg-12'>
+                            <?php foreach($instances as $instance): ?>
+
+                            <?php
+                            $maintenance = 'unchecked';
+                            if ($instance->maintenance == '1') {
+                                $maintenance = 'checked';
+                            }
+                            $queue = 'unchecked';
+                            if ($instance->queue == '1') {
+                                $queue = 'checked';
+                            }
+                            ?>
+
+                            <div class='form-group col-lg-12 col-xs-12'>
+                                <div class='col-lg-6'>
+                                    <label for='maintenance'><?php echo e(trans('labs.maintenance')); ?>:   </label>
+                                    <input type="checkbox" class="flat-switch" <?php echo($maintenance)?> name="maintenance" id="maintenance" />
+                                </div>
+                                <div class='col-lg-6'>
+                                    <label for='queue'><?php echo e(trans('labs.queue')); ?>:   </label>
+                                    <input type="checkbox" class="flat-switch" <?php echo($queue)?> name="queue" id="queue" />
+                                </div>
+                            </div>
+                            <div class='form-group col-lg-6 col-xs-12'>
+                                <label for='description'>Descrição</label>
+                                <input name='description' value='<?php echo e($instance->description); ?>' id='description' class='form-control' type='text' />
+                                <?php if($errors->has('description')): ?> <p class="text-danger"><?php echo e($errors->first('description')); ?></p> <?php endif; ?>
+                            </div>
+                            <div class='form-group col-lg-6 col-xs-12'>
+                                <label for='address'>Endereço</label>
+                                <input name='address' value='<?php echo e($instance->address); ?>' id='address' class='form-control' type='text' />
+                                <?php if($errors->has('address')): ?> <p class="text-danger"><?php echo e($errors->first('address')); ?></p> <?php endif; ?>
+                            </div>
+                            <?php endforeach; ?>
+                        </div>
+                         
+                            <a class="btn btn-success pull-left btnPrevious"><?php echo e(trans('interface.previous')); ?></a>
+                            <a class="btn btn-success pull-right btnNext"><?php echo e(trans('interface.next')); ?></a>
+                    </div>
+
+                    <!--
+                        TAB 5
+                    -->
+                    <div class="tab-pane fade" id="tab5">
+                        <div class='form-group'>
+                            <?php echo Form::label(trans('labs.thumbnail')); ?> 
+                            </br>
+                            <img src='<?php echo e(asset($lab->thumbnail)); ?>' height="150px" /> <br><br>
+                            <?php echo Form::input('file', 'thumbnail'); ?>
+
+                        </div>
+                        <div class='form-group'>
+                            <?php foreach($instances as $instance): ?>
+
+                            <h6><?php echo e($instance->description); ?></h6>
+                            <?php echo e(trans('labs.package')); ?>
+
+                            </br>
+                            <?php echo Form::input('file', $instance->id); ?>
+
+                            <?php endforeach; ?>
+                        </div>
+                        <input type="hidden" name="id" value="<?php echo e($lab->id); ?>">
+                        <input type="hidden" name="_token" value="<?php echo csrf_token(); ?>">
+                        <a class="btn btn-success pull-left btnPrevious"><?php echo e(trans('interface.previous')); ?></a>
+                        <a class="btn btn-success pull-right btnNext" id='submit'><?php echo e(trans('interface.submit')); ?></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<?php echo Form::close(); ?>
+
+<?php $__env->stopSection(); ?>
+
+<?php $__env->startSection('script_dash'); ?>
+<script>
+
+    $(function () {  
+        
+        var docs = [<?php echo $data['labs_docs']; ?>];
+        console.log('docs: ' + docs);
+
+        docs.forEach(function (id) {
+            $('[data-id=' + id + ']').addClass('box-selected');
+        });
+
+        $('#submit').click(function () {
+            console.log(docs);
+            $('#docs').val(docs);
+            $('#form').submit();
+
+        });
+        $('#docs-search').hideseek({
+            nodata: 'No results found'
+        });
+        $('.doc-box').click(function () {
+            if ($(this).hasClass('box-selected')) {
+                $(this).removeClass('box-selected');
+                var index = docs.indexOf(5);
+                docs.splice(index, 1);
+                console.log('docs: ' + docs);
+            } else {
+                $(this).addClass('box-selected');
+                docs.push($(this).attr('data-id'));
+                console.log('docs: ' + docs);
+            }
+        });
+
+
+    });
+
+    $('.btnNext').click(function () {
+        $('.nav-tabs > .active').next('li').find('a').trigger('click');
+    });
+
+    $('.btnPrevious').click(function () {
+        $('.nav-tabs > .active').prev('li').find('a').trigger('click');
+    });
+</script>
+<?php $__env->stopSection(); ?>
+
+
+<?php echo $__env->make('layout.dashboard', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

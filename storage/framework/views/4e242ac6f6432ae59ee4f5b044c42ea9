@@ -1,0 +1,29 @@
+
+
+<?php $__env->startSection('page'); ?>
+<?php echo e(trans('interface.name', ['page'=>trans('users.delete')])); ?>
+
+<?php $__env->stopSection(); ?>
+
+
+<?php $__env->startSection('title_inside'); ?>
+<?php echo e(trans('users.delete')); ?>
+
+<?php $__env->stopSection(); ?>
+
+<?php $__env->startSection('inside'); ?>
+<?php echo Form::open([
+'action' => 'UsersController@doDelete',
+]); ?>
+
+<h4><?php echo e(trans('message.delete_user')); ?></h4>
+<h4><?php echo e(trans('message.action')); ?></h4>
+<input type="hidden" name='id' value="<?php echo e($id); ?>"/>
+<a href="<?php echo e(url('dashboard')); ?>" role="button"  class="btn btn-success"><?php echo e(trans('interface.cancel')); ?></a>
+<input class="btn btn-danger" type="submit" value="<?php echo e(trans('interface.delete')); ?>">
+
+<?php echo Form::close(); ?>
+
+<?php $__env->stopSection(); ?>
+
+<?php echo $__env->make('layout.dashboard', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

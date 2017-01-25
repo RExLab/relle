@@ -1,0 +1,93 @@
+
+
+<?php $__env->startSection('page'); ?>
+<?php echo e(trans('interface.name', ['page'=>trans('labs.title')])); ?>
+
+<?php $__env->stopSection(); ?>
+
+<?php $__env->startSection('title'); ?>
+<h1>Ambiente de Aprendizagem com Experimentos Remotos</h1>
+<h4>Experimentação remota propicia o acesso remoto a experimentos reais usando a internet. Os experimentos podem ser acessados a qualquer hora, de qualquer lugar.</h4>
+<?php $__env->stopSection(); ?>
+
+<!--<?php echo e($name='name_'.App::getLocale()); ?>
+
+<?php echo e($desc='description_'.App::getLocale()); ?>-->
+
+
+<?php $__env->startSection('content'); ?>
+<div class='xs-hidden' style="margin-top:20px;"></div>
+<center>
+<div class="col-lg-10 col-lg-offset-1 well"  style=" margin-bottom:0; padding-bottom:0">
+
+    <?php echo Form::open(['url'=>'labs']); ?>
+
+    <div class="form-group has-feedback">
+        <input type="text" name="terms" id='search' placeholder="<?php echo e(trans('interface.search')); ?>" class="form-control" />
+        <i class="glyphicon glyphicon-search form-control-feedback"></i>
+    </div>
+    <div class="form-group visible-xs visible-sm">
+         <a href="#" data-toggle="collapse" 
+         data-target="#goup" aria-expanded="true" aria-controls="goup">
+        <?php echo e(trans('interface.advanced_search')); ?><i class="caret"></i>
+        </a>
+    </div>
+    <?php echo Form::close(); ?>
+
+    
+</div>
+</center>
+
+<div class="row" style="padding-bottom:75px">
+    <?php foreach($labs as $lab): ?>
+
+    <?php
+    if (status($lab->id)) {
+        $color = "#51bf87";
+        $btn = 'btn-fresh';
+        $status = 'Disponível';
+        $title = '';
+        $txt = trans('interface.access');
+    } else {
+        $color = "#f44336";
+        $btn = 'btn-default disabled';
+        $status = 'Indisponível';
+        $title = 'Este experimento está indisponível no momento';
+        $txt = trans('interface.unavailable');
+    }
+    ?>
+
+
+    <div class="col-md-4">
+        <div class="card">
+            <div class="card-image">
+                <img src="<?php echo e(asset($lab->thumbnail)); ?>">
+                <span class="card-title"><a href="<?php echo e(url('/labs/'.$lab->id)); ?>" class="btn <?php echo e($btn); ?>" title="<?php echo e($title); ?>" role="button"><?php echo e($txt); ?></a></span>
+            </div>
+            <div class="card-content">
+                <span class="status" id='<?php echo e($lab->id); ?>' style="color:<?php echo e($color); ?>;" class="tooltip" title="<?php echo e($status); ?>"><i class="fa fa-circle"></i></span>
+                <b><?php echo e($lab->$name); ?></b>
+                <p><?php echo e($lab->$desc); ?></p>
+            </div>
+
+        </div>
+    </div>
+    <?php endforeach; ?>
+</div>
+<?php $__env->stopSection(); ?>
+
+<?php $__env->startSection('script'); ?>
+<script>
+    /*$(window).resize(function () {
+     if ($(window).width() < 1050) {
+     $('#goup').removeClass('in');
+     } else {
+     $('#goup').addClass('in');
+     }
+     }).resize();*/
+</script>
+<?php $__env->stopSection(); ?>
+
+
+
+<?php echo $__env->make('layout.default', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

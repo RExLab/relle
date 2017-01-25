@@ -1,0 +1,125 @@
+
+
+<?php $__env->startSection('page'); ?>
+<?php echo e(trans('interface.name', ['page'=>trans('index.title')])); ?>
+
+<?php $__env->stopSection(); ?>
+
+<style>
+    .hide-bullets {
+        list-style:none;
+        margin-left: -40px;
+        margin-top:20px;
+    }  
+    .item{
+        height:50%;
+    }
+
+    @media (max-width: 767px) and (orientation:portrait) {
+        .card .card-image img {
+            border-radius: 2px 2px 0 0;
+            background-clip: padding-box;
+            position: relative;
+            z-index: -1;
+            height: 40%; 
+            min-width: 100%;
+        }
+        .item{
+            height:40%;
+        }
+        .item-img{
+            min-width:100%;
+            height:200px;
+            overflow: hidden;
+        }
+    }
+
+
+    @media (min-width: 767px) {
+        .item-img{
+            min-width:100%;
+            height:320px;
+            overflow: hidden;
+            margin-top: -20px;
+        }
+
+    }
+    .bloco{
+        width: 95%; 
+        min-height: 100px; 
+        margin-top:15px; 
+        margin-left: 10px;
+        padding:15px;
+        text-align: center;
+    }
+
+    .bloco > p{
+        color:white;
+        font-size: 18pt;
+    }
+    .bloco-link:link, .bloco-link:visited, .bloco-link:hover, .bloco-link:active{
+        text-decoration: none;
+    }
+</style>
+
+
+<!--<?php echo e($name='name_'.App::getLocale()); ?>
+
+<?php echo e($desc='description_'.App::getLocale()); ?>-->
+
+
+<?php $__env->startSection('content'); ?>
+
+<?php echo $__env->make('carousel', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+
+<div class="container" style="margin-top:35px;">
+    <div class="row">
+        <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+            <h4 style="font-size: 18pt;">O que é um experimento remoto?</h4>
+            <p>Você pode utilizar um equipamento real para fazer seus experimentos através da internet, 
+                a qualquer hora e de qualquer lugar. </p>
+            <img src="<?php echo e(asset('img/acesse.jpg')); ?>" width="100%">
+        </div>
+        <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+            <h4 style="font-size: 18pt;">Crie seus experimentos</h4>
+            <p>Além de acessar os experimentos disponíveis, você pode usar o RELLE para disponibilizar 
+                os seus próprios experimentos. <a href="#">Saiba mais</a>.</p>
+            <img src="<?php echo e(asset('img/crie.jpg')); ?>" width="100%">
+        </div>
+        <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+            <div id='courses'>
+                <div class="panel panel-default">
+                    <!-- Default panel contents -->
+                    <div class="panel-heading" style="padding:0 15px 0 15px">
+                            <span style="font-size: 18pt;color:#34495e;font-weight: bold">Cursos</span>
+                            <a href="http://gt-mre.ufsc.br/course/index.php" target="_blank" style="padding-left:15px; font-size: 12pt">
+                                Todos os cursos >
+                            </a>
+                    </div>
+                    <!-- List group -->
+                    <ul class="list-group">
+                        <?php foreach($courses as $course): ?>
+                        <li class="list-group-item">
+                            <a href="http://gt-mre.ufsc.br/course/view.php?id=<?php echo e($course['id']); ?>" target="_blank">
+                                <strong><?php echo e($course['fullname']); ?></strong>
+                            </a>
+                        </li>
+                        <?php endforeach; ?>   
+                    </ul>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<?php $__env->stopSection(); ?>
+
+<?php $__env->startSection('script'); ?>
+<script>
+</script>
+<?php $__env->stopSection(); ?>
+
+
+
+<?php echo $__env->make('layout.default', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

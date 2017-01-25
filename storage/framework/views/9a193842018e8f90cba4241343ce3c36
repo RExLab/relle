@@ -1,0 +1,51 @@
+
+<?php $__env->startSection('page'); ?>
+<?php echo e(trans('interface.name', ['page'=>trans('labs.title')])); ?>
+
+<?php $__env->stopSection(); ?>
+
+<?php $__env->startSection('title_inside'); ?>
+<?php echo e(trans('labs.all')); ?>
+
+<?php $__env->stopSection(); ?>
+
+
+<?php $__env->startSection('inside'); ?>
+<table class="table">
+    <tr>
+        <th>ID</th>
+        <th><?php echo e(trans('labs.name')); ?></th>
+        <th><?php echo e(trans('labs.target')); ?></th>
+        <th><?php echo e(trans('labs.subject')); ?></th>
+        <th><?php echo e(trans('labs.difficulty')); ?></th>
+        <th><?php echo e(trans('labs.interaction')); ?></th>
+        <th></th>
+    </tr>
+<!--<?php echo e($name='name_'.App::getLocale()); ?>-->
+<?php foreach($labs as $lab): ?>
+<tr>
+    <td id="exp_id"><?php echo e($lab->id); ?></td>
+    <td><?php echo e($lab->$name); ?></td>
+    <td class="multiples_table">
+        <?php foreach(explode(',',$lab->target) as $one): ?>
+        <?php echo e(trans('labs.'.$one)); ?><br>
+        <?php endforeach; ?>
+    </td>
+    <td class="multiples_table">
+        <?php foreach(explode(',',$lab->subject) as $one): ?>
+        <?php echo e(trans('labs.'.$one)); ?><br>
+        <?php endforeach; ?>
+    </td>
+    <td><?php echo e(trans('interface.' . $lab->difficulty)); ?></td>
+    <td><?php echo e(trans('interface.' . $lab->interaction)); ?></td>
+    <td>
+        <a href="<?php echo e(url(trans('routes.labs').'/'.$lab->id.'/'.trans('routes.delete'))); ?>"><span class="glyphicon glyphicon-trash text-danger"/></a>
+        <a href="<?php echo e(url(trans('routes.labs').'/'.$lab->id.'/'.trans('routes.edit'))); ?>"><span class="glyphicon glyphicon-pencil text-success"/></a>
+        <a href="<?php echo e(url(trans('routes.labs').'/'.$lab->id)); ?>"><i class="fa fa-external-link"></i></a>
+    </td>
+</tr>
+<?php endforeach; ?>
+</table>
+<?php $__env->stopSection(); ?>
+
+<?php echo $__env->make('layout.dashboard', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
