@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Labs;
 use App\Docs;
+use App\Instances;
 use App\DocsLabs;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
@@ -223,6 +224,8 @@ class LabsController extends Controller {
         $id = Route::getCurrentRoute()->parameters()['id'];
         $data['lab'] = Labs::find($id);
         $data['docs'] = Docs::all();
+        $data['instances'] = Instances::where('lab_id', $id)->orderBy('lab_id', 'asc')->get();
+       //var_dump($data['instances']);
 
         $array = DocsLabs::where('lab_id', $id)->get();
         $docs = '';
@@ -231,6 +234,7 @@ class LabsController extends Controller {
         }
 
         $data['labs_docs'] = $docs;
+        
         return view('labs.edit', compact('data'));
     }
 
@@ -241,9 +245,9 @@ class LabsController extends Controller {
         $input = Request::all();
 
         $lab = Labs::find($input['id']);
-
+        $instances = Instances::where('lab_id', $input['id'])->orderBy('lab_id', 'asc')->get();
+        
         //Image handling
-
         if (empty($input['thumbnail'])) {
             $input['thumbnail'] = $lab->thumbnail;
         } else {
@@ -264,27 +268,42 @@ class LabsController extends Controller {
         $input['subject'] = arrayToString($input['subject']);
 
         //Package
-        if (!empty($input['package'])) {
-            File::deleteDirectory(public_path('exp_data/' . $lab->id));
-            unzipLab($input['package']->getRealPath(), $lab->id);
-            unset($input['package']);
+        foreach($instances as $instance){
+            if (!empty($input['package'])) {
+                File::deleteDirectory(public_path('exp_data/' . $lab->id));
+                unzipLab($input['package']->getRealPath(), $lab->id);
+                unset($input['package']);
+            }
         }
 
         unset($input['_token']);
 
+        //Update instance info
+        foreach($instances as $instance){
+            
+             if (array_key_exists("maintenance-".$instance['id'], $input))
+                $input['maintenance-'.$instance['id']] = ($input['maintenance-'.$instance['id']] == 'on') ?  '1' : '0';
+            else
+                $input['maintenance-'.$instance['id']] = '0';
 
-        if (array_key_exists("maintenance", $input))
-            ($input['maintenance'] == 'on') ? $input['maintenance'] = '1' : $input['maintenance'] = '0';
-        else
-            $input['maintenance'] = '0';
+            if (array_key_exists("queue-".$instance['id'], $input))
+                $input['queue-'.$instance['id']] = ($input['queue-'.$instance['id']] == 'on') ?  '1' : '0';
+            else
+                $input['queue-'.$instance['id']] = '1';
 
-        if (array_key_exists("queue", $input))
-            ($input['queue'] == 'on') ? $input['queue'] = '1' : $input['queue'] = '0';
-        else
-            $input['queue'] = '1';
-
-
-
+            Instances::where('id', '=',$instance['id'])
+                    ->where('lab_id', '=', $input['id'])
+                    ->update([
+                        'maintenance' => $input['maintenance-'.$instance['id']],
+                        'queue' => $input['queue-'.$instance['id']] ,
+                        'address' => $input['address-'.$instance['id']],
+                        'description' =>  $input['description-'.$instance['id']] 
+                    ]);
+            
+            unset($input['description-'.$instance['id']],$input['address-'.$instance['id']],$input['queue-'.$instance['id']],$input['maintenance-'.$instance['id']]);
+        }
+        
+        // Docs related to this lab
         if (!empty($input['docs'])) {
             $old = DocsLabs::where('lab_id', $input['id'])->delete();
 
@@ -341,6 +360,15 @@ class LabsController extends Controller {
         return view('labs.moodle', compact('exp'));
     }
 
+    /**
+     * @return \Illuminate\View\View
+     */
+    function labsland() {
+        $id = Route::getCurrentRoute()->parameters();
+        $exp = Labs::find($id)[0];
+        $exp['lang'] = App::getLocale();
+        return view('labs.labsland', compact('exp'));
+    }
     /**
      * @param $id
      * @return bool

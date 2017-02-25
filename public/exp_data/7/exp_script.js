@@ -4,7 +4,7 @@ var rpi_server = "http://189.8.209.100:30040";
 var rotation = 0;
 var readings = [];
 var readingsfd = [];
-var socket = null;
+var lab_socket = null;
 var force = null;
 $(function () {
 
@@ -26,18 +26,45 @@ $(function () {
         }
     });
 
-    $.getScript(rpi_server + '/socket.io/socket.io.js', function () {
+    $.ajax({
+        url: rpi_server + '/socket.io/socket.io.js',
+        dataType: "script",
+        timeout: 5 * 1000
+    }).done(function () {
+        initLabServerCom();
+    }).fail(function () { 
+        initLabServerCom({url:'http://relle.ufsc.br', path: '/inclinedplane1' });
+    });
 
-        socket = io.connect(rpi_server);
-        socket.emit('new connection', {pass: $('meta[name=csrf-token]').attr('content')});
+   
+    function refreshWebCam(address) {
+       $('.cam').attr('src', address + '/snapshot.jpg?' + Math.floor((Math.random() * 1000)));
+    }
 
-        socket.on('message', function (data) {
+    function initLabServerCom(rpi_server_address) {
+        if (typeof (rpi_server_address) != 'undefined') {
+            console.log(rpi_server_address);
+            lab_socket = io.connect(rpi_server_address.url, {path: rpi_server_address.path+'/socket.io'});
+            setInterval(function () {
+                refreshWebCam(rpi_server_address.url+rpi_server_address.path);
+            }, 1000);
+        } else {
+            lab_socket = io.connect(rpi_server);
+        }
+        
+        lab_socket.emit('new connection', {pass: $('meta[name=csrf-token]').attr('content')});
+        
+        lab_socket.on('reconnect', function () {
+            lab_socket.emit('new connection', {pass: $('meta[name=csrf-token]').attr('content')} );
+        });
+        
+        lab_socket.on('message', function (data) {
             console.log(data);
         });
         $("#show-success span p").html(message[4]);
         $("#show-success").show();
 
-        socket.on('setup', function (data) {
+        lab_socket.on('setup', function (data) {
             console.log(data);
 
             if (typeof (data.force) !== "undefined") {
@@ -74,14 +101,14 @@ $(function () {
             var data = {};
             data.angle = $("[name='slider']").val();
             console.log(data);
-            socket.emit('drop', data);
+            lab_socket.emit('drop', data);
         });
 
-        socket.on('preparing', function (data) {
+        lab_socket.on('preparing', function (data) {
             console.log("I'm receiving " + data);
         });
 
-        socket.on('lab done', function (data) {
+        lab_socket.on('lab done', function (data) {
             console.log(data);
             if (typeof (data.error) == "undefined") {
                 readings.push(data);
@@ -100,18 +127,18 @@ $(function () {
             }
 
         });
-        
+
         $.getScript('http://relle.ufsc.br/exp_data/7/welcome.js', function () {
             var shepherd = setupShepherd();
-             addShowmeButton('<button id="btnIntro" class="btn btn-sm btn-default"> <span class="long">' + lang.showme + '</span><span class="short">' + lang.showmeshort + '</span> <span class="how-icon fui-question-circle"></span></button>')
-             $('#btnIntro').on('click', function (event) {
-                 event.preventDefault();
-                 shepherd.start();
-             });
+            addShowmeButton('<button id="btnIntro" class="btn btn-sm btn-default"> <span class="long">' + lang.showme + '</span><span class="short">' + lang.showmeshort + '</span> <span class="how-icon fui-question-circle"></span></button>')
+            $('#btnIntro').on('click', function (event) {
+                event.preventDefault();
+                shepherd.start();
+            });
         });
+    }
 
 
-    });
 
     if (window.DeviceOrientationEvent) {
         window.addEventListener("deviceorientation", function (event) {
@@ -131,7 +158,7 @@ function slideFunction() {
     var data = {};
     data.angle = $("[name='slider']").val();
     console.log(data.angle);
-    socket.emit('new angle', data);
+    lab_socket.emit('new angle', data);
     $('#send').off();
     $('#send').hide();
 }
@@ -202,7 +229,7 @@ function startTour() {
                 intro: lang.introsend,
                 position: 'top'
             },
-             {
+            {
                 element: '#drop',
                 intro: lang.introdrop,
                 position: 'top'
@@ -213,7 +240,7 @@ function startTour() {
                 position: 'bottom'
             },
             {
-                intro: lang.intro3 
+                intro: lang.intro3
             },
             {
                 element: 'div.forcay',
@@ -230,7 +257,7 @@ function startTour() {
                 intro: lang.introalerts,
                 position: 'top'
             }
-            
+
         ]
     });
     tour.start();

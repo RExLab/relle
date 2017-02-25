@@ -10,7 +10,6 @@ $.getScript('http://relle.ufsc.br/exp_data/15/welcome.js', function () {
     });
 });
 
-
 var rpi_server = "http://planoinclinado2.relle.ufsc.br";
 var rotation = 0;
 var readings = [];
@@ -136,8 +135,8 @@ $(function () {
         console.log(data);
         if (typeof (data.error) == "undefined") {
             readings.push(data);
-            for (var i = 1; i < 6; i++) {
-                $("#d" + i).html(data.time[i] - data.time[0]);
+            for (var i = 0; i < 6; i++) {
+                $("#d" + i).html(data.time[i]);
             }
             console.log(message[data.code - 1]);
             $("#show-error").hide();

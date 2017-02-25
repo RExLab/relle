@@ -60,16 +60,16 @@
 </style>
 
 <?php
-$lab = $data['lab'];
-$docs = $data['docs'];
-$instances = $data['instances'];
+    $lab = $data['lab'];
+    $docs = $data['docs'];
+    $instances = $data['instances'];
 ?>
 {!!
-Form::open([
-'files' => true,
-'enctype'=> 'multipart/form-data',
-'id'=>'form'
-])
+    Form::open([
+        'files' => true,
+        'enctype'=> 'multipart/form-data',
+        'id'=>'form'
+        ])
 !!}
 <div class="row">
 
@@ -379,21 +379,21 @@ Form::open([
                             <div class='form-group col-lg-12 col-xs-12'>
                                 <div class='col-lg-6'>
                                     <label for='maintenance'>{{trans('labs.maintenance')}}:   </label>
-                                    <input type="checkbox" class="flat-switch" <?php echo($maintenance)?> name="maintenance" id="maintenance" />
+                                    <input type="checkbox" class="flat-switch" <?php echo($maintenance)?> name="maintenance-{{$instance->id}}" id="maintenance-{{$instance->id}}" />
                                 </div>
                                 <div class='col-lg-6'>
                                     <label for='queue'>{{trans('labs.queue')}}:   </label>
-                                    <input type="checkbox" class="flat-switch" <?php echo($queue)?> name="queue" id="queue" />
+                                    <input type="checkbox" class="flat-switch" <?php echo($queue)?> name="queue-{{$instance->id}}" id="queue-{{$instance->id}}" />
                                 </div>
                             </div>
                             <div class='form-group col-lg-6 col-xs-12'>
                                 <label for='description'>Descrição</label>
-                                <input name='description' value='{{$instance->description}}' id='description' class='form-control' type='text' />
+                                <input name='description-{{$instance->id}}' value='{{$instance->description}}' id='description-{{$instance->id}}' class='form-control' type='text' />
                                 @if ($errors->has('description')) <p class="text-danger">{{ $errors->first('description') }}</p> @endif
                             </div>
                             <div class='form-group col-lg-6 col-xs-12'>
                                 <label for='address'>Endereço</label>
-                                <input name='address' value='{{$instance->address}}' id='address' class='form-control' type='text' />
+                                <input name='address-{{$instance->id}}' value='{{$instance->address}}' id='address-{{$instance->id}}' class='form-control' type='text' />
                                 @if ($errors->has('address')) <p class="text-danger">{{ $errors->first('address') }}</p> @endif
                             </div>
                             @endforeach
@@ -419,12 +419,10 @@ Form::open([
                             <h6>{{$instance->description}}</h6>
                             {{trans('labs.package')}}
                             </br>
-                            {!! Form::input('file', 'package')!!}
-                            <!--<?php $cont = $instance->id?>-->
+                            {!! Form::input('file', 'package', null, ['data-instance-id' => $instance->id])!!}
                             @endforeach
                         </div>
                         <input type="hidden" name="id" value="{{$lab->id}}">
-                        <!--<input type="hidden" name='cont' value="<?php echo $cont; ?>">-->
                         <input type="hidden" name="_token" value="<?php echo csrf_token(); ?>">
                         <a class="btn btn-success pull-left btnPrevious">{{trans('interface.previous')}}</a>
                         <a class="btn btn-success pull-right btnNext" id='submit'>{{trans('interface.submit')}}</a>

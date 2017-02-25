@@ -64,8 +64,16 @@ $(function () {
 
         $(".controllers").show();
         $(".loading").hide();
-
+       
         socket.emit('new connection', {pass: $('meta[name=csrf-token]').attr('content')});
+        
+        socket.on('reconnect', function () {
+            socket.emit('new connection', {pass: $('meta[name=csrf-token]').attr('content')} );
+        });
+
+        socket.on('reconnecting', function () {
+            console.log('reconnecting');
+        });
 
         socket.on('sampling done', function (data) {
             $(".sampling").removeAttr("disabled");

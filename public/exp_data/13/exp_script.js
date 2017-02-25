@@ -141,6 +141,11 @@ $(function () {
         lab_socket.emit('new connection', {
             pass: $('meta[name=csrf-token]').attr('content')
         });
+        
+        lab_socket.on('reconnect', function () {
+            lab_socket.emit('new connection', {pass: $('meta[name=csrf-token]').attr('content')} );
+        });
+
         $(".controllers").show();
         $(".controllers.loading").hide();
 

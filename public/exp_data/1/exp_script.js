@@ -15,7 +15,7 @@ var results;
 var socket = '';
 var switches = 0;
 var UIimg_interval = null;
-var circuit_images = [10, 12, 13, 14, 17, 18, 20, 21, 24, 25,30, 32, 34, 36, 37, 38, 4, 40, 41, 42, 48, 49, 5, 53, 54, 58, 64, 65, 66, 67, 68, 69, 7, 70, 72, 73, 74, 8, 80, 81, 9, 96, 97];
+var circuit_images = [10, 12, 13, 14, 17, 18, 20, 21, 24, 25, 28, 29, 30, 32, 34, 36, 37, 38, 4, 40, 41, 42, 44, 45, 48, 49, 5, 53, 54, 57, 58, 60, 61, 62, 64, 65, 66, 67, 68, 69, 7, 70, 72, 73, 74, 8, 80, 81, 9, 96, 97];
 var image = '';
 
 $(function () {
@@ -84,8 +84,17 @@ $(function () {
         // Initialize varibles
         // Prompt for setting a username
         socket = io.connect(rpi_server);
+        
         socket.emit('new connection', {pass: $('meta[name=csrf-token]').attr('content')});
+        
+        socket.on('reconnect', function () {
+            socket.emit('new connection', {pass: $('meta[name=csrf-token]').attr('content')} );
+        });
 
+        socket.on('reconnecting', function () {
+            console.log('reconnecting');
+        });
+        
         $(".controllers").show();
         $(".loading").hide();
 

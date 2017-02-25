@@ -15,7 +15,7 @@ var setupShepherd = function () {
             {
                 text: lang.leave,
                 classes: 'shepherd-button-secondary',
-                action: function () {
+                 action: function () {
                     shepherd.cancel();
                 }
             }, {
@@ -30,8 +30,8 @@ var setupShepherd = function () {
     
     // Tour no meio
     shepherd.addStep('shep_cam', { 
-        text: [lang.introcamera],
-        attachTo: 'img.cam center',
+        text: [lang.camera1],
+        attachTo: 'img.cam bottom',
         classes: 'shepherd shepherd-open shepherd-theme-arrows shepherd-transparent-text',
         buttons: [
             {
@@ -53,29 +53,9 @@ var setupShepherd = function () {
     
     
   
-    shepherd.addStep('shep_circuit', { 
-        text: [lang.diagram],
-        attachTo: 'img.default_circuit center',
-        classes: 'shepherd shepherd-open shepherd-theme-arrows shepherd-transparent-text',
-        buttons: [
-            {
-                text: lang.previous,
-                classes: 'shepherd-button-secondary',
-                action: function () {
-                    shepherd.back();
-                }
-            }, {
-                text: lang.next,
-                action: function () {
-                    shepherd.next();
-                },
-                classes: 'shepherd-button-example-primary'
-            }
-        ]
-    });
-    shepherd.addStep('shep_switches', { 
-        text: [lang.switches],
-        attachTo: '.switches top',
+    shepherd.addStep('shep_zoom', { 
+        text: [lang.camera2],
+        attachTo: 'span#img-zoomed top',
         classes: 'shepherd shepherd-open shepherd-theme-arrows shepherd-transparent-text',
         buttons: [
             {
@@ -94,9 +74,9 @@ var setupShepherd = function () {
         ]
     });
     
-    shepherd.addStep('shep_sensors', { 
-        text: [lang.sensors],
-        attachTo: 'div#sensors top',
+    shepherd.addStep('shep_samples', { 
+        text: [lang.samples],
+        attachTo: 'div.content-micro.samples bottom',
         classes: 'shepherd shepherd-open shepherd-theme-arrows shepherd-transparent-text',
         buttons: [
             {
@@ -114,10 +94,14 @@ var setupShepherd = function () {
             }
         ]
     });
+    
+    
+   
     // Finaliza Tour
     
-    shepherd.addStep('shep_report', { 
-        text: [lang.report],
+    shepherd.addStep('shep_buttons', { 
+        text: [lang.buttons],
+        attachTo: "div.content-micro.buttons bottom",
         classes: 'shepherd shepherd-open shepherd-theme-arrows shepherd-transparent-text',
         buttons: [
             {

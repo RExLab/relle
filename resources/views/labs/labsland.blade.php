@@ -34,7 +34,7 @@ $retrunURL = $extract['return'];
 
 <div id='body' class="container " style="height: 800px; margin-top:40px;">
     <!--{{$name='name_'.App::getLocale()}}
-    <!--{{$desc='description_'.App::getLocale()}}
+    {{$desc='description_'.App::getLocale()}}
     -->
     <style>
         #labsland-logo{

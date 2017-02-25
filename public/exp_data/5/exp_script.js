@@ -107,7 +107,11 @@ $(function () {
 
         //var mult = 0;
         lab_socket = io.connect(rpi_server);
-
+        
+        lab_socket.on('reconnect', function () {
+            lab_socket.emit('new connection', {pass: $('meta[name=csrf-token]').attr('content')} );
+        });
+        
         $(".controllers").show();
         $(".loading").hide();
 
@@ -115,10 +119,9 @@ $(function () {
         $("#show-info").show();
         //$("#show-error span p").html(message[1]);
         //$("#show-error").show();
+        //
         //Conecta-se enviando chave de acesso ao lab
         lab_socket.emit('new connection', {pass: $('meta[name=csrf-token]').attr('content')});
-
-        // Send a message
 
         lab_socket.on('lab sync', function (data) {
             if (data.iscooling) {

@@ -25,7 +25,12 @@ $(function () {
         
         lab_socket= io.connect(rpi_server);
         lab_socket.emit('new connection', {pass: $('meta[name=csrf-token]').attr('content')});
+        
+        lab_socket.on('reconnect', function () {
+            lab_socket.emit('new connection', {pass: $('meta[name=csrf-token]').attr('content')} );
+        });
 
+       
         function sendMessage(key) {
             var message = {};
             message.key = key;

@@ -164,7 +164,9 @@ Route::group(array('prefix' => 'labs'), function() {
 
     //Moodle
     Route::get('/{id}/moodle', 'LabsController@moodle');
-//Lab page
+    //LabsLand
+    Route::get('/{id}/labsland', 'LabsController@labsland');
+    //Lab page
     Route::get('/{id}', 'LabsController@lab');
     
     
@@ -204,7 +206,7 @@ Route::group(array('prefix' => 'log'), function() {
 
 
 Route::get('status', function() {
-    $query = 'SELECT id FROM labs WHERE maintenance = "1"';
+    $query = 'SELECT lab_id FROM instances WHERE maintenance = "1"';
     $status = DB::select($query);
 
     return $status;

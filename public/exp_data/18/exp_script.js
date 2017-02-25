@@ -4,6 +4,17 @@ $.getScript('http://relle.ufsc.br/exp_data/18/visir.js', function () {
 
 $.getScript('http://relle.ufsc.br/exp_data/18/zoom.js');
 //$.getScript('https://raw.githubusercontent.com/twbs/bootstrap/master/js/transition.js');
+$.getScript('http://relle.ufsc.br/exp_data/1/welcome.js', function () {
+    var shepherd = setupShepherd();
+    addShowmeButton('<button id="btnIntro" class="btn btn-sm btn-default"> <span class="long">' + lang.showme + '</span><span class="short">' + lang.showmeshort + '</span> <span class="how-icon fui-question-circle"></span></button>')
+    $('#btnIntro').on('click', function (event) {
+        event.preventDefault();
+        shepherd.start();
+    });
+});
+
+$.getScript('http://relle.ufsc.br/exp_data/18/zoom.js');
+//$.getScript('https://raw.githubusercontent.com/twbs/bootstrap/master/js/transition.js');
 
 $('head').append('<link rel="stylesheet" href="http://relle.ufsc.br/exp_data/18/zoom.css" type="text/css"/>');
 $('head').append('<link rel="stylesheet" href="http://relle.ufsc.br/exp_data/18/instruments/breadboard/breadboard.css" type="text/css"/>');
@@ -91,5 +102,9 @@ function init() {
 	});
 }
 
+$(document).ready(function(){
+window.matchMedia("(orientation: portrait)").matches
+	//console.log("teste");
+});
 
 

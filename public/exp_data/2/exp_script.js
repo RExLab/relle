@@ -64,6 +64,10 @@ $(function () {
         // Prompt for setting a username
         socket = io.connect(rpi_server);
         socket.emit('new connection', {pass: $('meta[name=csrf-token]').attr('content')});
+        
+        socket.on('reconnect', function () {
+            socket.emit('new connection', {pass: $('meta[name=csrf-token]').attr('content')} );
+        });
 
         socket.on('new message', function (data) {
             console.log(data);

@@ -49,7 +49,8 @@ return [
     'locale' => 'pt',
     'locales' => [
         'pt' => 'Português',
-        'en' => 'English'
+        'en' => 'English',
+        'es' => 'Español',
     ],
     /*
       |--------------------------------------------------------------------------
@@ -137,7 +138,8 @@ return [
         'Barryvdh\DomPDF\ServiceProvider',
         'Intervention\Image\ImageServiceProvider',
         'Maatwebsite\Excel\ExcelServiceProvider',
-        'Ipunkt\LaravelAnalytics\AnalyticsServiceProvider'
+        'Ipunkt\LaravelAnalytics\AnalyticsServiceProvider',
+        'Adamkearsley\ConvertMigrations\ConvertMigrationsServiceProvider',
     ],
     /*
       |--------------------------------------------------------------------------
