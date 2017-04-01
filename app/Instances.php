@@ -14,6 +14,7 @@ class Instances extends Model {
         'description',
         'maintenance',
         'queue',
+        'duration',
     ];
 
 }

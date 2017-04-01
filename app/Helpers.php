@@ -1,7 +1,7 @@
 <?php
 
 use App\Http\Controllers\LabsController;
-
+use App\Instances;
 function getRandomDifferent($n, $nums) {
     $rand = rand(0, $n - 1);
     if(!in_array($rand, $nums))
@@ -109,21 +109,20 @@ function stringToArray($string) {
     }
 }
 
-function unzipLab($pathToZip, $expId) {
+function unzipLab($pathToZip, $expId, $instanceId) {
     $zip = new ZipArchive;
     $res = $zip->open($pathToZip);
-    $path = "/public/exp_data/" . $expId;
+    $path = "/public/exp_data/" . $expId ."/". $instanceId;
     $final_path = base_path() . $path;
-    $reports_path = base_path() . "/resources/views/reports/" . $expId;
-
+    $reports_path = base_path() . "/resources/views/reports/" . $expId ."/". $instanceId;
+    
     shell_exec("mkdir -p " . $final_path);
-    shell_exec("chmod 777 " . $final_path);
-
+    //shell_exec('chmod 777'. $final_path);
     shell_exec("mkdir -p " . $reports_path); //Reports
-    shell_exec("chmod 777 " . $reports_path);  //Reports
+    //shell_exec("chmod 777". $reports_path);
 
     if ($res === TRUE) {
-        $zip->extractTo(base_path() . $path);
+        $zip->extractTo($final_path);
 
         shell_exec("mv " . base_path() . $path . "/report_en.blade.php " . $reports_path . "/report_en.blade.php"); //Reports
         shell_exec("mv " . base_path() . $path . "/report_pt.blade.php " . $reports_path . "/report_pt.blade.php"); //Reports
@@ -143,6 +142,16 @@ function getLastLabId() {
     } else {
         return $last->id + 1;
         //return Labs::orderBy('id')->first();
+    }
+}
+
+function getLastInstance($lab_id){
+    $last = Instances::where('lab_id', $lab_id)->orderBy('id', 'desc')->first();
+
+    if (empty($last)) {
+        return 1;
+    } else {
+        return $last->id + 1;
     }
 }
 
@@ -167,9 +176,13 @@ function searchDocs($input) {
         }
         $first = false;
     }
-    $query = "select * from docs where " . $general;
-    $result = DB::select($query);
-    return $result;
+     if (!empty($input['terms'])) {
+        $query = "select * from docs where " . $general;
+        $result = DB::select($query);
+        return $result;
+    } else {
+        return null;
+    }
 }
 
 function searchLabs($input) {
@@ -187,8 +200,10 @@ function searchLabs($input) {
         foreach ($terms as $term) {
             $general .= "name_pt like '%$term%' or "
                     . "name_en like '%$term%' or "
+                    . "name_es like '%$term%' or "
                     . "description_pt like '%$term%' or "
                     . "description_en like '%$term%' or "
+                    . "description_es like '%$term%' or "
                     . "tags like '%$term%'";
             if ($i < $n) {
                 $general.=' or ';
@@ -197,10 +212,15 @@ function searchLabs($input) {
         }
         $first = false;
     }
-    $query = "select * from labs where " . $general;
+    if (!empty($input['terms'])){
+        $query = "select * from labs where " . $general;
+        $result = DB::select($query);
+        return $result;
+    }else{
+        return null;
+    }
 
-    $result = DB::select($query);
-    return $result;
+    
 }
 
 function handleSearchVariables($array, $var, $first, $specific) {
@@ -262,7 +282,7 @@ function moodle_db($query) {
 
 
     $dbhost = "localhost";
-    $dbname = "moodle";
+    $dbname = "repo";
     $dbusername = "root";
     $dbpassword = "RExLab!)%";
 

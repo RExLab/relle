@@ -21,7 +21,6 @@ class Labs extends Model {
         'difficulty',
         'interaction',
         'thumbnail',
-        'maintenance',
         'queue',
         'tutorial_pt',
         'tutorial_en',
