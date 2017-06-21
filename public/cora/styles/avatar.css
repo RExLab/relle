@@ -1,0 +1,36 @@
+.bella{
+    margin-top: 60%;
+    background: url("../images/avatar/bella_busto.png") no-repeat;
+    width: 40%;
+    height: 60%;
+    background-position: 0 0;
+}
+
+.max{
+    background: url("../images/avatar/max_busto.png") no-repeat;
+    width: 40%;
+    background-position: 0 0;
+}
+
+.lea{
+    background: url("../images/avatar/lea_busto.png") no-repeat;
+    width: 40%;
+    background-position: 0 0;
+}
+
+.lara{
+    background: url("../images/avatar/lara_busto.png") no-repeat;
+    width: 40%;
+    background-position: 0 0;
+}
+
+.alex{
+    background: url("../images/avatar/alex_busto.png") no-repeat;
+    width: 40%;
+    background-position: 0 0;
+}
+
+.seta{
+    height: 60px;
+    margin-top: 60%;
+}

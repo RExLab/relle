@@ -1,0 +1,55 @@
+<div id='DivExp' class="container">
+    <div class="row">
+        <h3>Banco Óptico</h3>
+        <div class="col-lg-6 col-xs-12">
+            <img class="cam" src='http://bancooptico1.relle.ufsc.br:8080' width="100%"/>
+        </div>
+        <div class="col-lg-6 col-xs-12"  style="margin: 10px 0 10px 0;">
+            <div class="base loading">
+                <ul>
+                    <li class=""><div class="loader-1"></div></li>
+                </ul>
+            </div>
+            <div class='row controllers' style="display: none">
+                <div class="col-lg-12 col-xs-12 content-micro infor" >
+                    <p> Lente: <span id="sample"> </span></p>
+                    <p> Descrição:  <span id="sampledescription"> </span></p>
+                    <img id="lens"  width="90%"/>
+                </div>
+                <div class="col-lg-12 col-xs-12 content-micro buttons">
+                    <button name='left' class='btn btn-success chave' style="margin: 10px 0 10px 0;"><i class="fa fa-arrow-left"></i></button> 
+                    <button name="right" class='btn btn-success chave' style="margin: 10px 0 10px 0;"><i class="fa fa-arrow-right"></i></button> 
+                </div>
+            </div>
+        </div>
+    </div>
+</div> 
+
+<script>
+    var image = ["biconvexo.png", "biconcavo.png" , "biconvexo.png", "biconcavo.png"];
+
+    var sample = ["Biconvexa", "Plano côncava", "Plano convexa", "Bicôncava"];
+
+    var description = [
+        "A lente biconvexa possui as duas superfícies convexas. Um feixe colimado de luz passa através desta lente e converge para um ponto (um foco) atrás da lente.",
+        "A lente plano côncava possui uma de suas superficies plana. Assim como a lente côncava, o feixe é dispersado, mas o ponto focal encontra-se mais distante se comparado ao da lente côncava com mesmas configurações.",
+        "A lente plano convexa possui uma de suas superfícies plana. Apesar de o feixe convergir para um ponto, como ocorre na lente biconvexa, o ponto focal será mais distante se comparado ao da lente biconvexa com mesmas configurações.",
+        "A lente bicôncava possui as duas superfícies côncovas. O feixe, depois de passar através da lente, é dispersado e parece emanar de um determinado ponto no eixo em frente da lente."
+    ];
+    var path = "http://relle.ufsc.br/exp_data/12/img_pt/";
+    var lang =
+            {
+                showme: 'Mostre-me como funciona',
+                showmeshort: 'Como funciona',
+                next: "Próximo",
+                previous: "Anterior",
+                done: "Pronto",
+                leave: "Sair",
+                intro1: "Neste laboratório você irá analisar o comportamente de feixes de luz atravessando diferentes lentes .",
+                introcamera: "Esta câmera captura a visão superior do experimento.",
+                description : "O nome da lente e sua descrição são apresentados aqui.",
+                buttons : "Avance ou volte para girar a bandeja e mudar a lente em frente ao laser."
+                   
+            };
+
+</script>

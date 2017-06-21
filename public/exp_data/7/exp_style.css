@@ -1,0 +1,31 @@
+h1{
+    text-align: center;
+    padding-bottom: 20px;
+}
+#slider{
+    padding-top: 20px;
+}
+.rs-control .rs-range-color {
+    background-color: #00aa8a;
+}
+.rs-control .rs-path-color {
+    background-color: #e2e2e2;
+    border:none;
+}
+.rs-control .rs-handle {
+    background-color: #838383;
+}
+.rs-control .rs-bg-color {
+    background-color: white;
+}
+.rs-tooltip-text{
+    font-size: 15pt;
+}
+#forca {
+     cursor: default;
+}
+.introjs-helperNumberLayer{
+    width:25px !important;
+    height:25px !important;
+}
+  

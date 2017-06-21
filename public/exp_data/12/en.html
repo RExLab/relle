@@ -1,0 +1,55 @@
+<div id='DivExp' class="container">
+    <div class="row">
+        <h3>Optical Bench</h3>
+        <div class="col-lg-6 col-xs-12">
+            <img class="cam" src='http://bancooptico1.relle.ufsc.br:8080' width="100%"/>
+        </div>
+        <div class="col-lg-6 col-xs-12 description" style="margin: 10px 0 10px 0;">
+            <div class="base loading">
+                <ul>
+                    <li class=""><div class="loader-1"></div></li>
+                </ul>
+            </div>
+            <div class='row controllers' style="display: none">
+                <div class="col-lg-12 col-xs-12 content-micro">
+                    <p> Lens: <span id="sample"> </span></p>
+                    <p> Description:  <span id="sampledescription"> </span></p>
+                    <img id="lens"  width="100%"/>
+                </div>
+
+                <div class="col-lg-12 col-xs-12 content-micro buttons">
+                    <button name='left' class='btn btn-success chave' style="margin: 10px 0 10px 0;"><i class="fa fa-arrow-left"></i></button> 
+                    <button name="right" class='btn btn-success chave' style="margin: 10px 0 10px 0;"><i class="fa fa-arrow-right"></i></button> 
+                </div>
+            </div>
+        </div>
+    </div> 
+</div> 
+
+<script>
+
+    image = ["biconvex.png", "biconcave.png", "biconvex.png", "biconcave.png"];
+
+    sample = ["Biconvex", "Plano concave","Plano convex","Biconcave"];
+
+    description = ["The biconvex lens has two convex surfaces. A collimated beam of light passes through this lens and converges to a point (the focus) behind the lens.",
+        "The plane-concave lens has one of its surfaces flat. As the concave lens, the beam is spread, but the focal point is farther when compared to the concave lens with the same configuration.",
+        "The plano-convex lens has one of its surfaces flat. Although the beam converges to a point, as occurs in the convex lens, the focal point is farther when compared the convex lens with the same configuration.",
+        "The biconcave lens has two concave surfaces. The beam, after passing through the lens, is spreaded and seems to emanate from a point on the axis in front of the lens."
+        
+    ];
+    var path = "http://relle.ufsc.br/exp_data/12/img_en/";
+    var lang =
+         {
+             showme: "Show me how it works",
+             next: "Next",
+             previous: "Prev",
+             done: "Done",
+             showmeshort: 'How it works',
+             leave: "Leave",
+             intro1: "In this lab you will analyze the behavior of a beam of light passing through different lenses.",
+            introcamera: "This camera captures a top view of the setup.",
+            description : "The name of the lens and its description are shown here.",
+            buttons : "Click on the arrows to go the next or to the previous lens."
+         };
+</script>

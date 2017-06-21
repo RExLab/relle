@@ -1,0 +1,31 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<!-- Created with Fritzing (http://www.fritzing.org/) -->
+<svg xmlns:svg='http://www.w3.org/2000/svg' xmlns='http://www.w3.org/2000/svg' version='1.2' baseProfile='tiny' x='0in' y='0in' width='0.33002in' height='0.24518in' viewBox='0 0 23.7614 17.653' >
+<g partID='57450'><g transform='translate(23.7614,0)' ><g transform='matrix(0,1,-1,0,0,0)'  ><g xmlns="http://www.w3.org/2000/svg" id="breadboard">
+ <g xmlns="http://www.w3.org/2000/svg">
+  <polygon xmlns="http://www.w3.org/2000/svg" points="14.8219,23.7449,14.8219,15.4706,16.9819,15.4706,16.9819,23.7449" fill="#8C8C8C"/>
+  <polygon xmlns="http://www.w3.org/2000/svg" points="0.42192,8.27496,0.42192,0.00072,2.58048,0.00072,2.58048,8.27496" fill="#8C8C8C"/>
+  <polygon xmlns="http://www.w3.org/2000/svg" points="14.8219,8.27568,14.8219,0,16.9819,0,16.9819,8.27568" fill="#8C8C8C"/>
+  <polygon xmlns="http://www.w3.org/2000/svg" points="0.42264,23.7463,0.42264,15.4706,2.58192,15.4706,2.58192,23.7463" fill="#8C8C8C"/>
+  <rect xmlns="http://www.w3.org/2000/svg" y="3.04704" height="17.6544" width="17.653" x="0.00864"/>
+  <path xmlns="http://www.w3.org/2000/svg" d="M17.6609,19.2614c0,0.79272,-0.64512,1.43928,-1.44,1.43928L1.44792,20.7007c-0.79272,0,-1.43928,-0.64656,-1.43928,-1.43928L0.00864,4.4856c0,-0.792,0.64656,-1.43856,1.43928,-1.43856l14.7751,0c0.79416,0,1.43784,0.64656,1.43784,1.43856L17.6609,19.2614L17.6609,19.2614z" fill="#999999"/>
+  <circle xmlns="http://www.w3.org/2000/svg" cx="2.57976" cy="5.61816" r="1.52928"/>
+  <circle xmlns="http://www.w3.org/2000/svg" cx="15.133" cy="5.6448" r="1.52928"/>
+  <circle xmlns="http://www.w3.org/2000/svg" cx="15.1063" cy="18.198" r="1.52928"/>
+  <circle xmlns="http://www.w3.org/2000/svg" cx="2.55312" cy="18.1699" r="1.52928"/>
+  <circle xmlns="http://www.w3.org/2000/svg" cx="8.8344" cy="11.8735" r="5.148" fill="#3F3F3F"/>
+  <linearGradient xmlns="http://www.w3.org/2000/svg" y1="-335.051" y2="-335.051" x1="-192.873" x2="-182.577" gradientUnits="userSpaceOnUse" gradientTransform="matrix(1 0 0 -1 273 -448.8574)" id="SVGID_1_">
+   <stop xmlns="http://www.w3.org/2000/svg" style="stop-color:#333333" offset="0"/>
+   <stop xmlns="http://www.w3.org/2000/svg" style="stop-color:#3C3C3C" offset="1"/>
+  </linearGradient>
+  <circle xmlns="http://www.w3.org/2000/svg" cx="8.8344" cy="11.8735" r="5.148" fill="url(#SVGID_1_)"/>
+  <circle xmlns="http://www.w3.org/2000/svg" cx="8.9244" opacity="0.6" cy="12.4855" r="4.53024" enable-background="new    "/>
+  <circle xmlns="http://www.w3.org/2000/svg" cx="8.84088" cy="11.9038" r="4.41504" fill="#735348"/>
+  <path xmlns="http://www.w3.org/2000/svg" opacity="0.5" enable-background="new    " d="M2.38176,5.53824c0.03024,-0.072,0.08568,-0.12744,0.16416,-0.14112L2.39472,4.43376C2.33712,4.44312,2.27592,4.4352,2.21904,4.45248L2.2176,4.44816C1.8612,4.55832,1.5948,4.824,1.45872,5.16312L2.38176,5.53824z" fill="#FFFFFF"/>
+  <path xmlns="http://www.w3.org/2000/svg" opacity="0.5" enable-background="new    " d="M14.9335,5.56416c0.02952,-0.07344,0.08496,-0.12888,0.16488,-0.14184l-0.14904,-0.96336c-0.05904,0.0108,-0.11952,0.00144,-0.1764,0.01872l-0.00216,-0.00504c-0.35496,0.10944,-0.62208,0.37512,-0.75816,0.71496L14.9335,5.56416z" fill="#FFFFFF"/>
+  <path xmlns="http://www.w3.org/2000/svg" opacity="0.5" enable-background="new    " d="M14.909,18.1174c0.02952,-0.07344,0.08352,-0.1296,0.16344,-0.14184l-0.14904,-0.96264c-0.05904,0.0108,-0.11952,0.00144,-0.17712,0.01872l-0.00144,-0.0072c-0.35568,0.10944,-0.6228,0.37512,-0.75816,0.71568L14.909,18.1174z" fill="#FFFFFF"/>
+  <path xmlns="http://www.w3.org/2000/svg" opacity="0.5" enable-background="new    " d="M2.35512,18.0907c0.02952,-0.07344,0.08496,-0.12672,0.16488,-0.1404l-0.1512,-0.96408c-0.05904,0.01224,-0.11952,0.00144,-0.1764,0.01944l-0.00144,-0.00504c-0.3564,0.108,-0.6228,0.37512,-0.76032,0.71424L2.35512,18.0907z" fill="#FFFFFF"/>
+  <path xmlns="http://www.w3.org/2000/svg" opacity="0.6" enable-background="new    " d="M10.4206,7.78896c-0.342,-0.1332,-0.702,-0.22896,-1.08288,-0.27216c-0.94752,-0.10584,-1.85472,0.1044,-2.63016,0.53424L6.61104,8.3016c0.86616,-0.46296,1.87488,-0.67752,2.92464,-0.56016c0.32256,0.03744,0.63648,0.10944,0.93672,0.20448L10.4206,7.78896z" fill="#FFFFFF"/>
+ </g>
+</g>
+</g></g></g></svg>

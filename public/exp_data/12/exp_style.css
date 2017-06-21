@@ -1,0 +1,45 @@
+/*
+    CSS ARCHIVE FOR THE LABS
+    Include rules for your lab.
+*/
+
+h1{
+    text-align: center;
+    padding-bottom: 20px;
+}
+
+#cam{
+    margin-top:7%;
+}
+
+.glyphicon-refresh-animate {
+    -animation: spin .7s infinite linear;
+    -webkit-animation: spin2 .7s infinite linear;
+    -moz-animation: spin3 .7s infinite linear;
+}  
+
+@-moz-keyframes spin3 {
+    from { -moz-transform: rotate(0deg); }
+    to { -moz-transform: rotate(360deg); }
+}
+
+@-webkit-keyframes spin2 {
+    from { -webkit-transform: rotate(0deg);}
+    to { -webkit-transform: rotate(360deg);}
+}
+
+@keyframes spin {
+    from { transform: scale(1) rotate(0deg);}
+    to { transform: scale(1) rotate(360deg);}
+}
+
+.lab-box{
+    margin-top: 30px;
+}
+
+
+.introjs-helperNumberLayer{
+    width:25px !important;
+    height:25px !important;
+}
+  

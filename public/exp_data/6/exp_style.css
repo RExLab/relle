@@ -1,0 +1,73 @@
+h1{
+    text-align: center;
+    padding-bottom: 20px;
+}
+#ilustrative{
+    padding-left: 0px;
+}
+
+#cam{
+    margin-top:7%;
+}
+
+.glyphicon-refresh-animate {
+    -animation: spin .7s infinite linear;
+    -webkit-animation: spin2 .7s infinite linear;
+    -moz-animation: spin3 .7s infinite linear;
+}  
+
+@-moz-keyframes spin3 {
+    from { -moz-transform: rotate(0deg); }
+    to { -moz-transform: rotate(360deg); }
+}
+
+@-webkit-keyframes spin2 {
+    from { -webkit-transform: rotate(0deg);}
+    to { -webkit-transform: rotate(360deg);}
+}
+
+@keyframes spin {
+    from { transform: scale(1) rotate(0deg);}
+    to { transform: scale(1) rotate(360deg);}
+}
+
+
+.zoom {
+    display:inline-block;
+    position: relative;
+}
+
+/* magnifying glass icon */
+.zoom:after {
+    content:'';
+    display:block; 
+    width:33px; 
+    height:33px; 
+    position:absolute; 
+    top:0;
+    right:0;
+    background:url(http://relle.ufsc.br/exp_data/4/icon.png);
+}
+
+.zoom{
+    width: 100%;
+}
+
+.zoom img {
+    width: 100%;
+    display: block;
+}
+
+.zoom img:hover, .zoom img:focus, .zoom img:active {
+    background-color: #fff;
+}
+
+.zoom img::selection { background-color: #fff; }
+
+div .lab-box{
+    margin-top: 30px;
+}
+
+.sampledata{
+    font-size: 15px;
+}

@@ -1,0 +1,75 @@
+﻿<div id="DivExp" class="container">
+<div class="row">
+<h3>Microscopio remoto</h3>
+<div class="col-lg-4  col-xs-12"><span id="img-zoomed" class="zoom"> <img src="http://microscopio1.relle.ufsc.br:8080" alt="" /> </span>
+<p><em>*Coloca el rat&oacute;n encima para aumentar</em></p>
+</div>
+<div class="col-lg-4  col-xs-12" style="margin: 10px 0 10px 0;">
+<div class="base loading">&nbsp;</div>
+<div class="row controllers" style="display: none;">
+<div class="col-lg-12 col-xs-12 content-micro samples">
+<p>Sample <span id="sample"> </span></p>
+<p>Description: <span id="sampledescription"> </span></p>
+<img id="plant" alt="" height="200px" /></div>
+<div class="col-lg-12 col-xs-12 content-micro buttons"><button class="btn btn-success chave" style="margin: 10px 0 10px 0;" name="left"></button> <button class="btn btn-success chave" style="margin: 10px 0 10px 0;" name="right"></button></div>
+</div>
+</div>
+<div class="col-lg-4  col-xs-12"><img class="cam" src="http://microscopio1.relle.ufsc.br:8008" alt="" width="100%" /></div>
+</div>
+<div class="row sampledata"><center><strong>Datos acerca del ejemplo:</strong></center>
+<div class="col-lg-6 col-xs-12">
+<p>1. Nomenclatura Binomial : <em>Eugenia pyriformis</em></p>
+<p>2. Nombre com&uacute;n: Uvaia, Uvalha, Uvalha-do-campo, Uvaia-muchana, Cambu&iacute;-da-&iacute;ndia, Ubapeba, P&ecirc;ssego-do-campo, Uvaia-azeda-do-campo, outros.</p>
+<p>3. Familia: Myrtaceae</p>
+<p>4. Categor&iacute;a: Arbustos, Arbustos tropicales, &Aacute;rboles, Frutales, &Aacute;rboles frutales, Medicinal</p>
+</div>
+<div class="col-lg-6 col-xs-12">
+<p>5. Zona clim&aacute;tica: Mediterr&aacute;nea, Subtropical, Tropical</p>
+<p>6. Origen: Sur America, Brasil</p>
+<p>7. Altura: de 3.6 a 4.7 metros, de 4.7 a 6.0 metros, de 6.0 a 9.0 metros, de 9.0 a 12 metros</p>
+<p>8. Ciclo de vida: Perenne, a pesar del cambio de color de sus hojas durante periodos largos de fr&iacute;o, las hojas no se caen.</p>
+</div>
+</div>
+</div>
+<script>// <![CDATA[
+/*var image = ["raiz.jpg", "caule.jpg", "folhas.jpg", "flor.jpg","fruto.jpg", "semente.jpg"];
+     
+     var sample = ["Raíz", "Tallo", "Hoja", "Flor", "Fruta", "Semilla" ];
+     
+     var description = [ "Las dos funciones principales de las raíces son fijar y mantener la planta en el suelo, y absorber agua y nutrientes del suelo o incluso del agua.",
+     "El tallo es la parte que soporta toda la planta, y lleva agua y nutrientes de las raíces a las hojas. ",
+     "La hoja es la parte principal de una planta, es donde ocurre la mayor parte de la fotosíntesis. ",
+     "La flor es el órgano reproductor de las plantas angiospermas. Son responsables de asegurar la fertilización del óvulo y el desarrollo de semillas que contienen frutas",
+     
+     "Las frutas son los ovarios maduros de una flor de angiospermas. Protegen la semilla incluida en su interior y ayudan en su dispersión.",
+     "Las semillas protegen y alimentan a un embrión que, en condiciones adecuadas, germinará y crecerá en una nueva planta, genéticamente diferente del padre o de los padres."
+     ];*/
+
+
+    image = ["amostra1.png", "amostra2.png", "amostra3.png", "amostra4.png", "amostra5.png", "amostra6.png"];
+
+    sample = [" 1", " 2", " 3", " 4", " 5", " 6"];
+
+    description = ["Hoja verde, con clorofila como pigmento predominante.",
+                 "Hoja verdosa, con algunas manchas rojas, es decir, con tipo carotenoide caroteno.",
+                 "Caroteno más evidente que en la Muestra 2.",
+                 "Hoja con color rojo, mostrando la manifestación de caroteno.",
+                 "Hoja rojiza con algunas partes pigmentadas en amarillo, con carotenoides de xantofila.",
+                 "Hoja completamente amarillenta, con predominio de xantofilas."
+    ];
+    var path = rootPath+ "/img";
+    var lang =
+            {
+                showme: "Muéstrame cómo funciona",
+                next: "Siguiente",
+                previous: "Anterior",
+                done: "Hecho",
+                showmeshort: Cómo funciona',
+                leave: "Abandonar",
+                intro1: "En este laboratorio se analizarán diferentes muestras de hojas utilizando un microscopio digital.",
+                camera1: "Esta cámara muestra una visión general del microscopio y algunas muestras.",
+                camera2: "Este video muestra en tiempo real el microscopio centrado en una muestra en particular.",
+                samples: "El nombre de una parte de la planta y su descripción se muestran aquí.",
+                buttons: "Haga clic en las flechas para ir a la siguiente muestra o la anterior."
+            };
+// ]]></script>

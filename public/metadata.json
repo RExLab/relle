@@ -1,0 +1,24 @@
+{
+    "apiVersion": "1.0.0",
+    "swaggerVersion": "1.0",
+    "basePath": "http://relle.ufsc.br",
+    "info":
+            {
+                "en": {
+                    "title": "Smart Device example",
+                    "description": "This is an example implementation of a smart device in Raspberry Pi",
+                    "termsOfServiceUrl": "#",
+                    "contact": "rexlab@contato.ufsc.br",
+                    "license": "MIT",
+                    "licenseUrl": "http://www.apache.org/licenses/LICENSE-2.0.html"
+                },
+                "pt": {
+                    "title": "Exemplo de dispositivo inteligente",
+                    "description": "Este Ã© um exemplo de implementaÃ§Ã£o de um dispositivo inteligente em um Raspberry Pi",
+                    "termsOfServiceUrl": "#",
+                    "contact": "rexlab@contato.ufsc.br",
+                    "license": "MIT",
+                    "licenseUrl": "http://www.apache.org/licenses/LICENSE-2.0.html"
+                },
+            }
+}

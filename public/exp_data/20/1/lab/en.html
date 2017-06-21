@@ -1,0 +1,98 @@
+<div id='DivExp' class="container">
+    <div class="row">
+        <h3>Remote Microscope</h3>
+        <div class="col-lg-4  col-xs-12">
+            <span class='zoom' id='img-zoomed'>
+                <img src='http://microscopio1.relle.ufsc.br:8080'/>
+            </span>
+            <p><i>*Mouseover to magnify</i></p>
+
+        </div>
+
+        <div class="col-lg-4  col-xs-12" style="margin: 10px 0 10px 0;">
+            <div class="base loading">
+                <ul>
+                    <li class=""><div class="loader-1"></div></li>
+                </ul>
+            </div>
+            <div class="row controllers" style="display: none">
+                <div class="col-lg-12 col-xs-12 content-micro samples">
+                    <p> Sample <span id="sample"> </span></p>
+                    <p> Description:  <span id="sampledescription"> </span></p>
+                    <img id="plant"  height="200px"/>
+                </div>
+
+                <div class="col-lg-12 col-xs-12 content-micro buttons">
+                    <button name='left' class='btn btn-success chave' style="margin: 10px 0 10px 0;"><i class="fa fa-arrow-left"></i></button> 
+                    <button name="right" class='btn btn-success chave' style="margin: 10px 0 10px 0;"><i class="fa fa-arrow-right"></i></button> 
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-4  col-xs-12">
+            <img class="cam" src='http://microscopio1.relle.ufsc.br:8008' width="100%"/>
+        </div>
+    </div>  
+
+    <div class="row sampledata">
+        <center><b>Data about the sample:</b></center>
+        <div class="col-lg-6 col-xs-12">
+            <p>1. Binomial nomenclature: <i>Eugenia pyriformis</i>
+            <p>2. Popular Name: Uvaia, Uvalha, Uvalha-do-campo, Uvaia-muchana, Cambuí-da-índia, Ubapeba, Pêssego-do-campo, Uvaia-azeda-do-campo, outros.
+            <p>3. Family: Myrtaceae
+            <p>4. Category: Bushes, Tropical Bushes, Tree, Fruit trees, Ornamental trees, Medicinal   
+        </div>
+        <div class="col-lg-6 col-xs-12">
+            <p>5. Climate zone:  Mediterranean, Subtropical, Temperate , Tropical
+            <p>6. Origin: South America, Brazil
+            <p>7. Height: 3.6 to 4.7 meters, 4.7 to 6.0 meters, 6.0 to 9.0 meters, 9.0 to 12 meters
+            <p>8. Life cycle: Perpetual, despite the change in the color of its leaves when there is occurrence of long cold periods, the leaves do not fall.
+
+        </div>
+    </div>
+</div>
+
+
+<script>
+
+    /*var image = ["raiz.jpg", "caule.jpg", "folhas.jpg", "flor.jpg","fruto.jpg", "semente.jpg"];
+     
+     var sample = ["Root", "Stem", "Leaf", "Flower", "Fruit", "Seed" ];
+     
+     var description = [ "The two main functions of roots are to fasten and keep the plant in the soil, and to absorb water and nutrients from the soil or even water.",
+     "Stem is the part that supports all the plant, and carries water and nutrients between roots and leaves. ",
+     "Leaf is the main part of a plant, it is where the greatest part of photosynthesis happens. ",
+     "Flower is the reproductive organ of angiosperm plants. They are responsible for ensuring fertilization of the ovule and development of fruit containing seeds",
+     
+     "Fruits are the ripened ovaries of an angiosperm flower. They protect the enclosed seed, and aid in their dispersal.",
+     "Seeds protect and feed a embryo that, in proper conditions, will germinate and grow into a new plant, genetically different from the parent or parents."
+     ];*/
+
+
+    image = ["amostra1.png", "amostra2.png", "amostra3.png", "amostra4.png", "amostra5.png", "amostra6.png"];
+
+    sample = [" 1", " 2", " 3", " 4", " 5", " 6"];
+
+    description = ["Greenish leaf, with chlorophyll as the predominant pigment.",
+                 "Greenish leaf, with some red spots, that is, with the carotenoid carotene type.",
+                 "Carotene more apparent than in Sample 2.",
+                 "Leaf with red color, showing the manifestation of carotene.",
+                 "Reddish leaf with some pigmented parts in yellow, with xanthophyll carotenoids.",
+                 "Leaf completely yellowish, with a predominance of xanthophyll."
+    ];
+   var path = rootPath+ "/img";
+    var lang =
+            {
+                showme: "Show me how it works",
+                next: "Next",
+                previous: "Prev",
+                done: "Done",
+                showmeshort: 'How it works',
+                leave: "Leave",
+                intro1: "In this lab you will analyze different leaf samples using a digital microscope.",
+                camera1: "This camera shows an overview of the microscope and some samples.",
+                camera2: "This is the microscope video streaming focusing on a particular sample.",
+                samples: "The name of a plant part and its description are shown here.",
+                buttons: "Click on the arrows to go the next or to the previous plate."
+            };
+</script>

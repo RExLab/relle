@@ -1,0 +1,436 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : Jun 9, 2015, 1:25:01 PM
+    Author     : JoséPedro
+*/
+ 
+.container-full {
+    margin: 0 auto;
+    width: 100%;
+}
+.btn{
+    margin:3px;
+}
+
+.lab-box{
+    padding:10px;
+    margin-top:5px;
+    background-color: #eee;
+    border: 1px solid #ddd;
+}
+
+#cover{ position:fixed; top:0; left:0; background:rgba(0,0,0,0.6); z-index:5; width:100%; height:100%; display:none; }
+
+#slider_home{
+    z-index: -1;
+}
+
+.form-signin .form-control{
+    margin-bottom: 3px;
+}
+@media screen and (min-width: 650) {
+    .lang-box{
+        border: #dddddd solid 1px;
+        border-radius: 15px;
+        height: auto;
+        margin-bottom: 15px;
+    }
+}
+
+
+/*
+* Labs
+*/
+.card {
+    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
+}
+
+.card {
+    margin-top: 10px;
+    box-sizing: border-box;
+    border-radius: 2px;
+    background-clip: padding-box;
+
+}
+.card span.card-title {
+    color: #fff;
+    font-size: 24px;
+    //font-weight: 300;
+    text-transform: uppercase;
+}
+
+.card .card-image {
+    position: relative;
+    overflow: hidden;
+}
+
+
+.card .card-image span.card-title {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    padding: 5px;
+}
+
+.card .card-content {
+    padding: 16px;
+    border-radius: 0 0 2px 2px;
+    background-clip: padding-box;
+    box-sizing: border-box;
+    min-height: 120px;
+}
+.card .card-content p {
+    //margin: 0;
+    color: inherit;
+}
+.card .card-content span.card-title {
+    line-height: 48px;
+}
+.card .card-content span.status{
+    padding: 5px; 
+    margin-left: -5px;
+}   
+.card .card-action {
+    border-top: 1px solid rgba(160, 160, 160, 0.2);
+    padding-left: 0;
+}
+.card .card-action a {
+    //color: #ffab40;
+    margin-right: 16px;
+    transition: color 0.3s ease;
+    text-transform: uppercase;
+}
+.card .card-action a:hover {
+    //color: #ffd8a6;
+    text-decoration: none;
+}
+
+/*
+* Menu
+*/
+.avatar{
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    margin-top: -20px;
+    margin-left: 10px;
+}
+
+
+
+.navbar-default .navbar-nav > .active > a, 
+.navbar-default .navbar-nav > .active > a:hover, .navbar-default .navbar-nav > .active > a:focus {
+    color: #000;
+    background: #ecf0f1;
+}
+
+.navbar-default .navbar-nav > .open > a, .navbar-default .navbar-nav > 
+.open > a:hover, .navbar-default .navbar-nav > .open > a:focus{
+
+    background: #ecf0f1;
+    color: #000;
+}
+
+.navbar-default .navbar-nav > li > a{
+    margin-top:10px;
+}
+
+.navbar-default .navbar-collapse, .navbar-default .navbar-form{
+    border-color:transparent;
+}
+
+.dropdown-menu {
+    background: #fff;
+    border:none;
+}
+
+
+.nav > li > a > img{
+    display: inline;
+}
+
+/*
+* Content
+*/
+@media only screen and (max-device-width: 1024px){
+    #content{
+        margin: -50px 5% 0 5%;
+    }
+}
+/*
+* Home
+*/
+#slider_home{
+    background: url(../img/slides/index1.gif) no-repeat center center; 
+    background-size: cover;
+    min-width: 100%;
+    min-height: 100%;
+    margin-top: 0;
+    position:fixed;
+}
+.index{
+    margin-top: 10%;
+    height: 300px;
+    background-color: rgba(0, 0, 0, 0.3);
+    -webkit-border-top-right-radius: 10px;
+    -webkit-border-bottom-right-radius: 10px;
+    -moz-border-radius-topright: 10px;
+    -moz-border-radius-bottomright: 10px;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+}
+.index_text{
+    color: white;
+    font-size:1.5em;
+    padding: 3% 5%;
+
+}
+.index_text_title{    
+    margin-left:5%;
+    color: white;
+    font-size: 30px;
+    background: #00AA8A;
+    font-weight: bold;
+    padding:0px 10px;
+}
+
+.click_grey{
+    background: #555;
+    color: white;
+    height:40px;
+    width: 220px;
+    text-decoration: none;
+    padding:10px;
+    margin:0;
+}
+.click_white{
+    background: white;
+    color: black;
+    height:40px;
+    width: 220px;
+    text-decoration: none;
+    padding:10px;
+    margin-left:30px;
+}
+a:hover{
+    text-decoration:none;
+    font-weight: 500;
+
+}
+
+/*
+* Create lab tabs
+*/
+
+.panel.with-nav-tabs .panel-heading{
+    padding: 5px 5px 0 5px;
+}
+.panel.with-nav-tabs .nav-tabs{
+    border-bottom: none;
+}
+.panel.with-nav-tabs .nav-justified{
+    margin-bottom: -1px;
+}
+
+/********************************************************************/
+/*** PANEL DEFAULT ***/
+.with-nav-tabs.panel-default .nav-tabs > li > a,
+.with-nav-tabs.panel-default .nav-tabs > li > a:hover,
+.with-nav-tabs.panel-default .nav-tabs > li > a:focus {
+    color: #777;
+}
+.with-nav-tabs.panel-default .nav-tabs > .open > a,
+.with-nav-tabs.panel-default .nav-tabs > .open > a:hover,
+.with-nav-tabs.panel-default .nav-tabs > .open > a:focus,
+.with-nav-tabs.panel-default .nav-tabs > li > a:hover,
+.with-nav-tabs.panel-default .nav-tabs > li > a:focus {
+    color: #777;
+    background-color: #ddd;
+    border-color: transparent;
+}
+.with-nav-tabs.panel-default .nav-tabs > li.active > a,
+.with-nav-tabs.panel-default .nav-tabs > li.active > a:hover,
+.with-nav-tabs.panel-default .nav-tabs > li.active > a:focus {
+    color: #555;
+    background-color: #fff;
+    border-color: #ddd;
+    border-bottom-color: transparent;
+}
+.with-nav-tabs.panel-default .nav-tabs > li.dropdown .dropdown-menu {
+    background-color: #f5f5f5;
+    border-color: #ddd;
+}
+.with-nav-tabs.panel-default .nav-tabs > li.dropdown .dropdown-menu > li > a {
+    color: #777;   
+}
+.with-nav-tabs.panel-default .nav-tabs > li.dropdown .dropdown-menu > li > a:hover,
+.with-nav-tabs.panel-default .nav-tabs > li.dropdown .dropdown-menu > li > a:focus {
+    background-color: #ddd;
+}
+.with-nav-tabs.panel-default .nav-tabs > li.dropdown .dropdown-menu > .active > a,
+.with-nav-tabs.panel-default .nav-tabs > li.dropdown .dropdown-menu > .active > a:hover,
+.with-nav-tabs.panel-default .nav-tabs > li.dropdown .dropdown-menu > .active > a:focus {
+    color: #fff;
+    background-color: #555;
+}
+
+/* ---------------- Barra de rolagem ---------------- */
+::-webkit-scrollbar {
+    width: 10px; 
+    height: 3px;
+}
+::-webkit-scrollbar-track-piece {
+    border-radius: 10px;
+    background: #aebcbf; 
+}
+::-webkit-scrollbar-thumb:vertical {
+    height: 3px;
+    background: grey;
+    border-radius: 10px;
+}
+
+
+
+
+.nav.navbar-nav.navbar-right > li.dropdown.open > a{
+    background: #34495e;
+    padding: 15px 21px;
+    line-height: 23px;
+    margin-left: 0;
+}
+/*FOOTER*/
+html {
+    position: relative;
+    min-height: 100%;
+}
+body {
+    /* Margin bottom by footer height */
+    margin-bottom: 50px;
+}
+.footer {
+    position: absolute;
+    bottom: 0px;
+    width: 100%;
+    /* Set the fixed height of the footer here */
+    min-height: 100px;
+    background-color: #e0e0e0;
+    margin-bottom: -100px;
+}
+footer,footer > a{
+    background-color: #bdbdbd;
+}
+.footer-banner{
+    background-color: #bdbdbd;
+    width: 100%;
+    margin: 0;
+    padding-left:0
+}
+footer>a:hover{
+    text-decoration: none;
+}
+footer>a{
+    text-decoration: none;
+}
+footer>a>img{
+    height: 50px;
+    padding:5px;
+    z-index: 2;
+    opacity: 1;
+}
+
+.footer-banner{
+    padding-left: 0px
+}
+.footer-banner ul > li > a > img{
+    border:none;
+    height: 75%
+}
+.logos-wrapper{
+    background-color: #bdbdbd;
+    padding:20px 0 20px 0
+}
+
+/* Dashboard menu position */
+@media screen and (max-width: 480px) and (orientation: portrait) {
+    #menuaux {
+        margin-top: 9%;
+    }
+}
+
+@media screen and (max-height: 450px) and (orientation: landscape){
+    #menuaux{
+        margin-top: 7%;
+    }
+}
+
+@media screen and (min-height: 1024px) and (orientation: portrait){
+    #menuaux{
+        margin-top: 8%;
+    }
+}
+
+@media only screen 
+  and (min-device-width: 768px) 
+  and (max-device-width: 1024px) 
+  and (-webkit-min-device-pixel-ratio: 1) {
+    .navbar-header {
+        float: none;
+    }
+    .navbar-toggle {
+        display: block;
+    }
+    .navbar-collapse {
+        border-top: 1px solid transparent;
+        box-shadow: inset 0 1px 0 rgba(255,255,255,0.1);
+    }
+    .navbar-collapse.collapse {
+        display: none!important;
+    }
+    .navbar-nav {
+        float: none!important;
+        margin: 7.5px -15px;
+    }
+    .navbar-nav>li {
+        float: none;
+    }
+    .navbar-nav>li>a {
+        padding-top: 10px;
+        padding-bottom: 10px;
+    }
+    .navbar-text {
+        float: none;
+        margin: 15px 0;
+    }
+    .navbar-collapse.collapse.in { 
+        display: block!important;
+    }
+    .collapsing {
+        overflow: hidden!important;
+    }
+}
+// End
+
+/*
+
+
+footer{
+    text-align: center;
+    margin: 0 0 20px 0;
+    z-index: 1;
+    margin-bottom:25px;
+    margin-top:5px;
+}
+
+
+.login_footer{
+    margin-top:10%
+}
+.forget_footer{
+    margin-top:19%
+}
+
+*/

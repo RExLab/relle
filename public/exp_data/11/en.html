@@ -1,0 +1,75 @@
+<div id='DivExp' class="container" style="margin-top: -4%;">
+    <center>
+        <h1>DC Eletric Panel</h1> <!-- Experimentation name -->
+
+        <div class="row">
+            <div class="col-lg-5 col-lg-offset-1 col-md-5 col-sm-5 col-xs-12" >
+
+                <img src='http://relle.ufsc.br:8072' width="100%"/><!-- Video streaming (External IP) --><br><br>
+
+                <!-- Controls for manipulate experiment -->
+                <div class='row'> 
+                    <div class='col-lg-2 col-lg-offset-2 col-md-3 col-sm-3 col-xs-3'>
+                        <input class='switch' id='sw0' type="checkbox" data-toggle="toggle" data-on="S1" data-off="S1"/><br>
+                        <input class='switch' id='sw1' type="checkbox" data-toggle="toggle" data-on="S2" data-off="S2"/><br>
+                    </div>
+                    <div class='col-lg-2 col-md-3 col-sm-3 col-xs-3'>
+                        <input class='switch' id='sw2' type="checkbox" data-toggle="toggle" data-on="S3" data-off="S3"/><br>
+                        <input class='switch' id='sw3' type="checkbox" data-toggle="toggle" data-on="S4" data-off="S4"/><br>
+                    </div>
+                    <div class='col-lg-2 col-md-3 col-sm-3 col-xs-3'>
+                        <input class='switch' id='sw4' type="checkbox" data-toggle="toggle" data-on="S5" data-off="S5"/><br>
+                       <input class='switch' id='sw5' type="checkbox" data-toggle="toggle" data-on="S6" data-off="S6"/><br>
+                    </div>
+                    <div class='col-lg-2 col-md-3 col-sm-3 col-xs-3'>
+                        <input class='switch' id='sw6' type="checkbox" data-toggle="toggle" data-on="S7" data-off="S7"/><br>
+                    </div>
+                </div> 
+                <!-- End controls for manipulate experiment -->
+
+            </div>
+            <div class="col-lg-5 col-md-5 col-sm-5 col-xs-12" style="padding-top: 20px">
+
+                <img src="http://relle.ufsc.br/exp_data/1/img/diagrama.png" width="100%"/> <!-- Example for diagram image -->
+
+                 <!-- Results for the lab -->
+                <div id="sensors">
+                    <table class="table table-condensed" style='font-size:11px'>
+                        <thead>
+                            <tr>
+                                <th>A1</th>
+                                <th>A2</th>
+                                <th>A3</th>
+                                <th>A4</th>
+                                <th>A5</th>
+                                <th>A6</th>
+                                <th>A7</th>
+                                <th>V1</th>
+                                <th>V2</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td style='font-size:9pt' id="a0">0</td>
+                                <td style='font-size:9pt' id="a1">0</td>
+                                <td style='font-size:9pt' id="a2">0</td>
+                                <td style='font-size:9pt' id="a3">0</td>
+                                <td style='font-size:9pt' id="a4">0</td>
+                                <td style='font-size:9pt' id="a5">0</td>
+                                <td style='font-size:9pt' id="a6">0</td>
+                                <td style='font-size:9pt' id="v0">0</td>
+                                <td style='font-size:9pt' id="v1">0</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <!-- End results for the lab -->
+
+                <div id="report"></div>  <!-- If report is required -->
+
+            </div>
+        </div>
+
+       
+    </center>
+</div>

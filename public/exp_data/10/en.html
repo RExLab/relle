@@ -1,0 +1,158 @@
+
+
+<div id='DivExp' class="container">
+    <h3>Conversion of light energy into electric energy</h3>
+    <div class="row">
+        <div class="col-lg-6  col-sm-12 col-md-6 col-xs-12">
+            <img class ='cam' src='http://fotovoltaico1.relle.ufsc.br:8080' width="100%"/>
+        </div>
+        <div class='col-lg-6  col-sm-12 col-md-6 col-xs-12'>
+            <div class="base loading">
+                <ul>
+                    <li class=""><div class="loader-1"></div></li>
+                </ul>
+            </div>
+        </div>
+        <div class="col-lg-6  col-sm-12 col-md-6 col-xs-12 controllers" style="display: none">
+            <h5>Chaves</h5>
+            <div class="row">
+                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-6 casa">
+                    <ul> 
+                        <li>
+                            <input class='switch' id='sw0' type="checkbox" data-toggle="toggle" data-on="On" data-off="Off"/> 
+                        </li>
+                        <li>
+                            <label for="sw1">Lamp</label>
+                        </li>
+                    </ul> 
+                </div>
+
+                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-6 lamp">
+                    <ul> 
+                        <li>
+                            <input class='switch' id='sw3' type="checkbox" data-toggle="toggle" data-on="On" data-off="Off"/> 
+                        </li>
+                        <li>
+                            <label for="sw1">Switch S3</label>
+                        </li>
+                    </ul> 
+                </div>
+
+
+                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-6 citor">
+                    <ul> 
+                        <li>
+                            <input class='switch' id='sw2' type="checkbox" data-toggle="toggle" data-on="On" data-off="Off"/>  
+                        </li>
+                        <li>
+                            <label for="sw2">Capacitor</label>
+
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-6 luzes">
+                    <ul> 
+                        <li>
+                            <input class='switch' id='sw1' type="checkbox" data-toggle="toggle" data-on="On" data-off="Off"/> 
+                        </li>
+                        <li>
+                            <label for="sw3">LED Matrix</label>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-6 col-sm-12 col-md-6 col-xs-12 controllers" style="display: none">
+            <div class="row">
+                <h5>Solar Cells </h5>
+                <div class="col-lg-12 col-xs-12 tensao">
+                    <label for="voltage">Voltage:</label>
+                    <input class="input-sm" style="max-width: 80px;border:1px solid #cccccc; box-shadow:0 1px 1px rgba(0, 0, 0, 0.075) inset;margin:5px;"  id="voltage" disabled>                    
+                    <input id="motor_pos" style="display: none" value="1750">
+                </div>
+                <div class="col-lg-10 col-lg-10  col-sm-10 col-xs-12 ajuste">
+                    <div id="slider" style="margin-top: 20px"></div>
+                    <!--<div id="slider-range-min"></div>--> 
+                </div>  
+                <div class="col-lg-2 col-md-2 col-sm-2 col-xs-12">
+                    <button class='btn btn-fresh' id='send' >Send</button>
+                </div>
+
+            </div>
+            <div class="row" style="margin: 20px 0 10px 0;" >
+                <div class="col-lg-12 col-xs-12 alert alert-info alert-dismissible" id="show-error" style="display: none" role="alert" >
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <span> <p> Error </p> </span>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="col-lg-6 col-sm-12 col-md-6 col-xs-12 capac controllers" style="display: none">
+            <div class="row">
+                <h5>Charging and discharging of capacitor</h5>
+                <div class="col-lg-4 col-xs-12 tempo">
+                    <ul> 
+                        <li>
+                            <input class="input-sm" type="number" style="max-width: 80px;border:1px solid #cccccc; box-shadow:0 1px 1px rgba(0, 0, 0, 0.075) inset;margin:5px;" max="60" min ="1" value="5" id="sampletime">                    
+                        </li>
+                        <li>
+                            <label for="sampletime">Sampling time</label>
+
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-lg-4 col-xs-12 charge">
+                    <button class='btn btn-fresh sampling' id='charging' >Charging</button>
+                </div>  
+                <div class="col-lg-4 col-xs-12 discharge">
+                    <button class='btn btn-fresh sampling' id='discharging' >Discharging</button>
+                </div>
+
+            </div>
+            <div class="row" style="margin: 20px 0 10px 0;" >
+                <div class="col-lg-12 col-xs-12 alert alert-info alert-dismissible" id="show-error" style="display: none" role="alert" >
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <span> <p> Error </p> </span>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="col-lg-6 col-sm-12 col-md-6 col-xs-12 hiddenchart controllers" style="display: none">
+            <canvas id="canvas" height="400" width="500"></canvas>
+        </div>
+
+    </div>
+
+</div> 
+
+<script>
+    message = ["The LED matrix is to the energy supplied by the solar cell.\n\
+The rotation frequency of the propeller is given in revolutions per minuter (RPM)."];
+    var lang =
+            {
+                showme: "Show me how it works",
+                next: "Next",
+                previous: "Prev",
+                done: "Done",
+                showmeshort: 'How it works',
+                leave: "Leave",
+                voltage: "Tensão",
+                time: "Tempo",
+                intro1: "In this experiment you will analyze the conversion of solar energy in electricity, besides checking measurements, and use a capacitor.",
+                introcamera: "By this live broadcast, you can keep track what is going on with the experiment.",
+                switches: "Use this switche to turn on/off the lamp.",
+                intro2: "Open or close here the circuit that concect the sistem with the solar panel.",
+                intro3: "Activate the circuit between the capacitor and the sistem.",
+                intro4: "Activating the LEDs you will see that the amount of energy is directly related to the intensity of light.",
+                intro5: "Check here the voltage value generate by the solar panel.",
+                intro6: "Set the solar panel orientation; And click in send.",
+                intro7: "Chose the sampling time",
+                intro8: "To charge the capacitor, the switches(Switch S3 and Capacitor) need to be activate, and the lamp disable.",
+                intro9: "To discharge the capacitor, the switches (Chave S3, Capacitor e Lamp) need to be activate.",
+                capacit: "The capacitor temporarily store electrical energy in an electric field,and use the energy later."
+            };
+</script>

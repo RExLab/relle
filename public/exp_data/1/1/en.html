@@ -1,0 +1,94 @@
+<div id='DivExp' class="container">
+    <center>
+        <h3>DC Eletric Panel</h3>
+        <div class="row">
+            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12" >
+                <img  class="cam" src='http://paineldc1.relle.ufsc.br:8080' width="100%"/> <!-- esta na rede interna 10.10.10.178:8081 --><br><br>
+                <div class='row switches controllers'  style="display: none">
+                    <div class='col-lg-2 col-lg-offset-2 col-md-3 col-sm-3 col-xs-3'>
+                        <input class='switch' id='sw0' type="checkbox" data-toggle="toggle" data-on="S1" data-off="S1"/><br>
+                        <input class='switch' id='sw1' type="checkbox" data-toggle="toggle" data-on="S2" data-off="S2"/><br>
+                    </div>
+                    <div class='col-lg-2 col-md-3 col-sm-3 col-xs-3'>
+                        <input class='switch' id='sw2' type="checkbox" data-toggle="toggle" data-on="S3" data-off="S3"/><br>
+                        <input class='switch' id='sw3' type="checkbox" data-toggle="toggle" data-on="S4" data-off="S4"/><br>
+                    </div>
+                    <div class='col-lg-2 col-md-3 col-sm-3 col-xs-3'>
+                        <input class='switch' id='sw4' type="checkbox" data-toggle="toggle" data-on="S5" data-off="S5"/><br>
+                        <input class='switch' id='sw5' type="checkbox" data-toggle="toggle" data-on="S6" data-off="S6"/><br>
+                    </div>
+                    <div class='col-lg-2 col-md-3 col-sm-3 col-xs-3'>
+                        <input class='switch' id='sw6' type="checkbox" data-toggle="toggle" data-on="S7" data-off="S7"/><br>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12" style="padding-top: 20px">
+                <div class="base loading">
+                    <ul>
+                        <li class=""><div class="loader-1"></div></li>
+                    </ul>
+                </div>
+
+                <div class='controllers' style="display: none">
+
+                    <p style="display: none;" class="default_circuit">This equivalent circuit was not drawn yet.</p>
+                    <img class="img-responsive default_circuit" src="http://relle.ufsc.br/exp_data/1/img/diagrama.png" width="100%"/>
+                    <img style="display: none;" class="equivalent hiddencircuit" src="" width="80%"/>
+                    <div id="sensors">
+                        <table class="table table-condensed" style='font-size:11px'>
+                            <thead>
+                                <tr>
+                                    <th>A1</th>
+                                    <th>A2</th>
+                                    <th>A3</th>
+                                    <th>A4</th>
+                                    <th>A5</th>
+                                    <th>A6</th>
+                                    <th>A7</th>
+                                    <th>V1</th>
+                                    <th>V2</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td style='font-size:9pt' id="a0">0</td>
+                                    <td style='font-size:9pt' id="a1">0</td>
+                                    <td style='font-size:9pt' id="a2">0</td>
+                                    <td style='font-size:9pt' id="a3">0</td>
+                                    <td style='font-size:9pt' id="a4">0</td>
+                                    <td style='font-size:9pt' id="a5">0</td>
+                                    <td style='font-size:9pt' id="a6">0</td>
+                                    <td style='font-size:9pt' id="v0">0</td>
+                                    <td style='font-size:9pt' id="v1">0</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div id="report"></div>         
+                </div>
+
+            </div>
+        </div>
+
+    </center>
+</div>
+
+<script>
+    var lang =
+            {
+                showme: "Show me how it works",
+                next: "Next",
+                previous: "Prev",
+                done: "Done",
+                showmeshort: 'How it works',
+                leave: "Leave",
+                intro1: "In this lab you will analyze resistive circuits in parallel, series and mixed configurations.",
+                introcamera: "This video streaming will show you what is happening now in the lab.",
+                diagram: "This diagram represents the same circuit available remotely. It also indicates the places where swithes, ammeters and voltmeters are placed.",
+                switches: "Use these switches to open and close a path for electric current.",
+                sensors: "When the switches are changed, the remote setup will change too and values of voltage and current will be refreshed here.",
+                report: "A report of the last circuit will be available for downloading when you click on the \"leave\" button."
+            };
+
+
+</script>

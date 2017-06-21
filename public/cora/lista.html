@@ -1,0 +1,140 @@
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>Cobra Cora</title>
+        <link rel="stylesheet" href="http://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+        <link href="styles/style.css" rel="stylesheet" type="text/css"/>
+    </head>
+    <body>
+        <div class="row" id="front">
+            <div class="col-lg-12 col-sm-12 ">
+                <select class="form-control" id="room">
+                </select>
+            </div>     
+        </div>
+
+        <div class="row" id="lista" style="display:none">
+            <div class="col-lg-8 col-sm-8 ">
+                <div class='folha'>
+                    <div class="row">
+                        <div class="col-md-2" style="height: 100%"></div>
+                        <ul class="order">
+                            <li class='col-md-3 col-sm-3 start'></li>
+                            <li class='col-md-3 col-sm-3 espera'><i class="fa fa-plus fa-5x"></i></li>
+                            <li class='col-md-3 col-sm-3 stop'></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="progress">
+                    <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: 0%">
+                    </div>
+                </div>
+            </div>
+            <div class='col-lg-4 col-sm-4 hidden' > 
+                <div class='user_box'>
+                    <img src="images/avatar/max.png" class='col-sm-6 img-responsive active'/>
+                    <div class='col-sm-6'>
+                        <center>
+                            <h1>Max</h1>
+                            <h3>É a sua vez!</h3>
+                        </center>
+                    </div>
+                </div>
+            </div>
+            <div class='col-lg-4 col-sm-4' style='margin-top: 10px'>
+                <div class="user_box">
+
+                    <h2>Insira seu nome:</h2>
+                    <form role="form">
+                        <div class="form-group">
+                            <input type="text" class="form-control" id="name">
+
+                        </div>
+                    </form>
+                    Você pertence à equipe <span id="teamname">Tio Patinhas</span>
+                </div>
+            </div>
+            <div class='col-lg-4 col-sm-4' style='margin-top: 10px'>
+                <div class='cmd_box'>
+                    <div class="row">
+                        <div class="col-lg-6 col-sm-6 col-xs-6 cmd cima" id="btn_cima"></div>
+                        <div class="col-lg-6 col-sm-6 col-xs-6 cmd baixo" id="btn_baixo"></div>
+                        <div class="col-lg-6 col-sm-6 col-xs-6 cmd direita" id="btn_direita"></div>
+                        <div class="col-lg-6 col-sm-6 col-xs-6 cmd esquerda" id="btn_esquerda"></div>
+                        <div class="col-lg-6 col-sm-6 col-xs-6 cmd agarra" id="btn_agarra"></div>
+                        <div class="col-lg-6 col-sm-6 col-xs-6 cmd solta"  id="btn_solta"></div>                   
+                    </div>
+                    <div id="puff"></div>
+                    <div id='trash'>
+                        <center><h1><i class="fa fa-trash-o fa-lg" style="color:red;"></i></h1></center>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script src="http://code.jquery.com/jquery-1.10.2.js"></script>
+        <script src="http://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+        <script src="scripts/jquery.ui.touch-punch.min.js" type="text/javascript"></script> 
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+        <script src="scripts/exp_script.js" type="text/javascript"></script>
+
+        <script>
+            var red = '';
+
+            $(function () {
+                $('.order').disableSelection();
+                $(".order").sortable({
+                    revert: true,
+                    cancel: ".stop, .start, .espera",
+                    items: '.final',
+                    start: function (event, ui) {
+                        alert($(this).attr('class'));
+
+                    }
+                });
+                $(".cmd").draggable({
+                    helper: "clone",
+                    snap: '.espera',
+                    revert: "invalid"
+                });
+                
+                $(".espera").droppable({
+                    accept: function (one) {
+                        return !one.hasClass('final');
+                    },
+                    drop: function (event, ui) {
+                        add_move(event, ui);
+                    }
+                });
+
+                $("#trash").droppable({
+                    accept: function (one) {
+                        return one.hasClass('final');
+                    },
+                    drop: function (event, ui) {
+                        //ui.draggable.remove();
+                        var xOffset = 24;
+                        var yOffset = 24;
+                        ui.draggable.fadeOut('fast');
+                        $('#puff').css({
+                            left: '200px',
+                            top: '0 px'
+                        }).show();
+                        animatePoof();
+                    }
+                });
+                var progress = setInterval(function () {
+                    var width = (100 * parseFloat($('.progress-bar').css('width')) / parseFloat($('.progress-bar').parent().css('width')));
+
+                    $('.progress-bar').css('width', width + 10 + '%');
+                }, 1000);
+
+
+            });
+
+
+
+        </script>    
+    </body>
+</html>

@@ -1,7 +1,5 @@
 <?php
-
 use App\Http\Controllers\LabsController;
-use App\Instances;
 function getRandomDifferent($n, $nums) {
     $rand = rand(0, $n - 1);
     if(!in_array($rand, $nums))
@@ -9,14 +7,11 @@ function getRandomDifferent($n, $nums) {
     else
         $rand = getRandomDifferent(0, $n - 1);
 }
-
 function labsSuggestion($subject, $n, $id) {
-
     $subject = \App\Subjects::select('id')->where('name', $subject)->first()->toArray();
     $rel = App\SubjectsLabs::where('subject_id', $subject['id'])
                     ->where('lab_id', '<>', $id)
                     ->take($n)->get();
-
     $labs = [];
     foreach ($rel as $one) {
         $lab = App\Labs::find($one->lab_id);
@@ -24,7 +19,6 @@ function labsSuggestion($subject, $n, $id) {
     }
     return $labs;
 }
-
 function formatIcon($doc) {
     $format = 'other';
     switch ($doc) {
@@ -49,37 +43,27 @@ function formatIcon($doc) {
     }
     return $format;
 }
-
 function formatSize($bytes, $precision = 0) {
     $units = array('B', 'KB', 'MB', 'GB', 'TB');
-
     $bytes = max($bytes, 0);
     $pow = floor(($bytes ? log($bytes) : 0) / log(1024));
     $pow = min($pow, count($units) - 1);
-
     $bytes /= pow(1024, $pow);
-
     return round($bytes, $precision) . ' ' . $units[$pow];
 }
-
 function guest() {
     if (Auth::check())
         if (Auth::user()->username == 'fpuntel' || Auth::user()->username == 'marisa.cavalcante')
             return true;
     return false;
 }
-
 function country() {
     //$data = DB::select('SELECT  UPPER(`country`) , COUNT(`country`) FROM `logs` WHERE YEARWEEK(`start`, 1 ) = YEARWEEK(CURDATE() , 1 )  GROUP BY  `country`');
     $data = DB::select('SELECT  UPPER(`country`) , COUNT(`country`) FROM `logs` GROUP BY  `country` ');
-
-
     $output = array();
     $value = "COUNT(`country`)";
     $country = "UPPER(`country`)";
     $i = 0;
-
-
     foreach ($data as $place) {
         $output[$i]['country'] = trans('country.' . $place->$country);
         $output[$i]['value'] = $place->$value;
@@ -92,7 +76,6 @@ function country() {
      */
     return $output;
 }
-
 function arrayToString($array) {
     if (count($array) == 1) {
         return $array[0];
@@ -100,7 +83,6 @@ function arrayToString($array) {
         return implode(',', $array);
     }
 }
-
 function stringToArray($string) {
     if (substr_count($string, ',') > 0) {
         return explode(',', $string);
@@ -108,35 +90,28 @@ function stringToArray($string) {
         return array($string);
     }
 }
-
-function unzipLab($pathToZip, $expId, $instanceId) {
+function unzipLab($pathToZip, $expId) {
     $zip = new ZipArchive;
     $res = $zip->open($pathToZip);
-    $path = "/public/exp_data/" . $expId ."/". $instanceId;
+    $path = "/public/exp_data/" . $expId;
     $final_path = base_path() . $path;
-    $reports_path = base_path() . "/resources/views/reports/" . $expId ."/". $instanceId;
-    
+    $reports_path = base_path() . "/resources/views/reports/" . $expId;
     shell_exec("mkdir -p " . $final_path);
-    //shell_exec('chmod 777'. $final_path);
+    shell_exec("chmod 777 " . $final_path);
     shell_exec("mkdir -p " . $reports_path); //Reports
-    //shell_exec("chmod 777". $reports_path);
-
+    shell_exec("chmod 777 " . $reports_path);  //Reports
     if ($res === TRUE) {
-        $zip->extractTo($final_path);
-
+        $zip->extractTo(base_path() . $path);
         shell_exec("mv " . base_path() . $path . "/report_en.blade.php " . $reports_path . "/report_en.blade.php"); //Reports
         shell_exec("mv " . base_path() . $path . "/report_pt.blade.php " . $reports_path . "/report_pt.blade.php"); //Reports
-
         $zip->close();
     } else {
         $zip->close();
         echo "Unable to unzip your zip archive.";
     }
 }
-
 function getLastLabId() {
     $last = DB::table('labs')->orderBy('id', 'desc')->first();
-
     if (empty($last)) {
         return 1;
     } else {
@@ -144,28 +119,15 @@ function getLastLabId() {
         //return Labs::orderBy('id')->first();
     }
 }
-
-function getLastInstance($lab_id){
-    $last = Instances::where('lab_id', $lab_id)->orderBy('id', 'desc')->first();
-
-    if (empty($last)) {
-        return 1;
-    } else {
-        return $last->id + 1;
-    }
-}
-
 function searchDocs($input) {
     $result = null;
     $first = true;
     $general = '';
-
     if (!empty($input['terms'])) {
         $string = $input['terms'];
         $terms = explode(' ', $string);
         $n = count($terms);
         $i = 1;
-
         foreach ($terms as $term) {
             $general .= "title like '%$term%' or "
                     . "tags like '%$term%'";
@@ -176,34 +138,24 @@ function searchDocs($input) {
         }
         $first = false;
     }
-     if (!empty($input['terms'])) {
-        $query = "select * from docs where " . $general;
-        $result = DB::select($query);
-        return $result;
-    } else {
-        return null;
-    }
+    $query = "select * from docs where " . $general;
+    $result = DB::select($query);
+    return $result;
 }
-
 function searchLabs($input) {
     $result = null;
     $first = true;
     $general = '';
-
     if (!empty($input['terms'])) {
         $string = $input['terms'];
         $terms = explode(' ', $string);
         $n = count($terms);
         $i = 1;
-
-
         foreach ($terms as $term) {
             $general .= "name_pt like '%$term%' or "
                     . "name_en like '%$term%' or "
-                    . "name_es like '%$term%' or "
                     . "description_pt like '%$term%' or "
                     . "description_en like '%$term%' or "
-                    . "description_es like '%$term%' or "
                     . "tags like '%$term%'";
             if ($i < $n) {
                 $general.=' or ';
@@ -212,17 +164,10 @@ function searchLabs($input) {
         }
         $first = false;
     }
-    if (!empty($input['terms'])){
-        $query = "select * from labs where " . $general;
-        $result = DB::select($query);
-        return $result;
-    }else{
-        return null;
-    }
-
-    
+    $query = "select * from labs where " . $general;
+    $result = DB::select($query);
+    return $result;
 }
-
 function handleSearchVariables($array, $var, $first, $specific) {
     if (array_key_exists($var, $array)) {
         if (empty($specific)) {
@@ -248,7 +193,6 @@ function handleSearchVariables($array, $var, $first, $specific) {
         return '';
     }
 }
-
 function getFlag() {
     if (App::getLocale() == 'pt') {
         return 'en';
@@ -256,39 +200,29 @@ function getFlag() {
         return 'pt';
     }
 }
-
 function getAvailableAppLangArray() {
     $locales[''] = Lang::get('app.select_your_language');
-
     foreach (Config::get('app.locales') as $key => $value) {
         $locales[$key] = $value;
     }
-
     return $locales;
 }
-
 function getGuestData() {
     return [
         'avatar' => 'img/default.gif',
         'firstname' => trans('users.guest')
     ];
 }
-
 /*
  * Editing data on moodle database
  */
-
 function moodle_db($query) {
-
-
     $dbhost = "localhost";
-    $dbname = "repo";
+    $dbname = "moodle";
     $dbusername = "root";
     $dbpassword = "RExLab!)%";
-
     try {
         $link = new PDO("mysql:host=$dbhost;dbname=$dbname", $dbusername, $dbpassword);
-
         $statement = $link->prepare($query);
         $statement->execute();
     } catch (Exception $e) {
@@ -296,7 +230,6 @@ function moodle_db($query) {
         die;
     }
 }
-
 function randomPassword() {
     $alphabet = "abcdefghijklmnopqrstuwxyzABCDEFGHIJKLMNOPQRSTUWXYZ0123456789";
     $pass = array(); //remember to declare $pass as an array
@@ -307,10 +240,19 @@ function randomPassword() {
     }
     return implode($pass); //turn the array into a string
 }
-
 function admin() {
     if (Auth::user()) {
         if (Auth::user()->type == 'admin') {
+            return true;
+        } else {
+            return false;
+        }
+    }
+    return false;
+}
+function teacher() {
+    if (Auth::user()) {
+        if (Auth::user()->type == 'teacher' || Auth::user()->type == 'admin') {
             return true;
         } else {
             return false;
@@ -326,11 +268,9 @@ function isMobile($useragent) {
         return false;
     }
 }
-
 function status($id) {
     $query = 'select e.lab_id from instances e where not exists (select null from instances i where e.lab_id = i.lab_id and `maintenance` = 0)';
     $out = DB::select($query);
-
     foreach ($out as $one) {
         if ($one->lab_id == $id) {
             return false;

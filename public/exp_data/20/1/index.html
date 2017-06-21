@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="csrf-token" content="Bw3qr0xzGqKfaiCJ8xwT55sYaxsHT07nWagXTsFR" />
+
+        <title> Página de testes | RELLE - Ambiente de Aprendizagem com Experimentos Remotos
+        </title>
+
+        <link href="css/app.css" rel="stylesheet">
+        <link href="css/jasny-bootstrap.css" rel="stylesheet">
+        <link href="css/select.min.css" rel="stylesheet">
+
+
+        <link rel="stylesheet" href="css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+        <link href="css/flat-ui.css" rel="stylesheet">
+
+
+        <link rel="shortcut icon" type="image/x-icon" href="favicon.png"/> 
+        <link href="css/bootstrap-toggle.min.css" rel="stylesheet">
+        <link href="css/style.css" rel="stylesheet">
+
+
+        <!-- Fonts -->
+        <link href='//fonts.googleapis.com/css?family=Roboto:400,300' rel='stylesheet' type='text/css'>
+
+        <!-- jQuery -->
+        <script src="js/jquery.min.js"></script>
+        <script src="js/bootstrap.min.js"></script>
+        <script src="js/jquery-ui.min.js"></script>
+
+
+        <style>
+            .navbar{
+                background:#34495E;
+                border-bottom:9pt solid #2C3E50;
+                border-radius: 0;
+            }
+            .navbar-inverse .navbar-nav>li>a{
+                font-weight: normal;
+            }
+            .navbar-brand{
+                margin-right:20px;
+            }
+            .navbar-inverse .navbar-nav > .open > a, .navbar-inverse .navbar-nav > .open > a:hover, .navbar-inverse .navbar-nav > .open > a:focus{
+                //background: #34495E;
+                margin-left: 15px;
+                width: 115%;
+            }
+            .navbar-inverse .navbar-nav > .open > .dropdown-menu{
+                margin-right: -20px;
+            }
+            footer,footer > a{
+                color:#828282
+            }
+        </style>
+        <style>
+            #flag {
+                max-width: 80px !important;
+                min-width: 50px !important;
+            }
+        </style>
+        <link href="css/one.css" rel="stylesheet">
+    </head>
+
+    <body>
+
+        <div class="row">
+            <div class="col-xs-12">
+                <nav class="navbar navbar-inverse " role="navigation">
+                    <div class="container">
+                        <div class="navbar-header">
+                            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse-01">
+                                <span class="sr-only">Toggle navigation</span>
+                            </button>
+                            <a class="navbar-brand" href="http://relle.ufsc.br">
+                                <img src="http://relle.ufsc.br/img/logo_dark.png" height="110%"/>
+                            </a>
+                        </div>
+                        <div class="collapse navbar-collapse" id="navbar-collapse-01">
+                            <ul class="nav navbar-nav navbar-left">
+                                <li><a href="http://relle.ufsc.br/labs">﻿Experimentos</a></li>
+                                <li><a href="http://gt-mre.ufsc.br/moodle" target="_blank">Cursos</a></li> 
+                                <li><a href="http://docs.relle.ufsc.br/" target="_blank">Tutoriais</a></li>
+                                <li><a href="http://relle.ufsc.br/about">Sobre</a></li>
+                                <li><a href="http://relle.ufsc.br/contact">Contato</a></li>
+                            </ul>
+                            <style>
+                                .caret {
+                                    border-left: 6px solid transparent;
+                                    border-right: 6px solid transparent;
+                                    border-top: 8px solid #fff;
+                                    left: 90%;
+                                    top: 45%;
+                                    position: absolute;
+                                }
+                            </style>
+                            <ul class="nav navbar-nav navbar-right">
+                                <div class="btn-group">
+                                    <button style="color: inherit; background-color: inherit;" class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">
+                                        <!--  <span class="caret"></span> -->
+                                        <li><a href="http://relle.ufsc.br/pt"><img src="http://relle.ufsc.br/img/pt.png"></a></li>
+                                        <span class="caret"></span>
+                                    </button>
+                                    <ul id='flag' class="dropdown-menu" role="menu">
+                                        <li><a href="http://relle.ufsc.br/en"><img src="http://relle.ufsc.br/img/en.png"></a></li>
+                                        <li><a href="http://relle.ufsc.br/pt"><img src="http://relle.ufsc.br/img/pt.png"></a></li>
+                                        <li><a href="http://relle.ufsc.br/es"><img src="http://relle.ufsc.br/img/es.png"></a></li>
+                                    </ul>
+                                </div>
+                            </ul>
+
+                            <ul class="nav navbar-nav navbar-right">
+                                <li><a href="http://relle.ufsc.br/login">Entrar</a></li>
+                            </ul>
+
+
+                            <form method="POST" action="http://relle.ufsc.br/search" accept-charset="UTF-8" class="navbar-form navbar-right" role="search"><input name="_token" type="hidden" value="Bw3qr0xzGqKfaiCJ8xwT55sYaxsHT07nWagXTsFR">
+                                <div class="form-group">
+                                    <div class="input-group">
+                                        <input class="form-control" id="search" type="search" name="terms" placeholder="Busca">
+                                        <span class="input-group-btn">
+                                            <button type="submit" class="btn"><span class="fui-search"></span></button>
+                                        </span>
+                                    </div>
+                                </div>
+                            </form>
+
+
+                        </div><!-- /.navbar-collapse -->
+                    </div>
+                </nav><!-- /navbar -->
+            </div>
+        </div> <!-- /row -->
+
+        <div id='content'>
+            <div class="container">
+                <div class="row">
+
+                    <h3></h3>
+
+                    <div id='identifier'></div>
+                    <div id='close'></div>
+                    <div id='return'></div>
+                    <div id='error'></div>
+
+
+                    <div id='pre_experiment'>
+
+                        <div class="row">
+                            <div class="col-md-8 col-sm-12">
+                                <h3>Teste RExLab</h3>
+                                <p>
+                                    <strong>﻿Descri&ccedil;&atilde;o: </strong>
+                                    
+                                </p>  
+                                <p>
+                                    <strong>Disciplina: </strong>
+                                    <span id="subject"> F&iacute;sica</span> 
+                                </p>
+                                <p>
+                                    <strong>Dura&ccedil;&atilde;o: </strong>
+                                    <span id="duration"> 5</span> 
+                                    minutos
+                                </p>
+                                <p>
+                                    <strong>Tags: </strong> <span id="tags-lab"></span>
+
+                                    </span> 
+                                </p>
+                                <p>
+                                    <strong>Incorporar: </strong>
+                                    <input id='embeed' type='text' 
+                                           value='<object width="100%" height="450px" data="http://relle.ufsc.br/labs/1/moodle"></object>' 
+                                           readonly/><br>
+                                </p>  
+
+
+                                <a href="#" id="access" class="btn btn-primary" role="button">Acessar</a>
+
+
+                                <!--Suggestions -->
+                                <h5 style="font-weight:normal; padding-top:50px">Outros Experimentos</h5>
+                                <div class="row">
+                                    <div class="col-lg-6 col-md-6 col-sm-6">
+                                        <div class="panel panel-default" style="background: #ECF0F1; ">
+                                            <div class="panel-body sug">
+                                                <div class="row">
+                                                    <div class='col-lg-5 col-md-5 col-sm-2'>
+                                                        <img src="http://relle.ufsc.br/img/exp/55d2100850311.png" width="100%">
+                                                    </div>
+                                                    <div class="col-lg-7 col-md-7 col-sm-10">
+                                                        <b style="line-height: 1.50">Painel El&eacute;trico CA</b>
+                                                        <p style="font-size:11pt; line-height: 1.2; padding-top:5px;">Estudo das associações em série, paralela e mista em redes de corrente alternada.</p>
+                                                        <a href="http://relle.ufsc.br/labs/2" class="btn btn-xs btn-primary" role="button">Acessar</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6 col-md-6 col-sm-6">
+                                        <div class="panel panel-default" style="background: #ECF0F1; ">
+                                            <div class="panel-body sug">
+                                                <div class="row">
+                                                    <div class='col-lg-5 col-md-5 col-sm-2'>
+                                                        <img src="http://relle.ufsc.br/img/exp/55d71b8a35a6f.png" width="100%">
+                                                    </div>
+                                                    <div class="col-lg-7 col-md-7 col-sm-10">
+                                                        <b style="line-height: 1.50">Meios de Propaga&ccedil;&atilde;o de Calor</b>
+                                                        <p style="font-size:11pt; line-height: 1.2; padding-top:5px;">Estudo dos meios de propagação de calor por convecção e irradiação</p>
+                                                        <a href="http://relle.ufsc.br/labs/5" class="btn btn-xs btn-primary" role="button">Acessar</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6 col-md-6 col-sm-6">
+                                        <div class="panel panel-default" style="background: #ECF0F1; ">
+                                            <div class="panel-body sug">
+                                                <div class="row">
+                                                    <div class='col-lg-5 col-md-5 col-sm-2'>
+                                                        <img src="http://relle.ufsc.br/img/exp/planoinclinado2.jpg" width="100%">
+                                                    </div>
+                                                    <div class="col-lg-7 col-md-7 col-sm-10">
+                                                        <b style="line-height: 1.50">Plano Inclinado</b>
+                                                        <p style="font-size:11pt; line-height: 1.2; padding-top:5px;">Estudo da segunda lei de Newton do movimento e decomposição de forças em vetores</p>
+                                                        <a href="http://relle.ufsc.br/labs/7" class="btn btn-xs btn-primary" role="button">Acessar</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6 col-md-6 col-sm-6">
+                                        <div class="panel panel-default" style="background: #ECF0F1; ">
+                                            <div class="panel-body sug">
+                                                <div class="row">
+                                                    <div class='col-lg-5 col-md-5 col-sm-2'>
+                                                        <img src="http://relle.ufsc.br/img/exp/5603250cecb87.png" width="100%">
+                                                    </div>
+                                                    <div class="col-lg-7 col-md-7 col-sm-10">
+                                                        <b style="line-height: 1.50">Experimento de Thomson</b>
+                                                        <p style="font-size:11pt; line-height: 1.2; padding-top:5px;">Experimento que permite a determinação da razão carga/massa do elétron</p>
+                                                        <a href="http://relle.ufsc.br/labs/8" class="btn btn-xs btn-primary" role="button">Acessar</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                             </div>
+                            <!-- END OF LEFT -->
+
+                            <div class="col-md-4 col-sm-12 right-menu">
+                                <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+                                    <a role="button" data-toggle="collapse" data-parent="#accordion" href="#tab_video" aria-expanded="true" aria-controls="collapseOne">
+                                        <div class="panel">
+                                            <div class="panel-heading" role="tab" id="headingOne">
+                                                <h4 class="panel-title">
+                                                    <i class="fa fa-play" aria-hidden="true" style="padding-right: 10px"></i>  V&iacute;deo
+                                                </h4>
+                                            </div>
+                                        </div>
+                                    </a>
+                                    <div id="tab_video" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+                                        <div class="panel-body tab-body">
+                                            <div class="embed-responsive embed-responsive-16by9">
+                                                <iframe class="embed-responsive-item"  src="http://video.rnp.br/portal/embed-video?idItem=32386&amp;autostart=false"  frameborder="0" scrolling="no" allowfullscreen></iframe>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+                                    <a role="button" data-toggle="collapse" data-parent="#accordion" href="#tab_tutorial" aria-expanded="true" aria-controls="collapseOne">
+                                        <div class="panel">
+                                            <div class="panel-heading" role="tab" id="headingOne">
+                                                <h4 class="panel-title">
+                                                    <i class="fa fa-info" aria-hidden="true" style="padding-right: 10px"></i>  Tutorial
+                                                </h4>
+                                            </div>
+                                        </div>
+                                    </a>
+                                    <div id="tab_tutorial" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+                                        <div class="panel-body  tab-body">
+                                            Para utilizar o experimento, siga as seguintes intruções:
+                                            <ul>
+                                                <li>Abra ou feche as chaves para configurar o circuito</li>
+                                                <li>Verifique as leituras dos voltímetros e amperímetros na tabela</li>
+                                                <li>Acompanhe a execução do experimento pelo streaming de vídeo</li>
+                                            </ul>                    </div>
+                                    </div>
+                                </div>
+                                <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+                                    <a role="button" data-toggle="collapse" data-parent="#accordion" href="#tab_material" aria-expanded="true" aria-controls="collapseOne">
+                                        <div class="panel">
+                                            <div class="panel-heading" role="tab" id="headingOne">
+                                                <h4 class="panel-title">
+                                                    <i class="fa fa-book" aria-hidden="true" style="padding-right: 10px"></i>  Material Did&aacute;tico
+                                                </h4>
+                                            </div>
+                                        </div>
+                                    </a>
+
+                                    <div id="tab_material" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+                                        <div class="panel-body tab-body" style="padding:10px 0;">
+                                            <div class="col-md-6">
+                                                <a href="http://relle.ufsc.br/docs/57911f8d8ff4a.pdf" target="_blank">
+                                                    <img src="http://relle.ufsc.br/img/docs/pdf.png" height="60px" align="left" style="padding-left:0;">
+                                                    <span style="font-size: 10pt; line-height: 1; color:#7B8996">Guia de Aplica&ccedil;&atilde;o - Painel El&eacute;trico CC</span>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+                                    <a role="button" data-toggle="collapse" data-parent="#accordion" href="#tab_docs" aria-expanded="true" aria-controls="collapseOne">
+                                        <div class="panel">
+                                            <div class="panel-heading" role="tab" id="headingOne">
+                                                <h4 class="panel-title">
+                                                    <i class="fa fa-file-text-o" aria-hidden="true" style="padding-right: 10px"></i>  Documenta&ccedil;&atilde;o
+                                                </h4>
+                                            </div>
+                                        </div> 
+                                    </a>
+                                    <div id="tab_docs" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+                                        <div class="panel-body tab-body"  style="padding:10px 0;">
+                                            <div class="col-md-6">
+                                                <a href="http://relle.ufsc.br/docs/57ff98e8277a1.pdf" target="_blank">
+                                                    <img src="http://relle.ufsc.br/img/docs/pdf.png" height="60px" align="left" style="padding-left:0;">
+                                                    <span style="font-size:10pt; line-height: 1; color:#7B8996">Manual T&eacute;cnico  - Painel El&eacute;trico  CC</span>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <center><div id='exp'></div></center>
+                    <div id="leave"></div> 
+                </div>
+            </div>
+        </div>
+        <div style="margin-top:150px;"></div>
+        <footer class="footer" >
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-7 col-md-7 col-md-12 col-xs-12">
+                        <p style="padding-bottom:20px">RELLE - Ambiente de Aprendizagem com Experimentos Remotos<br>
+                            <a href='https://github.com/RExLab/relle' target='_blank'>GitHub</a>
+                        </p>
+                    </div> <!-- /col-xs-7 -->
+
+                    <div class="col-lg-5 col-md-5 col-md-12 col-xs-12 logos-wrapper">
+                        <center>
+                            <ul class="footer-logos" style="padding-left:0">
+                                <li><a href="http://www.capes.gov.br" target='_blank'><img src='http://relle.ufsc.br/img/footer/capes.png'></a></li>
+                                <li><a href="http://www.rnp.br" target='_blank'><img  style="height: 40px" src='http://relle.ufsc.br/img/footer/rnp.png'></a></li>
+                                <li><a href="http://rexlab.ufsc.br/" target='_blank'><img  style="height: 40px" src='http://relle.ufsc.br/img/footer/r.png'></a></li>
+                                <li><a href="http://ufsc.br/" target='_blank'><img src='http://relle.ufsc.br/img/footer/ufsc.png'></a></li>
+                            </ul>
+                        </center>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </body>
+
+    <script src="js/jasny-bootstrap.js"></script>
+    <script src="js/select.min.js"></script>
+    <script src="js/jquery.redirect.js"></script>
+    <script src="js/jquery.hideseek.js"></script>
+    <script src="js/bootstrap-toggle.min.js"></script>
+    <script src="js/flat-ui.min.js"></script>
+    <script src="js/tether.js"></script>
+    <script src="js/shepherd.js"></script>
+
+    <script>
+
+        $(function () {
+            $('radio').radiocheck();
+            $('checkbox').radiocheck();
+            $("select").select2({dropdownCssClass: 'dropdown-inverse'});
+            $(".dropdown-toggle").dropdown();
+            $('.selectpicker').selectpicker();
+            $(".flat-switch").bootstrapSwitch();
+        });
+    </script>
+
+
+
+    <script>
+        $(function () {
+            var str = "quadro, el&eacute;trico";
+            var tags = str.split(", ");
+            for (var i = 0; i < tags.length; i++) {
+                $('#tags-lab').append("<a href='#' class='tag-lab' data-tag='" + tags[i] + "' >" + tags[i] + "</a>")
+            }
+
+            $("#link").click(function () {
+                $("#embeed").show().select();
+            });
+            $('.tag-lab').click(function () {
+                $.redirect("http://relle.ufsc.br/search", {terms: $(this).attr('data-tag')});
+            });
+            $('#embeed').select();
+        });
+        $.ajaxSetup({
+            headers: {'X-CSRF-Token': $('meta[name=csrf-token]').attr('content')}
+        });
+
+
+    </script>
+
+    <script>
+var rootPath = '';
+var duration = 5;
+var exp_id = 6;
+var locale = "pt";
+var uilang = {};
+uilang.close_message = "<p> Sua sess&atilde;o chegou ao fim.</p> <p>Voc&ecirc; ser&aacute; redirecionado em alguns instantes.</p><br>";
+uilang.end = "Sua sess&atilde;o terminou. Clique em &quot;Sair&quot; para deixar esta p&aacute;gina.";
+uilang.leave = "Sair";
+uilang.end_rep = "Sua sess&atilde;o terminou. Clique em &quot;Gerar Relat&oacute;rio&quot; para baixar um documento com os resultados da experi&ecirc;ncia ou clique em &quot;Sair&quot; para deixar esta p&aacute;gina.";
+uilang.report = "Gerar Relat&oacute;rio";
+uilang.csvreport = "Exportar arquivo CSV";
+uilang.attention = "Aten&ccedil;&atilde;o";
+uilang.popup = "habilite os pop-ups para emiss&atilde;o de rel&aacute;t&oacute;rios.";
+uilang.wait = "Usu&aacute;rio(s) esperando: ";
+uilang.message_error = "﻿Este experimento j&aacute; encontra-se aberto em outra aba. Caso contr&aacute;rio, clique em sair. Se o problema persistir, contate o administrador na aba Contato";
+uilang.timeleft = "Tempo restante";
+uilang.reconnectingheader = "Erro de conex&atilde;o";
+uilang.reconnectingbody = "Sua conex&atilde;o foi interrompida. Espere enquanto tentamos lhe reconectar.";
+uilang.labsunavailable = "Nenhum experimento dispon&iacute;vel";
+uilang.resources = "Recursos";
+    </script>
+
+    <script src="js/queue_design.js"></script>
+    <script src="js/queue.js"></script>
+    <script src="js/socket.io.js"></script>
+
+
+
+</html>

@@ -1,0 +1,54 @@
+h1{
+    text-align: center;
+    padding-bottom: 20px;
+}
+#ilustrative{
+    padding-left: 0px;
+}
+
+#cam{
+    margin-top:7%;
+}
+
+.legend {
+    border-radius: 4px;
+    position: relative;
+    margin-top: 10px;
+
+
+}
+
+#m2{
+    color:#FDA98F;
+}
+
+#m1{
+    color: rgba(151,187,205,1);
+}
+
+
+.labely { 
+    position: relative;
+    left: -3.5em;
+    transform: rotate(-90deg);
+    top: 250px;
+    text-align: left;
+    width: 140px;
+    float: left;
+}     
+canvas{
+    padding-left: 15px;
+}
+.labelx{
+    position: relative;
+}
+
+.alerts {
+    margin-top: 15px;
+}
+.introjs-helperNumberLayer{
+    width:25px !important;
+    height:25px !important;
+}
+
+
