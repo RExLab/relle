@@ -142,9 +142,9 @@ $myToken = $client->getAccessToken();
                 'ids': 'ga:107648503', // THIS NEEDS TO BE A VIEW
                 'metrics': 'ga:totalEvents',
                 'dimensions': 'ga:eventAction',
-                'start-date': '2015-08-01',
+                'start-date': '30daysAgo',
                 'end-date': 'today',
-                'filters': 'ga:eventCategory==Experimento;ga:eventAction!=AC Electric Panel;ga:eventAction!=teste!=Painel Elétrico CC 2'
+                'filters': 'ga:eventCategory==Experimento;ga:eventAction!=AC Electric Panel;ga:eventAction!=teste'
             },
             chart: {
                 container: 'chart-3-container',

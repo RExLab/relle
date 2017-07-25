@@ -1,27 +1,11 @@
-function getParameterByName(name, url) {
-    if (!url) {
-      url = window.location.href;
-    }
-    name = name.replace(/[\[\]]/g, "\\$&");
-    var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
-        results = regex.exec(url);
-    if (!results) return null;
-    if (!results[2]) return '';
-    return decodeURIComponent(results[2].replace(/\+/g, " "));
-}
-
 function reloadPage() {
-    var callbacksite = getParameterByName('return');
-    console.log(callbacksite);
-    if(callbacksite)
-        window.location.replace(callbacksite);
-    else
-        location.reload(true);
+    location.reload(true);
 }
 
 function LeaveExperiment() {
     $('#exp').html("");
     $('#return').html("");
+    //$("#access").click(Acess);
     reloadPage();
 }
 
@@ -79,14 +63,18 @@ $(function () {
 
     function Acess(event) {
         event.preventDefault();
+        var token1 = $("#inputBox").val();
 
+        
         $("#access").off();
-
-        var socket = io.connect('http://relle.ufsc.br/' + exp_id, { path: '/socket.io','force new connection': true});
+        
+        var socket = io.connect('http://rexlab.ufsc.br:8080/' + exp_id, { path: '/socket.io','force new connection': true});
 
         socket.emit('new connection', {pass: $('meta[name=csrf-token]').attr('content'),
             'exp_id': exp_id,
-            'exec_time': duration});
+            'exec_time': duration,
+            'token': token1, 
+        });
 
         socket.on('wait', waitLab);
 
@@ -114,11 +102,19 @@ $(function () {
 
         socket.on('err', function (data) {
             console.log(data);
-            errorLab(uilang);
+            if(data.code == 1){
+                errorBooking(uilang);
+            }else if(data.code == 2){
+                errorLab(uilang);
+            }else if(data.code == 3){
+                errorLab(uilang);
+            }
+               
+            
             setTimeout(function () {
                 clearInterval(timer)
                 LeaveExperiment();
-            }, 1500);
+            }, 2500);
         });
 
     }
@@ -133,7 +129,7 @@ $(function () {
         UILoadLab(data, uilang).load(data.html, function () {
 
             $.getScript(data.js);
-
+            
             timer = setInterval(Countdown, 1000);
 
             $("#btnLeaveExp").click(function (event) {
@@ -152,13 +148,8 @@ $(function () {
                 }
                 if (queue_socket !== null)
                     queue_socket.disconnect();
-                
-                var btnRedirect = UILeave(uilang, exp_id)
-                console.log(btnRedirect.length);
-                if(btnRedirect.length)
-                    btnRedirect.click(LeaveExperiment);
-                else
-                    LeaveExperiment();
+
+                UILeave(uilang, exp_id).click(LeaveExperiment);
 
             });
 

@@ -18,7 +18,8 @@ return [
     'browser1' => "Não suportamos",
     'browser2' => "Por favor, use Chrome, Firefox, Opera, ou Safari.",
     'browser_micro' => "Este experimento não suporta Safari. Por favor, use Chrome ou Opera.",
-    
+    'token' => "Token inválido ou horário não corresponde ao agendamento!",
+    'notice' => "Um agendamento está marcado nesse horário! Usuários com Token terão prioridade na fila.",
     'contact_sent' => 'Mensagem enviada com sucesso.',
     'contact_error' => 'Erro ao enviar mensagem. Tente novamente'
 ];

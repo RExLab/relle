@@ -11,10 +11,22 @@ Route::group(array('prefix' => 'docs'), function() {
     Route::get('/all', 'DocsController@show');
 });
 
-//Search Bar
+//Search Bar  
 Route::post('/search', 'HomeController@search');
 
 Route::get('/new', 'HomeController@index');
+Route::get('/repositorio', 'RepositorioController@funcao');
+Route::post('/searchpraticas', 'RepositorioController@searchpraticas');
+Route::get('/create_practice', 'RepositorioController@criarpratica');
+Route::post('/createpratica', 'RepositorioController@createpratica');
+
+
+Route::group(array('prefix' => 'booking'), function() {
+    Route::get('/create', ['middleware' => 'teacher', 'uses' => 'BookingController@create']);
+    Route::post('/create', ['middleware' => 'teacher', 'uses' => 'BookingController@store']);           
+    Route::get('/all', ['middleware' => 'teacher', 'uses' => 'BookingController@show']);
+    Route::delete('/all', ['middleware' => 'teacher', 'uses' => 'BookingController@delete']);
+});
 
 Route::get('/en', function() {
     Session::put('lang', 'en');
@@ -90,13 +102,12 @@ Route::group(array('prefix' => 'experimentos'), function() {
 //Edit
     Route::get('/{id}/editar', ['middleware' => 'admin', 'uses' => 'LabsController@edit']);
     Route::post('/{id}/editar', 'LabsController@doEdit');
+//Delete
+    Route::post('/dodelete', ['middleware' => 'auth', 'uses' => 'LabsController@doDelete']);
+    Route::get('/{id}/excluir', ['middleware' => 'admin', 'uses' => 'LabsController@delete']);
 //Lab page
     Route::get('/{id}', 'LabsController@lab');
-//Instance
-    Route::get('/{id}/instancia', ['middleware' => 'admin', 'uses' => 'LabsController@instance']);
-//Delete
-    Route::post('/dodelete', ['middleware' => 'admin', 'uses' => 'LabsController@doDelete']);
-    Route::get('{lab_id}/instancia/{id}/delete', ['middleware' => 'admin', 'uses' => 'LabsController@delete']);
+//Route::get('/{id}', ['middleware' => 'guest', 'uses' => 'LabsController@lab']);
 });
 
 Route::get('/usuarios', 'UsersController@all');
@@ -141,26 +152,27 @@ Route::get('/dashboard', ['middleware' => 'auth', 'uses' => 'PagesController@das
  */
 //All Labs
 
+
+
+
+
+
+
 Route::group(array('prefix' => 'labs'), function() {
 
 //Create Lab
     Route::get('/create', ['middleware' => 'admin', 'uses' => 'LabsController@create']);
+    Route::get('/create/beta', ['middleware' => 'admin', 'uses' => 'LabsController@create2']);
 //Store Lab
     Route::post('/create', 'LabsController@store');
-//Create Instance
-    Route::get('/create/instance', ['middleware' => 'admin', 'uses' => 'LabsController@createInstance']);
-//Store Instance
-    Route::post('/create/instance', 'LabsController@storeInstance');
 // All Labs
     Route::get('/all', ['middleware' => 'admin', 'uses' => 'LabsController@all']);
 //Edit
     Route::get('/{id}/edit', ['middleware' => 'admin', 'uses' => 'LabsController@edit']);
     Route::post('/{id}/edit', 'LabsController@doEdit');
-//Instance
-    Route::get('/{id}/instance', ['middleware' => 'admin', 'uses' => 'LabsController@instance']);
 //Delete
     Route::post('/dodelete', ['middleware' => 'admin', 'uses' => 'LabsController@doDelete']);
-    Route::get('{lab_id}/instance/{id}/delete', ['middleware' => 'admin', 'uses' => 'LabsController@delete']);
+    Route::get('/{id}/delete', ['middleware' => 'admin', 'uses' => 'LabsController@delete']);
 
     //Moodle
     Route::get('/{id}/moodle', 'LabsController@moodle');

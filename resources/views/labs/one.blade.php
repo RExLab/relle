@@ -7,6 +7,7 @@
 
 @section('head')
 <link href="{{ asset('/css/one.css') }}" rel="stylesheet">
+<link href="http://relle.ufsc.br/teste/css/botao.css" rel="stylesheet">
 @stop
 <!-- Facebook Comments  -->
 <script>(function(d, s, id) {
@@ -22,7 +23,7 @@ $files = 'exp_data/' . $exp['id'] . '/';
 ?>
 
 <!--{{$name='name_'.App::getLocale()}}
-{{$desc='description_'.App::getLocale()}}
+<!--{{$desc='description_'.App::getLocale()}}
 -->
 @section ('content')
 
@@ -30,7 +31,6 @@ $files = 'exp_data/' . $exp['id'] . '/';
 <div id='close'></div>
 <div id='return'></div>
 <div id='error'></div>
-
 
 <div id='pre_experiment'>
     <?php
@@ -45,7 +45,6 @@ $files = 'exp_data/' . $exp['id'] . '/';
         }
     }
     ?>
-
     <div class="row">
         <div class="col-md-8 col-sm-12">
             <h3>{{$exp[$name]}}</h3>
@@ -73,11 +72,19 @@ $files = 'exp_data/' . $exp['id'] . '/';
                        value='<object width="100%" height="450px" data="http://relle.ufsc.br/labs/{{$exp['id']}}/moodle"></object>' 
                        readonly/><br>
             </p>  
-
-
-            <a href="#" id="access" class="btn btn-primary" role="button">{{trans('interface.access')}}</a>
-
-
+            <div id="main" style="position: absolute;">
+                <button id="access"><spam id="acessar">{{trans('interface.access')}}</spam></button>
+                <input id="inputBox" class='input-group-btn' >
+                <button id="showbox"><spam id="acessarBook" class="glyphicon glyphicon-calendar"></spam></button>
+            </div>   
+            <script>            
+            $(document).ready(function() {
+                $("#showbox").click(function(e) {
+                    $("#inputBox").toggle('slow');
+                    e.preventDefault();
+             });    
+            });
+            </script>
             <?php if (!isMobile($_SERVER['HTTP_USER_AGENT'])) { ?>
                 @include('labs.suggestion') 
 
@@ -91,7 +98,7 @@ $files = 'exp_data/' . $exp['id'] . '/';
                     <div class="panel">
                         <div class="panel-heading" role="tab" id="headingOne">
                             <h4 class="panel-title">
-                                <i class="fa fa-play" aria-hidden="true" style="padding-right: 10px"></i>  {{trans('one.video')}}
+                                <i class="fa fa-play" aria-hidden="true" style="padding-right: 10px"></i>  Vídeo
                             </h4>
                         </div>
                     </div>
@@ -99,8 +106,7 @@ $files = 'exp_data/' . $exp['id'] . '/';
                 <div id="tab_video" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
                     <div class="panel-body tab-body">
                         <div class="embed-responsive embed-responsive-16by9">
-                            <iframe class="embed-responsive-item"  src="{{$exp['video']}}"  frameborder="0" scrolling="no" allowfullscreen></iframe>
-                            
+                            <iframe class="embed-responsive-item" src="{{$exp['video']}}" allowfullscreen></iframe>
                         </div>
                     </div>
                 </div>
@@ -110,7 +116,7 @@ $files = 'exp_data/' . $exp['id'] . '/';
                     <div class="panel">
                         <div class="panel-heading" role="tab" id="headingOne">
                             <h4 class="panel-title">
-                                <i class="fa fa-info" aria-hidden="true" style="padding-right: 10px"></i>  {{trans('one.tutorial')}}
+                                <i class="fa fa-info" aria-hidden="true" style="padding-right: 10px"></i>  Tutorial
                             </h4>
                         </div>
                     </div>
@@ -127,7 +133,7 @@ $files = 'exp_data/' . $exp['id'] . '/';
                     <div class="panel">
                         <div class="panel-heading" role="tab" id="headingOne">
                             <h4 class="panel-title">
-                                <i class="fa fa-book" aria-hidden="true" style="padding-right: 10px"></i>  {{trans('one.didatic')}}
+                                <i class="fa fa-book" aria-hidden="true" style="padding-right: 10px"></i>  Material Didático
                             </h4>
                         </div>
                     </div>
@@ -153,10 +159,10 @@ $files = 'exp_data/' . $exp['id'] . '/';
                     <div class="panel">
                         <div class="panel-heading" role="tab" id="headingOne">
                             <h4 class="panel-title">
-                                <i class="fa fa-file-text-o" aria-hidden="true" style="padding-right: 10px"></i>  {{trans('one.documents')}}
+                                <i class="fa fa-file-text-o" aria-hidden="true" style="padding-right: 10px"></i>  Documentação
                             </h4>
                         </div>
-                    </div> 
+                    </div>
                 </a>
                 <div id="tab_docs" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
                     <div class="panel-body tab-body"  style="padding:10px 0;">
@@ -227,10 +233,16 @@ if (Auth::check()) {
                 var js = url + '/exp_script.js';
                 var css = url + '/exp_style.css';
                 $('#access').click(function(){
-                $('#pre_experiment').remove();
+        $('#pre_experiment').remove();
                 $('head').append('<link rel="stylesheet" href="' + css + '" type="text/css" />');
                 $('#exp').load(html);
-                
+                $.getScript(js);
+        });
+        
+        $('#view').click(function(){
+        $('#pre_experiment').remove();
+                $('head').append('<link rel="stylesheet" href="' + css + '" type="text/css" />');
+                $('#exp').load(html);
                 $.getScript(js);
         });
         });</script>
@@ -266,18 +278,21 @@ if (Auth::check()) {
         uilang.popup = "{{trans('interface.popup')}}"; 
         uilang.wait = "{{trans('interface.wait')}}";
         uilang.message_error = "{{trans('message.tab')}}";
+        uilang.message_error_token = "{{trans('message.token')}}";
         uilang.timeleft = "{{trans('interface.timeleft')}}";
         uilang.reconnectingheader = "{{trans('interface.reconnecting_header')}}"; 
         uilang.reconnectingbody = "{{trans('interface.reconnecting_body')}}";
         uilang.labsunavailable = "{{trans('interface.labs_unavailable')}}"; 
-        uilang.resources = "{{trans('interface.resources')}}"; 
+        uilang.resources = "{{trans('interface.resources')}}";
+        uilang.notice = "{{trans('message.notice')}}"
     </script>
 
     <script src="{{ asset('js/queue_design.js') }}"></script>
     <script src="{{ asset('js/queue.js') }}"></script>
 
     <script src="{{ asset('js/socket.io.js') }}"></script>
-
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/i18next/3.4.3/i18next.min.js" ></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-i18next/1.1.0/jquery-i18next.min.js" ></script>
 
 <?php } ?>
 @stop

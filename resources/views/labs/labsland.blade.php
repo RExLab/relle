@@ -1,4 +1,3 @@
-
 <?php 
 $query = parse_url($_SERVER['REQUEST_URI'], PHP_URL_QUERY);
 
@@ -10,14 +9,12 @@ $retrunURL = $extract['return'];
 //var_dump($retrunURL);
 // Example of URL http://relle.ufsc.br/labs/7/labsland?access=direct&lang=en&return=http://labsland.com/labs/relle/7
 ?>
-@section('page')
-{{trans('interface.name', ['page'=>$exp['name_'.App::setLocale("$langURL")]])}}
-@stop
-
 {{ App::setLocale("$langURL") }}
 {{ Analytics::trackEvent('Experimento', $exp['name_pt'])}}
 {{ Analytics::trackEvent('Origem', 'LabsLand')}}
+{{ Analytics::trackEvent('LabsLand', $exp['name_pt'])}}
 {!! Analytics::render() !!}
+
 <meta name="csrf-token" content="{{ csrf_token() }}" />
 
 <link href="{{ asset('/css/app.css') }}" rel="stylesheet">
@@ -26,15 +23,13 @@ $retrunURL = $extract['return'];
 <link rel="shortcut icon" type="image/x-icon" href="{{asset('/favicon.png')}}"/> 
 
 <!-- Fonts -->
-<link href='//cdn.jsdelivr.net/jquery.roundslider/1.0/roundslider.min.css' rel="stylesheet">
-
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 <link href="{{ asset('/css/one.css') }}" rel="stylesheet">
 <link href="{{ asset('flat/dist/css/flat-ui.css') }}" rel="stylesheet">
 
 <div id='body' class="container " style="height: 800px; margin-top:40px;">
     <!--{{$name='name_'.App::getLocale()}}
-    {{$desc='description_'.App::getLocale()}}
+    <!--{{$desc='description_'.App::getLocale()}}
     -->
     <style>
         #labsland-logo{
@@ -52,15 +47,13 @@ $retrunURL = $extract['return'];
     <div id='error'></div>
     <div id='identifier'></div>
     <div id="labsland-logo">
-        <a href="http://relle.ufsc.br/en" target="_blank"><img height="10px" width="200px" class="img-responsive img-rounded pull-left" alt="RELLE Logo" src="{{ asset("img/logos/logo.png")}}"></a>
-        <a href="http://rexlab.ufsc.br/en" target="_blank"><img height="60px" width="200px" class="img-responsive img-rounded pull-right" alt="RExLab Logo" src="{{ asset("img/footer/r-variacao.jpg")}}"></a>
+        <a href="http://relle.ufsc.br/" target="_blank"><img height="10px" width="200px" class="img-responsive img-rounded pull-left" alt="RELLE Logo" src="{{ asset("img/logos/logo.png")}}"></a>
+        <a href="http://rexlab.ufsc.br/" target="_blank"><img height="60px" width="200px" class="img-responsive img-rounded pull-right" alt="RExLab Logo" src="{{ asset("img/footer/r-variacao.jpg")}}"></a>
     </div>
     <center><div id='exp'></div></center> 
 
     <div id="access"></div>  
 </div>
-
-@section('script')
 
 <!-- For direct access -->
 <script>
@@ -75,13 +68,18 @@ $('#btnIntro').nextAll().remove();
 setTimeout(pageRedirect, {{$exp['duration']}}*60000);*/
    
 });</script>
-<script src="{{ asset('js/tether.js') }}"></script>
-<script src="{{ asset('js/shepherd.js') }}"></script>
 
 <script>
     $.ajaxSetup({
     headers: { 'X-CSRF-Token' : $('meta[name=csrf-token]').attr('content') }
     });
+<?php
+if (Auth::check()) {
+    $user = Auth::user()->id;
+} else {
+    $user = 0;
+}
+?>
 
 </script>
 
@@ -119,5 +117,3 @@ setTimeout(pageRedirect, {{$exp['duration']}}*60000);*/
 <script src="{{ asset('js/queue_design.js') }}"></script>
 <script src="{{ asset('js/queue.js') }}"></script>
 <script src="{{ asset('js/socket.io.js') }}"></script>
-    <script src='//cdn.jsdelivr.net/jquery.roundslider/1.0/roundslider.min.js'></script>
-

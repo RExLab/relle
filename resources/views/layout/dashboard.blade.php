@@ -32,14 +32,14 @@
                     </a>
                     <!-- Sub menu -->
                     <ul>
-                        @if(admin())
+                        @if(teacher())
                         <li><a href="{{url('/labs/create')}}">{{trans('labs.create')}}</a></li>
                         @endif
                         <li><a href="{{url('/labs/all')}}">{{trans('labs.all')}}</a></li>
                     </ul>
                 </li>
-                @if(admin())
-                        
+                @if(teacher())
+                    @if(admin())
                 <li class="submenu">
                     <a href="#">
                         <i class="fa fa-users"></i> {{trans('users.title')}}
@@ -69,7 +69,18 @@
                     </ul>
                 </li>
                 <li><a href="{{url('log/all')}}"><i class="fa fa-terminal"></i></i> Logs</a></li>
-                
+                    @endif
+                    <li class="submenu">
+                        <a href="#">
+                            <i class="glyphicon glyphicon-calendar"></i> {{trans('book.title_page')}}
+                            <span class="caret pull-right"></span>
+                        </a>
+                    <!-- Sub menu -->
+                    <ul>
+                        <li><a href="{{url('/booking/create')}}">{{trans('book.create')}}</a></li>
+                        <li><a href="{{url('/booking/all')}}">{{trans('book.all')}}</a></li>               
+                    </ul>
+                </li>
                 @endif
                 <li><a href="{{url('/users/edit')}}"><i class="fa fa-pencil"></i> {{trans('users.edit')}}</a></li>
                 <li><a href="{{url('/users/delete')}}"><i class="fa fa-trash-o"></i> {{trans('users.delete')}}</a></li>

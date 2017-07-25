@@ -12,6 +12,15 @@ function errorLab(uilang) {
             .append($('<span/>', {html: uilang.message_error})));
 }
 
+function errorBooking(uilang) {
+    $('#error').html("");
+    $('#error').html($('<div/>', {class: 'alert alert-warning alert-dismissible'})
+            .append($('<button/>', {id: 'btnLeave', class: 'btn btn-warning btn-sm', html: uilang.leave}))
+            .append($('<button/>', {type: 'button', class: 'close', 'aria-label': 'Close', 'data-dismiss': 'alert'})
+                    .append($('<span/>', {html: '&times;', 'aria-hidden': 'true'})))
+            .append($('<span/>', {html: uilang.message_error_token})));
+}
+
 function showReconnectingAlert(uilang) {
     
     if ($('#reconnectingModal').length === 0) {
@@ -79,12 +88,14 @@ function UILeave(uilang, exp_id) {
                 .append($('<center/>')
                         .append([end, btnredirect, rep, repcsv]))]);
     $('#DivExp').remove();
-    $('#return').hide();
+    $('#return').remove();
     return $('#btnRedirect');
 }
 
 
 function UIWaitLab(data, uilang) {
+    var notice = data.infor;
+    console.log(data);
     $('#error').html("");
     $('#return').html("");
     if (data.clock.min < 0 || data.clock.seg < 0) {
@@ -100,27 +111,49 @@ function UIWaitLab(data, uilang) {
         for (var index = 0; index < data.ninstances; index++) {
             e_instances.push($('<i/>', {'class': 'fa fa-flask', 'aria-hidden': 'true', style: 'padding-top:10px'}));
         }
-
-        $('#error').append(
-                $('<div/>', {class: 'row alert alert-warning alert-dismissible'})
-                .append($('<div/>', {class: 'col-lg-3 col-md-3 col-sm-6 col-xs-12'})
-                        .append($('<strong/>', {html: uilang.wait}))
-                        .append($('<span/>', {html: data.wait, id: 'nwait'}))
-                        )
-                .append($('<div/>', {class: 'col-lg-3 col-md-3 col-sm-6 col-xs-12'})
-                        .append($('<strong/>', {html: uilang.timeleft + ': '}))
-                        .append($('<span/>', {html: data.clock.min, id: 'min'}))
-                        .append($('<span/>', {html: ':'}))
-                        .append($('<span/>', {html: data.clock.seg, id: 'seg'}))
-                        )
-                .append($('<div/>', {class: 'col-lg-6  col-md-6 col-sm-12 col-xs-12'})
-                        .append(e_instances)
-                        .append($('<button/>', {class: 'btn btn-warning btn-sm', id: 'btnLeave', text: uilang.leave, style: 'float:right'}))
-                        )
-
-                );
+        
+        if(notice == false){
+            $('#error').append(
+                    $('<div/>', {class: 'row alert alert-warning alert-dismissible'})
+                    .append($('<div/>', {class: 'col-lg-3 col-md-3 col-sm-6 col-xs-12'})
+                            .append($('<strong/>', {html: uilang.wait}))
+                            .append($('<span/>', {html: data.wait, id: 'nwait'}))
+                            )
+                    .append($('<div/>', {class: 'col-lg-3 col-md-3 col-sm-6 col-xs-12'})
+                            .append($('<strong/>', {html: uilang.timeleft + ': '}))
+                            .append($('<span/>', {html: data.clock.min, id: 'min'}))
+                            .append($('<span/>', {html: ':'}))
+                            .append($('<span/>', {html: data.clock.seg, id: 'seg'}))
+                            )
+                    .append($('<div/>', {class: 'col-lg-6  col-md-6 col-sm-12 col-xs-12'})
+                            .append(e_instances)
+                            .append($('<button/>', {class: 'btn btn-warning btn-sm', id: 'btnLeave', text: uilang.leave, style: 'float:right'}))
+                            )      
+                    );
     }
-
+        else{
+            $('#error').append(
+                    $('<div/>', {class: 'row alert alert-warning alert-dismissible'})
+                    .append($('<div/>', {class: 'col-lg-3 col-md-3 col-sm-6 col-xs-12'})
+                            .append($('<strong/>', {html: uilang.wait}))
+                            .append($('<span/>', {html: data.wait, id: 'nwait'}))
+                            )
+                    .append($('<div/>', {class: 'col-lg-3 col-md-3 col-sm-6 col-xs-12'})
+                            .append($('<strong/>', {html: uilang.timeleft + ': '}))
+                            .append($('<span/>', {html: data.clock.min, id: 'min'}))
+                            .append($('<span/>', {html: ':'}))
+                            .append($('<span/>', {html: data.clock.seg, id: 'seg'}))
+                            )
+                    .append($('<div/>', {class: 'col-lg-6  col-md-6 col-sm-12 col-xs-12'})
+                            .append(e_instances)
+                            .append($('<button/>', {class: 'btn btn-warning btn-sm', id: 'btnLeave', text: uilang.leave, style: 'float:right'}))
+                            )
+                    .append($('<div/>')         
+                            .append($('<center/>',{html: uilang.notice}))
+                    )        
+                    );
+        }
+}
     $("#access").hide();
     return $("#btnLeave");
 }

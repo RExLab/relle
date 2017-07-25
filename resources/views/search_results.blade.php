@@ -14,6 +14,7 @@ $desc = 'description_' . App::getLocale();
 ?>
 
 @section ('content')
+@if($result['labs'] != 0 && $result['labs'] != NULL)
 <div class="row">    
     <div class="col-md-6 col-sm-12">   
         <h4>{{trans('labs.title')}}</h4>
@@ -52,8 +53,9 @@ $desc = 'description_' . App::getLocale();
         </div>
         @endforeach
     </div>
+@endif
 
-
+@if($result['docs'] != 0 && $result['docs'] != NULL)
     <div class="col-md-6">   
         <h4>{{trans('docs.title_page')}}</h4>
         @foreach($result['docs'] as $doc)
@@ -72,22 +74,28 @@ $desc = 'description_' . App::getLocale();
         </div>
         @endforeach
     </div>
-    @stop
+@endif
 
-    @section('script')
-    <script>
-        $(function () {
-            $("#all").click(function () {
-                $('.lab').show();
-                });
-            $(".subject").click(function () {
-                $('.lab').show();
-                var subject = '.' + $(this).attr('id');
-                console.log($('.lab').not(subject));
-                $('.lab').not(subject).hide("slow");
+@if (($result['labs'] == 0 || $result['labs'] == NULL) && ($result['docs'] == 0 || $result['docs'] == NULL))
+<center style='font-size: 25px;'>Não há resultados</center>
+@endif
+
+@stop
+
+@section('script')
+<script>
+    $(function () {
+        $("#all").click(function () {
+            $('.lab').show();
             });
+        $(".subject").click(function () {
+            $('.lab').show();
+            var subject = '.' + $(this).attr('id');
+            console.log($('.lab').not(subject));
+            $('.lab').not(subject).hide("slow");
         });
-    </script>
-    @stop
-
+    });
+</script>
+@stop
+    
 
