@@ -1,1 +1,5 @@
-
+vendor/*
+*.log
+public/exp_data/*
+public/img/users/*
+.env
