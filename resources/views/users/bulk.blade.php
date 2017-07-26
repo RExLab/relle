@@ -130,6 +130,7 @@
             <p>{{trans('interface.with_user')}}</p>
             <select class='selectpicker' id='action'>
                 <option value="/users/admin">{{trans('interface.make_admin')}}</option>
+                <option value="/users/teacher">{{trans('interface.make_teacher')}}</option>
                 <!--<option value="/users/delete/bulk">{{trans('interface.delete')}}</option>-->
                 <option value="/users/export/bulk">{{trans('interface.export')}}</option>
             </select>
