@@ -204,6 +204,7 @@ Route::group(array('prefix' => 'users'), function() {
     Route::get('/export', 'UsersImportController@export');
     Route::get('/bulk', ['middleware' => 'admin', 'uses' => 'UsersController@bulk']);
     Route::post('/admin', 'UsersController@admin');
+    Route::post('/teacher', 'UsersController@teacher');
     Route::post('/delete/bulk', 'UsersController@delete_bulk');
     Route::post('/export/bulk', 'UsersImportController@export_bulk');
 });
