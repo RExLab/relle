@@ -41,6 +41,7 @@ return [
     'remove' => 'Eliminar',
     'change' => 'Cambiar',
     'make_admin' => 'Crear administrador',
+    'make_admin' => 'Crear Profesor',
     'export' => 'Exportar',
     'with_user'=>'Con el usuario seleccionado: ',
     'test' => 'Test',
