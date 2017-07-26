@@ -41,6 +41,7 @@ return [
     'remove' => 'Remove',
     'change' => 'Change',
     'make_admin' => 'Make administrator',
+    'make_teacher' => 'Make teacher',
     'export' => 'Export',
     'with_user'=>'With the user selected: ',
     'test' => 'Test',
