@@ -249,6 +249,16 @@ class UsersController extends Controller {
         }
     }
     
+    function teacher(){
+        $input = Input::all();
+        $users = explode(',',$input['users']);
+
+        foreach($users as $user){
+            User::where('username', $user)
+                    ->where('type', '<>', 'teacher')
+                    ->update(['type'=>'teacher']);
+        }
+    }
     function delete_bulk(){
         /*
          * TODO: implement soft deleting
