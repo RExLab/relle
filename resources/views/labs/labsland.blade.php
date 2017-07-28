@@ -117,3 +117,5 @@ if (Auth::check()) {
 <script src="{{ asset('js/queue_design.js') }}"></script>
 <script src="{{ asset('js/queue.js') }}"></script>
 <script src="{{ asset('js/socket.io.js') }}"></script>
+{{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/i18next/3.4.3/i18next.min.js" ></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-i18next/1.1.0/jquery-i18next.min.js" ></script> --}}

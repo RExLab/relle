@@ -72,7 +72,7 @@ $files = 'exp_data/' . $exp['id'] . '/';
                        value='<object width="100%" height="450px" data="http://relle.ufsc.br/labs/{{$exp['id']}}/moodle"></object>' 
                        readonly/><br>
             </p>  
-            <div id="main" style="position: absolute;">
+            <div id="main" style="margin-bottom: 70px;">
                 <button id="access"><spam id="acessar">{{trans('interface.access')}}</spam></button>
                 <input id="inputBox" class='input-group-btn' >
                 <button id="showbox"><spam id="acessarBook" class="glyphicon glyphicon-calendar"></spam></button>

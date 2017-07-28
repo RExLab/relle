@@ -1,5 +1,25 @@
+function getParameterByName(name, url) {
+    if (!url) {
+      url = window.location.href;
+    }
+    name = name.replace(/[\[\]]/g, "\\$&");
+    var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+        results = regex.exec(url);
+    if (!results) return null;
+    if (!results[2]) return '';
+    return decodeURIComponent(results[2].replace(/\+/g, " "));
+}
+
 function reloadPage() {
-    location.reload(true);
+    console.log( getParameterByName('return'));
+    var callbacksite = getParameterByName('return');
+    console.log(callbacksite);
+    if(callbacksite){
+        window.location.replace(callbacksite);
+        console.log(window.location.replace(callbacksite));
+    }else{
+        location.reload(true);
+    }
 }
 
 function LeaveExperiment() {
@@ -65,15 +85,15 @@ $(function () {
         event.preventDefault();
         var token1 = $("#inputBox").val();
 
-        
         $("#access").off();
-        
-        var socket = io.connect('http://rexlab.ufsc.br:8080/' + exp_id, { path: '/socket.io','force new connection': true});
 
-        socket.emit('new connection', {pass: $('meta[name=csrf-token]').attr('content'),
+        var socket = io.connect('http://relle.ufsc.br:8080/' + exp_id, { path: '/socket.io', 'force new connection': true });
+
+        socket.emit('new connection', {
+            pass: $('meta[name=csrf-token]').attr('content'),
             'exp_id': exp_id,
             'exec_time': duration,
-            'token': token1, 
+            'token': token1,
         });
 
         socket.on('wait', waitLab);
@@ -89,10 +109,12 @@ $(function () {
         });
 
         socket.on('reconnect', function (data) {
-            
-            socket.emit('reconnection', {pass: $('meta[name=csrf-token]').attr('content'),
+
+            socket.emit('reconnection', {
+                pass: $('meta[name=csrf-token]').attr('content'),
                 'exp_id': exp_id,
-                'exec_time': duration});
+                'exec_time': duration
+            });
             socket.on('reconnected session', ReconnectedSessionHandler);
         });
 
@@ -102,15 +124,15 @@ $(function () {
 
         socket.on('err', function (data) {
             console.log(data);
-            if(data.code == 1){
+            if (data.code == 1) {
                 errorBooking(uilang);
-            }else if(data.code == 2){
+            } else if (data.code == 2) {
                 errorLab(uilang);
-            }else if(data.code == 3){
+            } else if (data.code == 3) {
                 errorLab(uilang);
             }
-               
-            
+
+
             setTimeout(function () {
                 clearInterval(timer)
                 LeaveExperiment();
@@ -120,16 +142,16 @@ $(function () {
     }
 
     function loadLab(data, queue_socket) {
-        if(typeof(locale) !== 'undefined' && data[locale] !== 'undefined'){
-           data.html = data[locale];
-        }else{
-            data.html =data.defaulthtml; 
-        }                
-            
+        if (typeof (locale) !== 'undefined' && data[locale] !== 'undefined') {
+            data.html = data[locale];
+        } else {
+            data.html = data.defaulthtml;
+        }
+
         UILoadLab(data, uilang).load(data.html, function () {
 
             $.getScript(data.js);
-            
+
             timer = setInterval(Countdown, 1000);
 
             $("#btnLeaveExp").click(function (event) {
@@ -149,10 +171,13 @@ $(function () {
                 if (queue_socket !== null)
                     queue_socket.disconnect();
 
-                UILeave(uilang, exp_id).click(LeaveExperiment);
-
+                var btnRedirect = UILeave(uilang, exp_id)
+                console.log(btnRedirect.length);
+                if (btnRedirect.length)
+                    btnRedirect.click(LeaveExperiment);
+                else
+                    LeaveExperiment();
             });
-
         });
 
     }
