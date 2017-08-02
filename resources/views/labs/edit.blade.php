@@ -59,21 +59,10 @@
     }
 </style>
 
-<!--Replace for the correct model-->
-
 <?php
 $lab = $data['lab'];
 $docs = $data['docs'];
 $instances = $data['instances'];
-
-$maintenance = 'off'; // Edit for the jQuery action 
-if ($instances[0]->maintenance == '1') {
-    $maintenance = 'on';
-}
-$queue = 'off';
-if ($lab->queue == '1') {
-    $queue = 'on';
-}
 ?>
 {!!
 Form::open([
@@ -91,24 +80,17 @@ Form::open([
                     <li class="active"><a href="#tab1" data-toggle="tab">{{trans('labs.description')}}</a></li>
                     <li><a href="#tab2" data-toggle="tab">{{trans('labs.details')}}</a></li>
                     <li><a href="#tab3" data-toggle="tab">{{trans('docs.title_page')}}</a></li>
-                    <li class="dropdown">
-                        <a class="dropdown-toggle" data-toggle="dropdown tab" href="#">Instances
-                            <span class="caret"></span></a>
-                        <ul class="dropdown-menu">
-                            @foreach($instances as $instance)
-                            <li><a id="{{$instance['id']}}" data-labid="{{$instance['lab_id']}}" href="#tab4">{{$instance['description']}}</a></li>
-                            @endforeach
-                        </ul>
-                    </li>
-                    <!--<li><a href="#tab4" data-toggle="tab">TESTE</a></li>-->
+                    <li><a href="#tab4" data-toggle="tab">{{trans('labs.maintenance')}}</a></li>
                     <li><a href="#tab5" data-toggle="tab">{{trans('labs.files')}}</a></li>
                 </ul>
             </div>
             <div class="panel-body">
                 <div class="tab-content">
+
                     <!--
-                        TAB 1 -- 
+                        TAB 1
                     -->
+                    
                     <div class="tab-pane active" id="tab1">
                         @if ($errors->has())
                         <div class="alert alert-danger">
@@ -163,11 +145,13 @@ Form::open([
                             <a class="btn btn-success pull-right btnNext">{{trans('interface.next')}}</a>
                         </div>
                     </div>
+
                     <!--
                         TAB 2
                     -->
-                    <div class="tab-pane fade" id="tab2">
 
+                    <div class="tab-pane fade" id="tab2">
+                      
                         <div class="row">
                             <div class='form-group col-lg-6 col-md-6 col-sm-6 col-xs-6'>
                                 {!! Form::label(trans('labs.target')) !!}
@@ -321,9 +305,11 @@ Form::open([
                         <a class="btn btn-success pull-left btnPrevious">{{trans('interface.previous')}}</a>
                         <a class="btn btn-success pull-right btnNext">{{trans('interface.next')}}</a>
                     </div>
+                   
                     <!--
                         TAB 3
                     -->
+
                     <div class="tab-pane fade" id="tab3">
                         <input name='docs' id='docs' type="hidden" value='' >
                         <div class="row">
@@ -361,9 +347,11 @@ Form::open([
                         <a class="btn btn-success pull-right btnNext">{{trans('interface.next')}}</a>
 
                     </div>
+
                     <!--
-                        TAB 4 - INSTANCES
+                        TAB 4
                     -->
+
                     <div class="tab-pane" id="tab4">
                         @if ($errors->has())
                         <div class="alert alert-danger">
@@ -373,28 +361,48 @@ Form::open([
                         </div>
                         @endif
                         
-                        <div class="bootstrap-switch-square">
-                            <label for='maintenance'>{{trans('labs.maintenance')}}:   </label>
-                            <input type="checkbox" class="flat-switch" name="maintenance" id="maintenance" />
-                        </div>
+
                         <div class='lang-box col-lg-12'>
-                            <div class='form-group col-lg-6 col-xs-12'>
-                                {!! Form::label('description', trans('instances.description')) !!}
-                                {!! Form::text('description', $instances[0]->description, ['class'=>'form-control']) !!}
-                                @if ($errors->has('name_pt')) <p class="text-danger">{{ $errors->first('name') }}</p> @endif
-                            </div>
-                            <div class='form-group col-lg-6 col-xs-12'>
-                                <div class='form-group'>
-                                    {!! Form::label('duration', trans('instances.duration')) !!}
-                                    {!! Form::input('number','duration', $instances[0]->duration, ['class'=>'form-control']) !!}
+                            @foreach($instances as $instance)
+
+                            <?php
+                            $maintenance = 'unchecked';
+                            if ($instance->maintenance == '1') {
+                                $maintenance = 'checked';
+                            }
+                            $queue = 'unchecked';
+                            if ($instance->queue == '1') {
+                                $queue = 'checked';
+                            }
+                            ?>
+
+                            <div class='form-group col-lg-12 col-xs-12'>
+                                <div class='col-lg-6'>
+                                    <label for='maintenance{{$instance->id}}'>{{trans('labs.maintenance')}}:   </label>
+                                    <input type="checkbox" class="flat-switch" <?php echo $maintenance ?> name="maintenance{{$instance->id}}" id="maintenance{{$instance->id}}" />
                                 </div>
-                                @if ($errors->has('duration')) <p class="text-danger">{{ $errors->first('target') }}</p> @endif
+                                <div class='col-lg-6'>
+                                    <label for='queue{{$instance->id}}'>{{trans('labs.queue')}}:   </label>
+                                    <input type="checkbox" class="flat-switch" <?php echo $queue ?> name="queue{{$instance->id}}" id="queue{{$instance->id}}" />
+                                </div>
                             </div>
+                            <div class='form-group col-lg-6 col-xs-12'>
+                                <label for='description'>{{trans('labs.description')}}</label>
+                                <input name='description{{$instance->id}}' value='{{$instance->description}}' id='description' class='form-control' type='text' />
+                                @if ($errors->has('description')) <p class="text-danger">{{ $errors->first('description') }}</p> @endif
+                            </div>
+                            <div class='form-group col-lg-6 col-xs-12'>
+                                <label for='address'>{{trans('labs.address')}}</label>
+                                <input name='address{{$instance->id}}' value='{{$instance->address}}' id='address' class='form-control' type='text' />
+                                @if ($errors->has('address')) <p class="text-danger">{{ $errors->first('address') }}</p> @endif
+                            </div>
+                            @endforeach
                         </div>
-                       
+                         
+                            <a class="btn btn-success pull-left btnPrevious">{{trans('interface.previous')}}</a>
                             <a class="btn btn-success pull-right btnNext">{{trans('interface.next')}}</a>
-                        </div>
                     </div>
+
                     <!--
                         TAB 5
                     -->
@@ -406,10 +414,14 @@ Form::open([
                             {!! Form::input('file', 'thumbnail')!!}
                         </div>
                         <div class='form-group'>
+                            @foreach($instances as $instance)
 
+                            <h6>{{$instance->description}}</h6>
                             {{trans('labs.package')}}
                             </br>
-                            {!! Form::input('file', 'package')!!}
+                            {!! Form::input('file', 'package'.$instance->id)!!}
+
+                            @endforeach
                         </div>
                         <input type="hidden" name="id" value="{{$lab->id}}">
                         <input type="hidden" name="_token" value="<?php echo csrf_token(); ?>">
@@ -427,8 +439,13 @@ Form::open([
 @section('script_dash')
 <script>
 
-    $(function () {
-
+    $(function () { 
+        
+        <?php foreach($instances as $instance){?>
+            $('#maintenance<?php echo $instance->id?>').bootstrapToggle('<?php echo $instance->maintenance; ?>'); 
+            $('#queue<?php echo $instance->id?>').bootstrapToggle('<?php echo $instance->queue; ?>'); 
+        <?php }?>
+        
         var docs = [<?php echo $data['labs_docs']; ?>];
         console.log('docs: ' + docs);
 
@@ -459,13 +476,15 @@ Form::open([
         });
     });
 
-    $('.btnNext').click(function () {
+    $('.btnNext').click(function(e){
+    if($('.nav-tabs > .active').next('li').hasClass('btnNext')){
+        $('.nav-tabs > li').first('li').find('a').trigger('click');
+    }else{
         $('.nav-tabs > .active').next('li').find('a').trigger('click');
+    }
+    e.preventDefault();
     });
-
-    $('.btnPrevious').click(function () {
-        $('.nav-tabs > .active').prev('li').find('a').trigger('click');
-    });
+    
 </script>
 @stop
 
